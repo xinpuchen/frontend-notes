@@ -30,6 +30,21 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("GET", "ajax_info.txt", true);
 xmlhttp.send();
 
+const xhr = new XMLHttpRequest() || ActiveXObject('Microsoft.XMLHTTP');
+xhr.onreadystatechange = function(){
+    if(xhr.readyState == 4){
+        if(xhr.status == 200){
+            return xhr.responseText;
+        }else if(xhr.status == 400){
+            return xhr.status;
+        }
+    }else{
+        return 'http 还在请求中';
+    }
+}
+xhr.open('GET', 'ajax url', true);
+xhr.send();
+
 ```
 
 ## readyState

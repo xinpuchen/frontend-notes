@@ -69,3 +69,12 @@ componentWillReceiveProps: function(nextProps) {
 **9.componentDidUpdate**：完成渲染新的props或者state后调用，此时可以访问到新的DOM元素。
 
 **10.componentWillUnmount**：组件被移除之前被调用，可以用于做一些清理工作，在componentDidMount方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器。
+
+
+# React Version 16.3 新生命周期
+
+**static getDerivedStateFromProps(nextProps, prevState)**
+
+**getSnapshotBeforeUpdate(prevProps, prevState)**
+
+[信息来源](https://juejin.im/post/5ae6cd96f265da0b9c106931)

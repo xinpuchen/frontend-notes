@@ -92,7 +92,7 @@ document.domain = 'peterchen.club'
 ```html
 <!-- https://a.peterchen.club/index.html -->
 <body>
-  <iframe src="https://bpeterchen.club" onload="iframeLoaded()">
+  <iframe src="https://b.peterchen.club" onload="iframeLoaded()">
   <script>
     console.log(document.querySelector('iframe').contentWindow)
   </script>

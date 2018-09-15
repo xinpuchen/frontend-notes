@@ -28,7 +28,7 @@ a.__proto__.__proto__.__proto__ // null
 let obj = {}
 obj.toString()
 
-a.__proto__.toString() === window.Object.prototype.toString() // true
+obj.__proto__.toString() === window.Object.prototype.toString() // true
 ```
 
 1. obj对象内为空，没有定义toString方法
