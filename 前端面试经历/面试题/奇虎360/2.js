@@ -44,7 +44,7 @@ for (let index = 0; index < q; index++) {
   for (let x = l; x <= r; x++) {
     const e = x.toString(k);
     const n = (e.split(k2)).length - 1;
-    // console.log(`数字${x}===(${e})${k} 其中${k2}出现${n}次`);
+    console.log(`数字${x}===(${e})${k} 其中${k2}出现${n}次`);
     a.push({num: x, count: n});
   }
   const max = Math.max(...a.map(e => e.count));
