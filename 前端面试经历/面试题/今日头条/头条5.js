@@ -3,7 +3,7 @@
  * （A,B）表示用户A关注了用户B。关注关系具有传递性，例如：用户A关注了用户B，用户B关注了用户C，那么认为用户A间接关注了用户C。
  * 如果一个用户被所有的N个用户直接或者间接关注，那么我们认为这个用户就是抖音红人。
  * 求抖音红人的总数。
- * 
+ *
  * 输入描述：
  * 第一行一个整数，代表N
  * 第二行一个整数，代表M
@@ -12,7 +12,8 @@
  * 一行一个整数，表示答案
  * 输入
  * 3
- * 1  2 2 1 2 3
+ * 3
+ * 1 2 2 1 2 3
  * 输出
  * 1
  * 备注：
@@ -52,11 +53,11 @@ const N = 3,
     for (let index = 1; index <= n; index++) {
       persons[index] = {
         concern: arr.filter(e => {
-          if (e[0] === index) 
+          if (e[0] === index)
             return true
         }).map(e => e[1]),
         followers: arr.filter(e => {
-          if (e[1] === index) 
+          if (e[1] === index)
             return true
         }).map(e => e[0])
       };
@@ -95,3 +96,4 @@ const N = 3,
     });
     return num;
   };
+console.log(main());

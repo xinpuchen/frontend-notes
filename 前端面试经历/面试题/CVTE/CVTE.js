@@ -2,7 +2,7 @@ var name = "CVTE";
 
 function makeFunc() {
   function displayName() {
-    console.log();
+    console.log(name);
   }
   var name  = "SEEWO";
   return displayName;

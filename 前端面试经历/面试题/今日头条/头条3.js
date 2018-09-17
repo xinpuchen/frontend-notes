@@ -1,7 +1,7 @@
 /**
  * 工程师小张的代码出Bug了。在上报用户IP的时候，漏掉了“.”符号，例如10.0.0.1变成了10001。
  * 请你帮小张对这些异常数据进行处理，还原出所有可能的原始IP，输出可能的原始IP的数量。
- * 
+ *
  * 输入描述：
  * 第一行一个字符串，代表抹掉。符号的ip
  * 输出描述：
@@ -12,9 +12,10 @@
  * 1
  */
 
-const ipN = "8888",
+const ipN = "101001",
   insertDot = (str = ipN, x = 1, y = 2, z = 3) => {
     str = `${str.substring(0, x)}.${str.substring(x, y)}.${str.substring(y, z)}.${str.substring(z, str.length)}`;
+    console.log(str);
     return str;
   },
   checkIP = (str) => {
@@ -42,3 +43,4 @@ const ipN = "8888",
     }
     return ipG;
   }
+  console.log(parseIP('10100101'));
