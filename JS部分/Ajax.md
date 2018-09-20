@@ -30,7 +30,7 @@ xmlhttp.onreadystatechange = function() {
 xmlhttp.open("GET", "ajax_info.txt", true);
 xmlhttp.send();
 
-const xhr = new XMLHttpRequest() || ActiveXObject('Microsoft.XMLHTTP');
+const xhr = new XMLHttpRequest() || new ActiveXObject('Microsoft.XMLHTTP');
 xhr.onreadystatechange = function(){
     if(xhr.readyState == 4){
         if(xhr.status == 200){
