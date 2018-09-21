@@ -11,3 +11,25 @@
  * 样例输出
  * 4
  */
+
+// 1, 2, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5
+// 1 1 2 3 5 8
+const N = 7,
+  main = (n = N) => {
+    if (n < 2) return 0;
+    let arr = [1, 1],
+      count = 2,
+      a = 1,
+      b = 1,
+      c = 0;
+    while (count < n) {
+      c = a + b;
+      count += c;
+      arr.push(c);
+      a = b;
+      b = c;
+    }
+    arr.pop();
+    return arr.reduce((a, b) => a + b);
+  };
+console.log(main());

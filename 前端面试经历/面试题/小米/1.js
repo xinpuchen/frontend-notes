@@ -4,7 +4,6 @@
  */
 
 const Arr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1],
-  // const Arr = read_line().split(','),
   fn = (arr = Arr) => {
     let left = 0,
       right = arr.length - 1,
@@ -32,4 +31,3 @@ const Arr = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1],
     return res;
   };
   console.log(fn());
-// print(fn());
