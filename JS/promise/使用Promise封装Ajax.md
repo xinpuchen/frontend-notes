@@ -5,7 +5,7 @@
 function getJSON (url) {
 
     return new Promise( (resolve, reject) => {
-        var xhr = new XMLHttpRequest()
+        var xhr = new XMLHttpRequest() || new ActiveXObject('Microsoft.XMLHTTP');
         xhr.open('GET', url, true)
 
         xhr.onreadystatechange = function () {
