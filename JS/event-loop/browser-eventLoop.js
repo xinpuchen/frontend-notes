@@ -21,25 +21,6 @@ setTimeout(
   0
 );
 
-setImmediate(() => {
-  setImmediate(() => {
-    console.log('setImmediate1');
-    setImmediate(() => {
-      console.log('setImmediate2');
-    });
-  });
-  setTimeout(() => {
-    console.log("setImmediate3");
-  }, 0);
-});
-
-process.nextTick(() => {
-  console.log("process-nextTick1");
-  process.nextTick(() => {
-    console.log("process-nextTick2");
-  });
-});
-
 setTimeout(() => {
   console.log("setTimeout3");
 }, 0);
@@ -66,35 +47,24 @@ console.log("end");
  * promise1
  * main
  * end
- * process-nextTick1
- * process-nextTick2
  * promise2
  * promise3
  * setTimeout2
  * setTimeout3
- * setImmediate3
- * setImmediate1
- * setImmediate2
  *
  * 进入主 macrotask，打印 begin
  * 进入立即执行函数，setTimeout1
  * 将 settimeout2 推入事件队列
- * 将 setImmediate 推入 macrotask 队列
- * 将 process.nextTick 推入 microtask 队列
  * 将 settimeout3 推入事件队列
  * 因为 Promise 属于 microtask，打印 promise1
  * 将 promise 的 then 回调推入 microtask 队列
  * 打印 main
  * 打印 end
- * 检查 microtask 队列，打印 process-nextTick1， 然后继续打印 process-nextTick2
  * 检查 microtask 队列，执行 Promise 第一个 then 回调，打印 promise2，然后第二个 then 进入 microtask 队列
  * 检查 microtask 队列，执行第2个 then 回调，打印 promise3
  * microtask 队列中无事件，一个 macrotask 执行完毕，检查浏览器渲染
  * js引擎重新接管，事件队列中获取第2个 macrotask setTimeout，打印 setTimeout2
  * js引擎重新接管，事件队列中获取第3个 macrotask setTimeout，打印 setTimeout3
- * js引擎重新接管，事件队列中获取第4个 macrotask setImmediate，打印 setImmediate1
- * js引擎重新接管，事件队列中获取第5个 macrotask setImmediate，打印 setImmediate3
- * js引擎重新接管，事件队列中获取第6个 macrotask setImmediate，打印 setImmediate2
  */
 
 /**
@@ -110,13 +80,7 @@ console.log("end");
  * 3、执行所有微任务
  * 4、必要的话渲染 UI
  * 5、然后开始下一轮 Event loop，执行宏任务中的异步代码
- * script -> process.nextTick -> Promise -> setTimeout -> setImmediate
  *
- * process.nextTick() 可以在当前”执行栈“的尾部（下一次Event Loop之前）触发 。
- * setImmediate() 在当前“人物队列”的尾部添加事件，就是它指定的任务总是在下一次Event Loop时执行，与setTimeout(()=>{},0)很像。
- * process.nextTick()于setImmediate()的区别：
- * 1、多个process.nextTick() 语句总是在当前"执行栈"一次执行完。
- * 2、多个setImmediate() 可能则需要多次loop才能执行完。
  *
  * 通过上述的 Event loop 顺序可知，如果宏任务中的异步代码有大量的计算并且需要操作 DOM 的话，为了更快的界面响应，我们可以把操作 DOM 放入微任务中。
  * Hint：详情请曹考阮一峰老师：http://www.ruanyifeng.com/blog/2014/10/event-loop.html
