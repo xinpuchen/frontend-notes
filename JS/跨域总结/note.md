@@ -75,6 +75,27 @@ function handleRes(data) {
     document.querySelector('.top-weather img').src = `./imgs/weather/${skycon}.png`
 }
 ```
+JSONP 使用简单且兼容性不错，但是只限于 get 请求。
+在开发中可能会遇到多个 JSONP 请求的回调函数名是相同的，这时候就需要自己封装一个 JSONP，以下是简单实现
+```js
+function jsonp(url, jsonpCallback, success) {
+  let script = document.createElement("script");
+  script.src = url;
+  script.async = true;
+  script.type = "text/javascript";
+  window[jsonpCallback] = function(data) {
+    success && success(data);
+  };
+  document.body.appendChild(script);
+}
+jsonp(
+  "http://xxx",
+  "callback",
+  function(value) {
+    console.log(value);
+  }
+);
+```
 
 ### 2.通过修改document.domain进行跨域
 
