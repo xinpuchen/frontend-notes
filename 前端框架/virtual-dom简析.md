@@ -9,24 +9,6 @@ virtual dom(后文简称v-dom)，是为了前端方面的DOM操作优化，而�
 
 工作量大小的差别不言而喻，当然，这只是一个形象的比喻，具体的优化原理可以看我的这篇文章——[DOM操作为什么这么耗时](https://blog.peterchen.club/articlesList/article1526130082989)
 
-<!-- TOC -->
-
-- [virtual-dom简析](#virtual-dom简析)
-  - [v-dom的工作原理](#v-dom的工作原理)
-    - [v-dom从何而来](#v-dom从何而来)
-      - [jsx -> js](#jsx---js)
-      - [js -> v-dom](#js---v-dom)
-    - [v-dom如何进行修改操作](#v-dom如何进行修改操作)
-      - [初始化v-dom](#初始化v-dom)
-        - [对待组件](#对待组件)
-        - [对待原生DOM](#对待原生dom)
-      - [修改v-dom内的元素](#修改v-dom内的元素)
-        - [render详解](#render详解)
-  - [结语](#结语)
-  - [参考文章](#参考文章)
-
-<!-- /TOC -->
-
 ## v-dom的工作原理
 
 这里用preact的v-dom原理，进行一个解释
