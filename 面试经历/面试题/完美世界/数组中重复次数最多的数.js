@@ -27,4 +27,4 @@ function getMost(arr) {
   }
   return trueEl;
 };
-console.log(`数组[${repeatArr}]中重复次数最多的数是：${getMost([repeatArr])}`);
+console.log(`数组[${repeatArr}]中重复次数最多的数是：${getMost(repeatArr)}`);
