@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <h3>请用js写一个方法，这方法实现：</h3>
+    <div>
+      1.ld为ball的小球在id为box的框内出现位置随机，并具有初始速度100/秒，且方向随机；
+    </div>
+    <div>
+      2.小球磁到框的边缘时，以折线形式回弹（入射角等于反射角）。
+    </div>
+    <div>
+      <div id="box" style="width: 1000px;height: 1000px;position: relative;overflow: hidden;border: 1px black solid; margin: 1em;">
+        <div id="ball" style="width: 10px;height: 10px; border-radius: 5px; position: absolute;background: red;"></div>
+      </div>
+    </div>
+  </body>
+  <script>
+    const getRandom = (i = 1000) => {
+      let x = Math.random() * 1000;
+      if (x >= 0 && x <= i) {
+        return x;
+      }
+      return getRandom(i);
+    }, pointFix = (x = 0, maxX = 1000) => {
+      if (x < 0)
+        return {
+          value: - x,
+          isOver: true
+        };
+      else if (x > maxX)
+        return {
+          value: maxX * 2 - x,
+          isOver: true
+        };
+      else return {
+        value: x,
+        isOver: false
+      };
+    }, setPoint = (x = 0, y = 0, r = 0) => {
+      const box = document.getElementById("box"),
+        ball = document.getElementById("ball");
+      x = pointFix(x, box.clientWidth - ball.clientWidth).value;
+      y = pointFix(y, box.clientHeight - ball.clientHeight).value;
+      ball.style.left = `${x}px`;
+      ball.style.top = `${y}px`;
+      let pX = pointFix(x + (Math.cos(r) || 0), box.clientWidth - ball.clientWidth),
+        pY = pointFix(y + (Math.sin(r) || 0), box.clientHeight - ball.clientHeight),
+        pR = r;
+      if (pX.isOver) {
+        pR = Math.PI - r;
+        console.log(x, y, r);
+        console.log("pX", pX.value, pY.value, pR);
+      } else if (pY.isOver) {
+        pR = -r;
+        console.log(x, y, r);
+        console.log("pY", pX.value, pY.value, pR);
+      }
+      setTimeout(() => {
+        setPoint(pX.value, pY.value, pR);
+      }, 10);
+    };
+    window.onload = () => {
+      let box = document.getElementById("box");
+      let ball = document.getElementById("ball");
+      let Rate = getRandom(2 * Math.PI),
+        x = getRandom(box.clientWidth - ball.clientWidth),
+        y = getRandom(box.clientHeight - ball.clientHeight);
+      setPoint(x, y, Rate);
+    };
+  </script>
+
+</html>
