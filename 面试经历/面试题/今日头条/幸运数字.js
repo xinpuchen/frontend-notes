@@ -49,5 +49,5 @@ const A = 1,
       return total > a && total > b;
     }
   };
-
-console.log(...count());
+let t = count()
+console.log(`一共有${t.length}个${K}位长度的幸运数字。`);
