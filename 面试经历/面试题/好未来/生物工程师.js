@@ -33,8 +33,8 @@ const K = 1,
   getZ = (x, k = K, b = B, n = N) => {
     return (k * x + b) * n;
   },
-  getN = (z = 0, k = K, b = B,) => {
-    return Math.ceil(z / (k + b));
+  getN = (z = 0, x = T, k = K, b = B,) => {
+    return Math.ceil(z / (k * x + b));
   };
 
 let num = getZ(1);
