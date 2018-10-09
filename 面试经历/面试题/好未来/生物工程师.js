@@ -39,4 +39,4 @@ const K = 1,
 
 let num = getZ(1);
 
-console.log(`${getN(num)}`);
+console.log(`${最少的时间：getN(num)}`);
