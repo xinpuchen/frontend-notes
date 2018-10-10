@@ -15,7 +15,8 @@ const N = 6,
         index2 = arr[index - 1] >= arr[index + 1] ? index + 1 : index - 1;
         console.log(min);
       arr.push(arr[index] + arr[index2]);
-      arr.splice(index, 1).splice(index2, 1);
+      arr.splice(index, 1);
+      arr.splice(index2, 1);
     }
     return arr;
   };
