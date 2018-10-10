@@ -38,16 +38,18 @@ const N = 6,
     for (let i = 0; i < m; i++) {
       let min = Math.min.apply(null, arr),
         index = check(arr, min),
-        index2 = arr[index - 1] >= arr[index + 1] ? index + 1 : index - 1;
-      arr.push(arr[index] + arr[index2]);
-      console.log(arr);
-      if (index < index2) {
-        arr.splice(index, 2);
-      } else {
-        arr.splice(index2, 2);
-      }
+        index2 =
+          index - 1 >= 0 ||
+          arr[index - 1] >= arr[index + 1] ||
+          index + 1 < arr.length
+            ? index + 1
+            : index - 1;
+      arr[index] += arr[index2];
+      arr = arr.filter((e, i) => {
+        return i !== index2;
+      });
+      console.log(...arr);
     }
-    console.log(arr);
     return arr;
   };
 console.log(Math.min.apply(null, count()));
