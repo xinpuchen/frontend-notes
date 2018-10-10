@@ -94,4 +94,4 @@ for (let index = 0; index < c.length; index++) {
   const element = c[index];
   a.push(countCheck(element, 1));
 }
-console.log(Math.max(...a));
+console.log(`${N}枚金币买${M}件装备的等级加和最大为${Math.max(...a)}。`);

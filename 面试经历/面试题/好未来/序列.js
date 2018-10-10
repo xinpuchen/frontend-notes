@@ -26,9 +26,7 @@
  * 3
  */
 const N = 2,
-  ARRAY = [
-    7, 1, 9, 5, 10
-  ],
+  ARRAY = [7, 1, 9, 5, 10],
   getArr = (index = 0, n = N, arr = ARRAY) => {
     let lastIndex = index,
       flag = 0;
