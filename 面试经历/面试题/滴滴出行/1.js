@@ -30,7 +30,9 @@ var Sub = function (initValue) {
   // begin
   this.num = initValue;
   this.add = (i) => {
-    this.num += i;
+    if (typeof i === "number") 
+      this.num += i;
+    
     // console.log(this.num);
     return this;
   };
@@ -43,7 +45,7 @@ var Sub = function (initValue) {
 var num = new Sub(0)
   .add(100)
   .add(50)
-  .add(-30)
+  .add("123")
   .getResult();
 console.log(num); //==> 120
 // 以下代码请勿修改 var s = read_line() print(eval(s))
