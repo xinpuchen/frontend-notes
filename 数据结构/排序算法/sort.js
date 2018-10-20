@@ -1,5 +1,5 @@
 module.exports = {
-  checkArray: array => {
+  check: array => {
     if (!array || array.length <= 2) return;
   },
   swap: (array, left, right) => {
