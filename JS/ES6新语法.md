@@ -1,285 +1,1005 @@
-# ES6新语法
+# es6-cheatsheet
 
-用的比较多的：箭头函数，let和const，forof forin，解构赋值，模板字符串
+## var versus let / const
 
-用的比较少的：class,rest和spread,iterators,Promise,模块化...
+> 除了 `var` 以外，我们现在多了两个新的标识符来声明变量的存储，它们就是 `let` 和 `const`。
+> 不同于 `var` ，`let` 和 `const` 语句不会造成声明提升。
 
-## 箭头函数
+一个 `var` 的例子:
 
-修复this指向，保证this在上下文和函数中相同，指向词法作用域
+```javascript
+var snack = "Meow Mix";
 
-```js
-// ES6
-$('.btn').click((event) =>{
-  this.sendData()
-})
-// traditional
-var _this = this
-$('.btn').click(function(event){
-  _this.sendData()
-})
+function getFood(food) {
+  if (food) {
+    var snack = "Friskies";
+    return snack;
+  }
+  return snack;
+}
+
+getFood(false); // undefined
 ```
 
-## let, const
+让我们再观察下面语句中，使用 `let` 替换了 `var` 后的表现：
 
-最近的一个块级作用域内有效,const指定的对象为常量，但是对象内容可以改变
+```javascript
+let snack = "Meow Mix";
 
-```js
-const good = 'good'
-good = 'nice' // 报错
-const goodArr = ['good']
-goodArr.push('nice') // 正常执行
+function getFood(food) {
+  if (food) {
+    let snack = "Friskies";
+    return snack;
+  }
+  return snack;
+}
 
+getFood(false); // 'Meow Mix'
 ```
 
-## classes
+当我们重构使用 `var` 的老代码时，一定要注意这种变化。盲目使用 `let` 替换 `var` 后可能会导致预期意外的结果。
 
-```js
-class Good extends Nice {
-  constructor(options) {
-    super()
-    this.options = options
+> **注意**：`let` 和 `const` 是块级作用域语句。所以在语句块以外引用这些变量时，会造成引用错误 `ReferenceError`。
+
+```javascript
+console.log(x);
+
+let x = "hi"; // ReferenceError: x is not defined
+```
+
+> **最佳实践**: 在重构老代码时，`var` 声明需要格外的注意。在创建一个新项目时，使用 `let` 声明一个变量，使用 `const` 来声明一个不可改变的常量。
+
+## Replacing IIFEs with Blocks
+
+我们以往创建一个 **立即执行函数** 时，一般是在函数最外层包裹一层括号。
+ES6 支持块级作用域（更贴近其他语言），我们现在可以通过创建一个代码块（Block）来实现，不必通过创建一个函数来实现，
+
+```javascript
+(function() {
+  var food = "Meow Mix";
+})();
+
+console.log(food); // Reference Error
+```
+
+使用支持块级作用域的 ES6 的版本：
+
+```javascript
+{
+  let food = "Meow Mix";
+}
+
+console.log(food); // Reference Error
+```
+
+## Arrow Functions
+
+一些时候，我们在函数嵌套中需要访问上下文中的 `this`。比如下面的例子：
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.prefixName = function(arr) {
+  return arr.map(function(character) {
+    return this.name + character; // Cannot read property 'name' of undefined
+  });
+};
+```
+
+一种通用的方式是把上下文中的 `this` 保存在一个变量里：
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.prefixName = function(arr) {
+  var that = this; // Store the context of this
+  return arr.map(function(character) {
+    return that.name + character;
+  });
+};
+```
+
+我们也可以把 `this` 通过属性传进去：
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.prefixName = function(arr) {
+  return arr.map(function(character) {
+    return this.name + character;
+  }, this);
+};
+```
+
+还可以直接使用 `bind`：
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.prefixName = function(arr) {
+  return arr.map(
+    function(character) {
+      return this.name + character;
+    }.bind(this)
+  );
+};
+```
+
+使用 **箭头函数**，`this` 的值不用我们再做如上几段代码的特殊处理，直接使用即可。
+上面的代码可以重写为下面这样：
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.prefixName = function(arr) {
+  return arr.map(character => this.name + character);
+};
+```
+
+> **最佳实践**：使用箭头函数，再也不用考虑 `this` 的问题了。
+
+当我们编写只返回一个表达式值的简单函数时，也可以使用箭头函数，如下：
+
+```javascript
+var squares = arr.map(function(x) {
+  return x * x;
+}); // Function Expression
+```
+
+```javascript
+const arr = [1, 2, 3, 4, 5];
+const squares = arr.map(x => x * x); // Arrow Function for terser implementation
+```
+
+> **最佳实践**：尽可能地多使用 **箭头函数**。
+
+## Strings
+
+在 ES6 中，标准库也被同样增强了，像字符串对象就新增了 `.includes()` 和 `.repeat()` 方法。
+
+### .includes( )
+
+```javascript
+var string = "food";
+var substring = "foo";
+
+console.log(string.indexOf(substring) > -1);
+```
+
+现在，我们可以使用 `.inclues()` 方法，替代以往判断内容 `> -1` 的方式。
+`.includes()` 方法会极简地返回一个布尔值结果。
+
+```javascript
+const string = "food";
+const substring = "foo";
+
+console.log(string.includes(substring)); // true
+```
+
+### .repeat( )
+
+```javascript
+function repeat(string, count) {
+  var strings = [];
+  while (strings.length < count) {
+    strings.push(string);
+  }
+  return strings.join("");
+}
+```
+
+在 ES6 中，我们可以使用一个极简的方法来实现重复字符：
+
+```javascript
+// String.repeat(numberOfRepetitions)
+"meow".repeat(3); // 'meowmeowmeow'
+```
+
+### Template Literals
+
+使用 **字符串模板字面量**，我可以在字符串中直接使用特殊字符，而不用转义。
+
+```javascript
+var text = 'This string contains "double quotes" which are escaped.';
+```
+
+```javascript
+let text = `This string contains "double quotes" which don't need to be escaped anymore.`;
+```
+
+**字符串模板字面量** 还支持直接插入变量，可以实现字符串与变量的直接连接输出。
+
+```javascript
+var name = "Tiger";
+var age = 13;
+
+console.log("My cat is named " + name + " and is " + age + " years old.");
+```
+
+更简单的版本：
+
+```javascript
+const name = "Tiger";
+const age = 13;
+
+console.log(`My cat is named ${name} and is ${age} years old.`);
+```
+
+ES5 中，我们要这样生成多行文本：
+
+```javascript
+var text = "cat\n" + "dog\n" + "nickelodeon";
+```
+
+或者：
+
+```javascript
+var text = ["cat", "dog", "nickelodeon"].join("\n");
+```
+
+**字符串模板字面量** 让我们不必特别关注多行字符串中的换行转义符号，直接换行即可：
+
+```javascript
+let text = `cat
+dog
+nickelodeon`;
+```
+
+**字符串模板字面量** 内部可以使用表达式，像这样：
+
+```javascript
+let today = new Date();
+let text = `The time and date is ${today.toLocaleString()}`;
+```
+
+## Destructuring
+
+解构让我们可以使用非常便捷的语法，直接将数组或者对象中的值直接分别导出到多个变量中，
+
+### Destructuring Arrays
+
+**解构数组**
+
+```javascript
+var arr = [1, 2, 3, 4];
+var a = arr[0];
+var b = arr[1];
+var c = arr[2];
+var d = arr[3];
+```
+
+```javascript
+let [a, b, c, d] = [1, 2, 3, 4];
+
+console.log(a); // 1
+console.log(b); // 2
+```
+
+### Destructuring Objects
+
+**解构对象**
+
+```javascript
+var luke = { occupation: "jedi", father: "anakin" };
+var occupation = luke.occupation; // 'jedi'
+var father = luke.father; // 'anakin'
+```
+
+```javascript
+let luke = { occupation: "jedi", father: "anakin" };
+let { occupation, father } = luke;
+
+console.log(occupation); // 'jedi'
+console.log(father); // 'anakin'
+```
+
+## Modules
+
+ES6 之前，浏览器端的模块化代码，我们使用像[Browserify](http://browserify.org/)这样的库，
+在 **Node.js** 中，我们则使用 [require](https://nodejs.org/api/modules.html#modules_module_require_id)。
+在 ES6 中，我们现在可以直接使用 AMD 和 CommonJS 这些模块了。
+
+### Exporting in CommonJS
+
+```javascript
+module.exports = 1;
+module.exports = { foo: "bar" };
+module.exports = ["foo", "bar"];
+module.exports = function bar() {};
+```
+
+### Exporting in ES6
+
+在 ES6 中，提供了多种设置模块出口的方式，比如我们要导出一个变量，那么使用 **变量名** ：
+
+```javascript
+export let name = 'David';
+export let age  = 25;​​
+```
+
+还可以为对象 **导出一个列表**：
+
+```javascript
+function sumTwo(a, b) {
+  return a + b;
+}
+
+function sumThree(a, b, c) {
+  return a + b + c;
+}
+
+export { sumTwo, sumThree };
+```
+
+我们也可以使用简单的一个 `export` 关键字来导出一个结果值：
+
+```javascript
+export function sumTwo(a, b) {
+  return a + b;
+}
+
+export function sumThree(a, b, c) {
+  return a + b + c;
+}
+```
+
+最后，我们可以 **导出一个默认出口**：
+
+```javascript
+function sumTwo(a, b) {
+  return a + b;
+}
+
+function sumThree(a, b, c) {
+  return a + b + c;
+}
+
+let api = {
+  sumTwo,
+  sumThree
+};
+
+export default api;
+
+/*
+ * 与以下的语句是对等的:
+ * export { api as default };
+ */
+```
+
+> **最佳实践**：总是在模块的 **最后** 使用 `export default` 方法。
+> 它让模块的出口更清晰明了，节省了阅读整个模块来寻找出口的时间。
+> 更多的是，在大量 CommonJS 模块中，通用的习惯是设置一个出口值或者出口对象。
+> 坚持这个规则，可以让我们的代码更易读，且更方便的联合使用 CommonJS 和 ES6 模块。
+
+### Importing in ES6
+
+ES6 提供了好几种模块的导入方式。我们可以单独引入一个文件：
+
+```javascript
+import "underscore";
+```
+
+> 这里需要注意的是， **整个文件的引入方式会执行该文件内的最上层代码**。
+
+就像 Python 一样，我们还可以命名引用：
+
+```javascript
+import { sumTwo, sumThree } from "math/addition";
+```
+
+我们甚至可以使用 `as` 给这些模块重命名：
+
+```javascript
+import {
+  sumTwo as addTwoNumbers,
+  sumThree as sumThreeNumbers
+} from "math/addition";
+```
+
+另外，我们能 **引入所有的东西（原文：import all the things）** （也称为命名空间引入）
+
+```javascript
+import * as util from "math/addition";
+```
+
+最后，我们能可以从一个模块的众多值中引入一个列表：
+
+```javascript
+import * as additionUtil from "math/addtion";
+const { sumTwo, sumThree } = additionUtil;
+```
+
+像这样引用默认对象：
+
+```javascript
+import api from "math/addition";
+// Same as: import { default as api } from 'math/addition';
+```
+
+我们建议一个模块导出的值应该越简洁越好，不过有时候有必要的话命名引用和默认引用可以混着用。如果一个模块是这样导出的：
+
+```javascript
+// foos.js
+export { foo as default, foo1, foo2 };
+```
+
+那我们可以如此导入这个模块的值：
+
+```javaqscript
+import foo, { foo1, foo2 } from 'foos';
+```
+
+我们还可以导入 commonjs 模块，例如 React：
+
+```javascript
+import React from "react";
+const { Component, PropTypes } = React;
+```
+
+更简化版本：
+
+```javascript
+import React, { Component, PropTypes } from "react";
+```
+
+> **注意**：被导出的值是被 **绑定的（原文：bingdings）**，而不是引用。
+> 所以，改变一个模块中的值的话，会影响其他引用本模块的代码，一定要避免此种改动发生。
+
+## Parameters
+
+在 ES5 中，许多种方法来处理函数的 **参数默认值（default values）**，**参数数量（indefinite arguments）**，**参数命名（named parameters）**。
+ES6 中，我们可以使用非常简洁的语法来处理上面提到的集中情况。
+
+### Default Parameters
+
+```javascript
+function addTwoNumbers(x, y) {
+  x = x || 0;
+  y = y || 0;
+  return x + y;
+}
+```
+
+ES6 中，我们可以简单为函数参数启用默认值：
+
+```javascript
+function addTwoNumbers(x = 0, y = 0) {
+  return x + y;
+}
+```
+
+```javascript
+addTwoNumbers(2, 4); // 6
+addTwoNumbers(2); // 2
+addTwoNumbers(); // 0
+```
+
+### Rest Parameters
+
+ES5 中，遇到参数数量不确定时，我们只能如此处理：
+
+```javascript
+function logArguments() {
+  for (var i = 0; i < arguments.length; i++) {
+    console.log(arguments[i]);
   }
 }
-
 ```
 
-## 解构赋值
+使用 **rest** 操作符，我们可以给函数传入一个不确定数量的参数列表：
 
-```js
-// ES6写法
-const { name, password } = res.body
-// 传统写法
-const name = res.body.name
-const password = res.body.password
+```javascript
+function logArguments(...args) {
+  for (let arg of args) {
+    console.log(arg);
+  }
+}
 ```
 
-## rest和spread
+### Named Parameters
 
-```js
-// rest
-function rest (a, b, ...rest) {
-  console.log(rest) //[3, 4]
+命名函数
+ES5 中，当我们要处理多个 **命名参数** 时，通常会传入一个 **选项对象** 的方式，这种方式被 jQuery 采用。
+
+```javascript
+function initializeCanvas(options) {
+  var height = options.height || 600;
+  var width = options.width || 400;
+  var lineStroke = options.lineStroke || "black";
+}
+```
+
+我们可以利用上面提到的新特性 **解构** ，来完成与上面同样功能的函数：
+We can achieve the same functionality using destructuring as a formal parameter
+to a function:
+
+```javascript
+function initializeCanvas({ height = 600, width = 400, lineStroke = "black" }) {
+  // ...
+}
+// Use variables height, width, lineStroke here
+```
+
+如果我们需要把这个参数变为可选的，那么只要把该参数解构为一个空对象就好了：
+
+```javascript
+function initializeCanvas({
+  height = 600,
+  width = 400,
+  lineStroke = "black"
+} = {}) {
+  // ...
+}
+```
+
+### Spread Operator
+
+我们可以利用展开操作符（Spread Operator）来把一组数组的值，当作参数传入：
+
+```javascript
+Math.max(...[-1, 100, 9001, -32]); // 9001
+```
+
+## Classes
+
+在 ES6 以前，我们实现一个类的功能的话，需要首先创建一个构造函数，然后扩展这个函数的原型方法，就像这样：
+
+```javascript
+function Person(name, age, gender) {
+  this.name = name;
+  this.age = age;
+  this.gender = gender;
 }
 
-rest(1,2,3,4)
+Person.prototype.incrementAge = function() {
+  return (this.age += 1);
+};
+```
 
-// spread
-const good = [1, 2]
-function spread (a, b) {
-  console.log(a, b)
+继承父类的子类需要这样：
+
+```javascript
+function Personal(name, age, gender, occupation, hobby) {
+    Person.call(this, name, age, gender);
+    this.occupation = occupation;
+    this.hobby = hobby;
 }
-spread(...good)
 
-
-```
-
-## 对象字面量扩展
-
-- 可以在对象字面量里面定义原型
-- 定义方法可以不用function关键字
-- 直接调用父类方法
-
-```js
-//通过对象字面量创建对象
-var human = {
-    breathe() {
-        console.log('breathing...');
-    }
+Personal.prototype = Object.create(Person.prototype);
+Personal.prototype.constructor = Personal;
+Personal.prototype.incrementAge = function () {
+    return Person.prototype.incrementAge.call(this) += 20;
 };
-var worker = {
-    __proto__: human, //设置此对象的原型为human,相当于继承human
-    company: 'freelancer',
-    work() {
-        console.log('working...');
-    }
+```
+
+ES6 提供了一些语法糖来实现上面的功能，我们可以直接创建一个类：
+
+```javascript
+class Person {
+  constructor(name, age, gender) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+  }
+
+  incrementAge() {
+    this.age += 1;
+  }
+}
+```
+
+继承父类的子类只要简单的使用 `extends` 关键字就可以了：
+
+```javascript
+class Personal extends Person {
+  constructor(name, age, gender, occupation, hobby) {
+    super(name, age, gender);
+    this.occupation = occupation;
+    this.hobby = hobby;
+  }
+
+  incrementAge() {
+    super.incrementAge();
+    this.age += 20;
+    console.log(this.age);
+  }
+}
+```
+
+> **最佳实践**：ES6 新的类语法把我们从晦涩难懂的实现和原型操作中解救出来，这是个非常适合初学者的功能，而且能让我们写出更干净整洁的代码。
+
+## Symbols
+
+Symbols 在 ES6 版本之前就已经存在了，但现在我们拥有一个公共的接口来直接使用它们。
+Symbols 是不可更改的（immutable）并且唯一的（unique），它可用作任何 hash 数据类型中的键。
+
+### Symbol( )
+
+调用 `Symbol()` 或者 `Symbol(描述文本)` 会创建一个唯一的、在全局中不可以访问的 Symbol 对象。
+一个 `Symbol()` 的应用场景是：在自己的项目中使用第三方代码库，且你需要给他们的对象或者命名空间打补丁代码，又不想改动或升级第三方原有代码的时候。
+例如，如果你想给 `React.Component` 这个类添加一个 `refreshComponent` 方法，但又确定不了这个方法会不会在下个版本中加入，你可以这么做：
+
+```javascript
+const refreshComponent = Symbol();
+
+React.Component.prototype[refreshComponent] = () => {
+  // do something
 };
-human.breathe();//输出 ‘breathing...’
-//调用继承来的breathe方法
-worker.breathe();//输出 ‘breathing...’
 ```
 
-## 模板字符串
+### Symbol.for(key)
 
-使用双反引号``与${}来简化字符串的合并
+使用 `Symbol.for(key)` 也是会创建一个不可改变的 Symbol 对象，但区别于上面的创建方法，这个对象是在全局中可以被访问到的。
+两次相同的 `Symbol.for(key)` 调用会返回相同的 Symbol 实例。
 
-```js
-const word = 'world'
-console.log(`Hello,${word}`)
+**提示**：这并不同于 `Symbol(description)`。
+
+```javascript
+Symbol("foo") === Symbol("foo"); // false
+Symbol.for("foo") === Symbol("foo"); // false
+Symbol.for("foo") === Symbol.for("foo"); // true
 ```
 
-## iterators
+Symbols 常用的一个使用场景，尤其是使用 `Symbol.for(key)` 方法，是用于实现代码间的互操作。
+在你的代码中，通过在包含一些已知接口的第三方库的对象参数中查找 Symbol 成员，你可以实现这种互操作。
+例如：
 
-使用Symbol.iterator给对象设置迭代器，直到done:true退出
+```javascript
+function reader(obj) {
+  const specialRead = Symbol.for("specialRead");
+  if (obj[specialRead]) {
+    const reader = obj[specialRead]();
+    // do something with reader
+  } else {
+    throw new TypeError("object cannot be read");
+  }
+}
+```
 
-```js
-const arr = [1, 2, 3]
-const iterator = arr[Symbol.iterator]()
+之后在另一个库中：
 
-itr.next() // { value: 1, done: false}
-itr.next() // { value: 2, done: false}
-itr.next() // { value: 3, done: false}
-itr.next() // { value: undefined, done: true}
+```javascript
+const specialRead = Symbol.for("specialRead");
+
+class SomeReadableType {
+  [specialRead]() {
+    const reader = createSomeReaderFrom(this);
+    return reader;
+  }
+}
+```
+
+> **注意**：关于 Symbol 互操作的使用，一个值得一提的例子是`Symbol.iterable` 。`Symbol.iterable`存在 ES6 的所有可枚举对象中：数组（Arrays）、
+> 字符串（strings）、生成器（Generators）等等。当它作为一个方法被调用时，它将会返回一个带有枚举接口的对象。
+
+## Maps
+
+**Maps** 是一个 JavaScript 中很重要（迫切需要）的数据结构。
+在 ES6 之前，我们创建一个 **hash** 通常是使用一个对象：
+
+```javascript
+var map = new Object();
+map[key1] = "value1";
+map[key2] = "value2";
+```
+
+但是，这样的代码无法避免函数被特别的属性名覆盖的意外情况：
+
+```javascript
+> getOwnProperty({ hasOwnProperty: 'Hah, overwritten'}, 'Pwned');
+> TypeError: Property 'hasOwnProperty' is not a function
+```
+
+**Maps** 让我们使用 `set`，`get` 和 `search` 操作数据。
+
+```javascript
+let map = new Map();
+> map.set('name', 'david');
+> map.get('name'); // david
+> map.has('name'); // true
+```
+
+Maps 最强大的地方在于我们不必只能使用字符串来做 key 了，现在可以使用任何类型来当作 key，而且 key 不会被强制类型转换为字符串。
+
+```javascript
+let map = new Map([
+  ["name", "david"],
+  [true, "false"],
+  [1, "one"],
+  [{}, "object"],
+  [function() {}, "function"]
+]);
+
+for (let key of map.keys()) {
+  console.log(typeof key);
+  // > string, boolean, number, object, function
+}
+```
+
+> **提示**：当使用 `map.get()` 判断值是否相等时，非基础类型比如一个函数或者对象，将不会正常工作。
+> 有鉴于此，还是建议使用字符串，布尔和数字类型的数据类型。
+
+我们还可以使用 `.entries()` 方法来遍历整个 map 对象：
+
+```javascript
+for (let [key, value] of map.entries()) {
+  console.log(key, value);
+}
+```
+
+## WeakMaps
+
+在 ES5 之前的版本，我们为了存储私有数据，有好几种方法。像使用这种下划线命名约定：
+
+```javascript
+class Person {
+  constructor(age) {
+    this._age = age;
+  }
+
+  _incrementAge() {
+    this._age += 1;
+  }
+}
+```
+
+在一个开源项目中，命名规则很难维持得一直很好，这样经常会造成一些困扰。
+此时，我们可以选择使用 WeakMaps 来替代 Maps 来存储我们的数据：
+
+```javascript
+let _age = new WeakMap();
+class Person {
+  constructor(age) {
+    _age.set(this, age);
+  }
+
+  incrementAge() {
+    let age = _age.get(this) + 1;
+    _age.set(this, age);
+    if (age > 50) {
+      console.log("Midlife crisis");
+    }
+  }
+}
+```
+
+使用 WeakMaps 来保存我们私有数据的理由之一是不会暴露出属性名，就像下面的例子中的 `Reflect.ownKeys()`：
+
+```javascript
+> const person = new Person(50);
+> person.incrementAge(); // 'Midlife crisis'
+> Reflect.ownKeys(person); // []
+```
+
+一个使用 WeakMaps 存储数据更实际的例子，是存储与 DOM 元素相关联的数据，而这不会对 DOM 元素本身产生污染：
+
+```javascript
+let map = new WeakMap();
+let el = document.getElementById("someElement");
+
+// Store a weak reference to the element with a key
+map.set(el, "reference");
+
+// Access the value of the element
+let value = map.get(el); // 'reference'
+
+// Remove the reference
+el.parentNode.removeChild(el);
+el = null;
+
+value = map.get(el); // undefined
+```
+
+上面的例子中，一旦对象被垃圾回收器给销毁了，WeakMaps 会自动的把这个对象所对应的键值对数据同时销毁。
+
+> **提示**：结合这个例子，再考虑下 jQuery 是如何实现缓存带有引用的 DOM 元素这个功能的。使用 WeakMaps 的话，当被缓存的 DOM 元素被移除的时，jQuery 可以自动释放相应元素的内存。
+> 通常情况下，在涉及 DOM 元素存储和缓存的情况下，使用 WeakMaps 是非常有效的。
+
+## Promises
+
+Promises 让我们把多缩进难看的代码（回调地狱）：
+
+```javascript
+func1(function(value1) {
+  func2(value1, function(value2) {
+    func3(value2, function(value3) {
+      func4(value3, function(value4) {
+        func5(value4, function(value5) {
+          // Do something with value 5
+        });
+      });
+    });
+  });
+});
+```
+
+写成这样：
+
+```javascript
+func1(value1)
+  .then(func2)
+  .then(func3)
+  .then(func4)
+  .then(func5, value5 => {
+    // Do something with value 5
+  });
+```
+
+在 ES6 之前，我们使用[bluebird](https://github.com/petkaantonov/bluebird) 或者
+[Q](https://github.com/kriskowal/q)。现在我们有了原生版本的 Promises：
+
+```javascript
+new Promise((resolve, reject) =>
+  reject(new Error("Failed to fulfill Promise"))
+).catch(reason => console.log(reason));
+```
+
+这里有两个处理函数，**resolve**（当 Promise 执行成功完毕时调用的回调函数） 和 **reject** （当 Promise 执行不接受时调用的回调函数）
+
+> **Promises 的好处**：大量嵌套错误处理回调函数会使代码变得难以阅读理解。
+> 使用 Promises，我们可以通过清晰的路径将错误事件让上传递，并且适当地处理它们。
+> 此外，Promise 处理后的值，无论是解决（resolved）还是拒绝（rejected）的结果值，都是不可改变的。
+
+下面是一些使用 Promises 的实际例子：
+
+```javascript
+var request = require("request");
+
+return new Promise((resolve, reject) => {
+  request.get(url, (error, response, body) => {
+    if (body) {
+      resolve(JSON.parse(body));
+    } else {
+      resolve({});
+    }
+  });
+});
+```
+
+我们还可以使用 `Promise.all()` 来 **并行化** 的处理一组异步的操作。
+
+```javascript
+let urls = [
+  "/api/commits",
+  "/api/issues/opened",
+  "/api/issues/assigned",
+  "/api/issues/completed",
+  "/api/issues/comments",
+  "/api/pullrequests"
+];
+
+let promises = urls.map(url => {
+  return new Promise((resolve, reject) => {
+    $.ajax({ url: url }).done(data => {
+      resolve(data);
+    });
+  });
+});
+
+Promise.all(promises).then(results => {
+  // Do something with results of all our promises
+});
 ```
 
 ## Generators
 
-ES6中非常受关注的的一个功能，能够在函数中间暂停，一次或者多次，并且之后恢复执行，在它暂停的期间允许其他代码执行，并可以用其实现异步
+就像[Promises](https://github.com/DrkSephy/es6-cheatsheet#promises)如何让我们避免[回调地狱](http://callbackhell.com/)一样，Generators 也可以使我们的代码扁平化，同时给予我们开发者像开发同步代码一样的感觉来写异步代码。Generators 本质上是一种支持的函数，随后返回表达式的值。
+Generators 实际上是支持[暂停运行](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/yield)，随后根据上一步的返回值再继续运行的一种函数。
 
-```js
-function *foo(x) {
-    var y = 2 * (yield (x + 1));
-    var z = yield (y / 3);
-    return (x + y + z);
+下面代码是一个使用 generators 函数的简单例子：
+
+```javascript
+function* sillyGenerator() {
+    yield 1;
+    yield 2;
+    yield 3;
+    yield 4;
 }
 
-var it = foo( 5 );
-
-console.log( it.next() );       // { value:6, done:false }
-console.log( it.next( 12 ) );   // { value:8, done:false }
-console.log( it.next( 13 ) );   // { value:42, done:true }
+var generator = sillyGenerator();
+> console.log(generator.next()); // { value: 1, done: false }
+> console.log(generator.next()); // { value: 2, done: false }
+> console.log(generator.next()); // { value: 3, done: false }
+> console.log(generator.next()); // { value: 4, done: false }
 ```
 
-## for...of 和 for...in
+就像上面的例子，当[next](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator/next)运行时，它会把我们的 generator 向前“推动”，同时执行新的表达式。
+我们能利用 Generators 来像书写同步代码一样书写异步代码。
 
-```js
-// for...of遍历数组
-const arr = [1, 2, 3]
-for(let item of arr) {
-  console.log(item) // 1 2 3
-}
+```javascript
+// Hiding asynchronousity with Generators
 
-// for...in遍历对象
-const arr2 = {
-  "nice": 'man',
-  "hello": 'world'
-}
-for(let name in arr2) {
-  console.log(name) // nice hello
+function request(url) {
+  getJSON(url, function(response) {
+    generator.next(response);
+  });
 }
 ```
 
-## Promise
+这里我们写个 generator 函数将要返回我们的数据：
 
-```js
-// ES6
-var wait1000 =  ()=> new Promise((resolve, reject)=> {setTimeout(resolve, 1000)})
+```javascript
+function* getData() {
+  var entry1 = yield request("http://some_api/item1");
+  var data1 = JSON.parse(entry1);
+  var entry2 = yield request("http://some_api/item2");
+  var data2 = JSON.parse(entry2);
+}
+```
 
-wait1000()
-    .then(function() {
-        console.log('Yay!')
-        return wait1000()
-    })
-    .then(function() {
-        console.log('Wheeyee!')
+借助于 `yield`，我们可以保证 `entry1` 确实拿到数据并转换后再赋值给 `data1`。
+
+当我们使用 generators 来像书写同步代码一样书写我们的异步代码逻辑时，没有一种清晰简单的方式来处理期间可能会产生的错误或者异常。在这种情况下，我们可以在我们的 generator 中引入 Promises 来处理，就像下面这样：
+
+```javascript
+function request(url) {
+  return new Promise((resolve, reject) => {
+    getJSON(url, resolve);
+  });
+}
+```
+
+我们再写一个函数，其中使用 `next` 来步进我们的 generator 的同事，再利用我们上面的 `request` 方法来产生（yield）一个 Promise。
+
+```javascript
+function iterateGenerator(gen) {
+  var generator = gen();
+  var ret;
+  (function iterate(val) {
+    ret = generator.next();
+    if (!ret.done) {
+      ret.value.then(iterate);
+    }
+  })();
+}
+```
+
+在 Generator 中引入了 Promises 后，我们就可以通过 Promise 的 `.catch` 和 `reject` 来捕捉和处理错误了。
+使用了我们新版的 Generator 后，新版的调用就像老版本一样简单可读（译者注：有微调）：
+
+```javascript
+iterateGenerator(function* getData() {
+  var entry1 = yield request("http://some_api/item1");
+  var data1 = JSON.parse(entry1);
+  var entry2 = yield request("http://some_api/item2");
+  var data2 = JSON.parse(entry2);
+});
+```
+
+在使用 Generator 后，我们可以重用我们的老版本代码实现，以此展示了 Generator 的力量。
+当使用 Generators 和 Promises 后，我们可以像书写同步代码一样书写异步代码的同时优雅地解决了错误处理问题。
+此后，我们实际上可以开始利用更简单的一种方式了，它就是[async-await](https://github.com/DrkSephy/es6-cheatsheet#async-await)。
+
+## Async Await
+
+`async await` 随着 ES2016 版本就要发布了，它给我们提供了一种更轻松的、更简单的可以替代的实现上面 Generators 配合 Promises 组合代码的一种编码方式，让我们来看看例子：
+
+```javascript
+var request = require("request");
+
+function getJSON(url) {
+  return new Promise(function(resolve, reject) {
+    request(url, function(error, response, body) {
+      resolve(body);
     });
-// traditional
-setTimeout(function(){
-  console.log('Yay!')
-  setTimeout(function(){
-    console.log('Wheeyee!')
-  }, 1000)
-}, 1000)
-```
-
-## ES6中的模块化
-
-```js
-import React from 'react'
-
-export default let port = 3000
-```
-
-## Map, Set, WeakSet, WeakMap
-
-Set是一组不重复的值，重复的值将被忽略, WeakSet and WeakMap是弱引用
-
-Map相关操作方法，Set同理
-
-```js
-// Sets
-var s = new Set();
-s.add("hello").add("goodbye").add("hello");
-s.size === 2;
-s.has("hello") === true;
-
-// Maps
-var m = new Map();
-m.set("hello", 42);
-m.set(s, 34);
-m.get(s) == 34;
-
-// Weak Maps
-var wm = new WeakMap();
-wm.set(s, { extra: 42 });
-wm.size === undefined
-
-// Weak Sets
-var ws = new WeakSet();
-ws.add({ data: 42 });
-
-```
-
-### WeakMap 和 Map 的区别
-
-WeakMap 结构与 Map 结构基本类似，唯一的区别是它只 **接受对象** 作为键名（ null 除外），不接受其他类型的值作为键名，而且键名所指向的对象，不计入垃圾回收机制。
-
-WeakMap 最大的好处是可以避免内存泄漏。一个仅被 WeakMap 作为 key 而引用的对象，会被垃圾回收器回收掉。
-
-WeakMap 拥有和 Map 类似的 set(key, value) 、 get(key)、has(key)、 delete(key) 和 clear() 方法, 没有任何与迭代有关的属性和方法。
-
-## Proxy
-
-Proxy可以监听对象身上发生了什么事情，并在这些事情发生后执行一些相应的操作
-
-```js
-//定义被侦听的目标对象
-var engineer = { name: 'Joe Sixpack', salary: 50 };
-//定义处理程序
-var interceptor = {
-  set: function (receiver, property, value) {
-    console.log(property, 'is changed to', value);
-    receiver[property] = value;
-  }
-};
-//创建代理以进行侦听
-engineer = Proxy(engineer, interceptor);
-//做一些改动来触发代理
-engineer.salary = 60; 
-//控制台输出：salary is changed to 60
-```
-
-## Symbol
-
-Symbol 是一种新的数据类型，它的值是唯一的，不可变的。ES6 中提出 symbol 的目的是为了生成一个唯一的标识符，不过你访问不到这个标识符.
-
-```js
-var sym = Symbol( "Symbol" );
-console.log(typeof sym); // symbol
-```
-
-如果要获取对象 symbol 属性，需要使用Object.getOwnPropertySymbols(o)
-
-## await async
-
-优点：
-
-- 相对于promise使用更加简介
-- 错误处理的位置更加精确
-- 便于条件判别
-- 多个promise中间值的处理
-
-```js
-function timeout(ms) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
+  });
 }
 
-async function asyncPrint(value, ms) {
-    await timeout(ms);
-    console.log(value);
+async function main() {
+  var data = await getJSON();
+  console.log(data); // NOT undefined!
 }
 
-asyncPrint('hello world', 50);
+main();
 ```
