@@ -1,8 +1,8 @@
-# Topic
+# 盒模型(box-sizing)
 
 ## 定义
 
-box-sizing 属性用于更改用于计算元素**宽度**和**高度**的默认的 **CSS 盒子模型**。可以使用此属性来模拟不正确支持CSS盒子模型规范的浏览器的行为。
+box-sizing 属性用于更改用于计算元素**宽度**和**高度**的默认的 **CSS 盒子模型**。
 
 ```css
 /* 关键字 值 */
@@ -15,5 +15,23 @@ box-sizing: initial;
 box-sizing: unset;
 ```
 
-- content-box  是默认值。如果你设置一个元素的宽为100px，那么这个元素的内容区会有100px宽，并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。
-- border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在width内的。也就是说，如果你将一个元素的width设为100px,那么这100px会包含其它的border和padding，内容区的实际宽度会是width减去border + padding的计算值。大多数情况下这使得我们更容易的去设定一个元素的宽高。
+- content-box 是默认值。如果你设置一个元素的宽为 100px，那么这个元素的内容区会有 100px 宽，并且任何边框和内边距的宽度都会被增加到最后绘制出来的元素宽度中。
+- border-box 告诉浏览器去理解你设置的边框和内边距的值是包含在 width 内的。也就是说，如果你将一个元素的 width 设为 100px,那么这 100px 会包含其它的 border 和 padding，内容区的实际宽度会是 width 减去 border + padding 的计算值。大多数情况下这使得我们更容易的去设定一个元素的宽高。
+
+## 标准盒模型
+
+属性 width,height 只包含内容 content，不包含 border 和 padding。
+
+```css
+width: content.width;
+height: content.height;
+```
+
+## IE 盒模型
+
+属性 width,height 包含 border 和 padding，指的是 content+padding+border。
+
+```css
+width: border.width + padding.width + content.width;
+height: border.height + padding.height + content.height;
+```
