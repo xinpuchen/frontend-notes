@@ -1,13 +1,13 @@
-# div水平垂直居中方法
+# div 水平垂直居中方法
 
-## 绝对定位(margin:auto实现居中)
+## 绝对定位(margin:auto 实现居中)
 
 ```css
 div {
-  width:100px;
+  width: 100px;
   height: 100px;
   position: absolute;
-  left:0;
+  left: 0;
   top: 0;
   bottom: 0;
   right: 0;
@@ -20,10 +20,10 @@ div {
 
 ```css
 div {
-  width:100px;
+  width: 100px;
   height: 100px;
   position: absolute;
-  left:50%;
+  left: 50%;
   top: 50%;
 
   margin-left: -50px;
@@ -31,21 +31,21 @@ div {
 }
 ```
 
-## 绝对定位(transform变换)
+## 绝对定位(transform 变换)
 
 ```css
 div {
-  width:100px;
+  width: 100px;
   height: 100px;
   position: absolute;
-  left:50%;
+  left: 50%;
   top: 50%;
 
   transform: translate(-50%, -50%);
 }
 ```
 
-## flex布局(不定宽高水平垂直居中)
+## flex 布局(不定宽高水平垂直居中)
 
 ```css
 body {
@@ -61,15 +61,14 @@ div {
 }
 ```
 
-## Tabel布局
+## Tabel 布局
 
 ```css
 div {
-  width:100vw;
+  width: 100vw;
   height: 100vh;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
 ```
-
