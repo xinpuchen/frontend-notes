@@ -1,6 +1,6 @@
 # BOM
 
-## window对象
+## window 对象
 
 Window 对象表示浏览器中打开的窗口。
 
@@ -8,7 +8,7 @@ Window 对象表示浏览器中打开的窗口。
 
 http://www.w3school.com.cn/jsref/dom_obj_window.asp
 
-## navigator对象
+## navigator 对象
 
 Navigator 对象包含有关浏览器的信息。
 
