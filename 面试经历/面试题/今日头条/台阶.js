@@ -25,3 +25,39 @@
  * 1 <= a <= b < m
  * 0 <= n < m
  */
+const M = 3,
+  A = 1,
+  B = 1,
+  N = 0,
+  ARRAY_N = [],
+  getNum = async(index = 0, m = M, a = A, b = B, arrn = ARRAY_N) => {
+    const arr = [];
+    if (index === -1 || index === m) {
+      return index;
+    }
+    // console.log(index);
+    for (let i = 0; i + a <= b; i++) {
+      const num = index + a + i;
+      arr[i] = (ARRAY_N.find(e => e * 1 === num) || num > m
+        ? -1
+        : await getNum(num));
+      // (num === 4) && console.log(index, i, arr[i]);
+    }
+    return arr;
+  },
+  getRouteNum = async(array = [], m = M) => {
+    let length = await array.reduce(async(s, e) => {
+      s = await s;
+      if (e === m) {
+        s += 1;
+      } else if (e !== -1) {
+        s += await getRouteNum(e);
+      }
+      return s;
+    }, 0);
+    // console.log(`length: ${length}`);
+    return length;
+  };
+
+// console.log(getRouteNum());
+getNum(0).then(e1 => getRouteNum(e1).then(e2 => console.log(e2)));
