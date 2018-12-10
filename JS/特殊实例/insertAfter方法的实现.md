@@ -6,21 +6,22 @@
 
 #### node.insertBefore(newnode,existingnode)
 
-| 参数         | 类型      | 描述                                  |
-| ------------ | --------- | ----------------------------------- |
-| newnode      | Node 对象 | 必需。需要插入的节点对象。 |
-| existingnode | Node 对象 | 可选。在其之前插入新节点的子节点。如果未规定，则 insertBefore 方法会在结尾插入 newnode。 |
+| 参数         | 类型      | 描述                               |
+| ------------ | --------- | ---------------------------------- |
+| newnode      | Node 对象 | 必选。需要插入的节点对象。         |
+| existingnode | Node 对象 | 必选。在其之前插入新节点的子节点。 |
 
 ```js
-function insertAfter(insert_element,target_element) {
-  var parent = insert_element.parentNode;
+function insertAfter(insert_element, target_element) {
+  var parent = target_element.parentNode;
   //最后一个子节点 lastElementChild兼容其他浏览器,  lastChild兼容ie678;
   var last_element = parent.lastElementChild || parent.lastChild;
-  var target_sibling = target_element.nextElementSibling || target_element.nextSibling;
-  if (last_element == target_element){
+  var target_sibling =
+    target_element.nextElementSibling || target_element.nextSibling;
+  if (last_element == target_element) {
     parent.appendChild(insert_element);
   } else {
-    parent.insertBefore(insert_element,target_sibling);
+    parent.insertBefore(insert_element, target_sibling);
   }
 }
 ```
