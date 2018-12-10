@@ -1,0 +1,195 @@
+# 跨域总结
+
+## 什么是跨域
+
+这就不得不提到，浏览器的 **同源策略** ：
+
+- 是一个由 Netscape 实现的安全策略，所有使用 JS 的浏览器都会使用这个策略
+- 所谓同源指的是： 协议，域名，端口相同
+- 当网页请求脚本时，会执行脚本地址检查，如果不是同源的，则会拒绝执行
+
+## 为什么要跨域
+
+跨域是为了越过同源策略的限制，其实也就是回答为什么要启用同源协议，答案就是为了 **安全**
+
+为了防止 CSRF(Cross-site request forgery), 中文名为跨站请求伪造，简单来说就是身份盗用
+
+1. 用户登录了自己的银行页面 http://mybank.com， http://mybank.com 向用户的 cookie 中添加用户标识。
+1. 用户浏览了恶意页面 http://evil.com 执行了页面中的恶意 AJAX 请求代码。
+1. http://evil.com 向 http://mybank.com 发起 AJAX HTTP 请求，请求会默认把http://mybank.com 对应 cookie 也同时发送过去。
+1. 银行页面从发送的 cookie 中提取用户标识，验证用户无误，response 中返回请求数据。此时数据就泄露了。
+1. 而且由于 Ajax 在后台执行，用户无法感知这一过程。
+
+> 例子来源：知乎（黄家兴）
+
+## 如何实现跨域
+
+### 1.服务器端 CORS(Cross-origin resource sharing)
+
+跨域资源共享，详细可以看阮一峰老师的博客http://www.ruanyifeng.com/blog/2016/04/cors.html
+
+通过设置 Access-Control-Allow-Origin 白名单实现
+
+### 2.JSONP(JSON with Padding)
+
+缺点：
+
+1. 只支持 GET 请求
+1. 不能注册 success，error 事件监听函数，无法判断请求结果
+1. JSONP 是从其他域加载代码执行，容易受到 CSRF 攻击，安全性无法保障
+
+是通过动态创建 script 标签，利用 src 进行跨域请求，虽然请求脚本会受同源策略的限制，但是调用时则不受限制，如 script>img>iframe>这些含有 src 属性的标签
+
+```js
+// 下面是一段使用彩云天气请求天气预报的例子
+const script = document.createElement("script");
+
+// wuxi
+script.src =
+  "https://api.caiyunapp.com/v2/RiA7WLZYAoqRWsdW/120.299,31.568/realtime.jsonp?callback=handleRes";
+
+document.body.appendChild(script);
+
+function handleRes(data) {
+  document.body.removeChild(script);
+  let degree = data.result.temperature;
+  let skycon = data.result.skycon;
+  document.querySelector("#degree").textContent = degree;
+  document.querySelector(
+    ".top-weather img"
+  ).src = `./imgs/weather/${skycon}.png`;
+}
+```
+
+JSONP 使用简单且兼容性不错，但是只限于 get 请求。
+在开发中可能会遇到多个 JSONP 请求的回调函数名是相同的，这时候就需要自己封装一个 JSONP，以下是简单实现
+
+```js
+function jsonp(url, parame, fn) {
+  window["callback"] = fn;
+  var script = document.createElement("script");
+  var queryString = "";
+  for (var key in parame) {
+    queryString += key + "=" + parame[key] + "&";
+  }
+  script.src = url + "?" + queryString + "callback=callback";
+  document.head.appendChild(script);
+}
+jsonp(
+  "https://api.douban.com/v2/movie/coming_soon",
+  { start: 0, count: 10 },
+  function(data) {
+    console.log(data);
+  }
+);
+```
+
+### 3.通过修改 document.domain 进行跨域
+
+限制：
+
+除了基础域名，协议和端口要一致
+
+解决对于主域名相同，子域名不同情况下的跨域请求问题，即https://a.peterchen.club 访问 https://b.peterchen.club的内容
+
+```js
+// 通过设置两个页面的document.domain,之后通过parent或者window['iframeName']等方式拿到iframe的window对象了
+document.domain = "peterchen.club";
+```
+
+```html
+<!-- https://a.peterchen.club/index.html -->
+<body>
+  <iframe src="https://b.peterchen.club" onload="iframeLoaded()">
+  <script>
+    console.log(document.querySelector('iframe').contentWindow)
+  </script>
+</body>
+```
+
+### 4.使用 window.name 进行跨域
+
+受到同源限制，只能请求同一域名
+
+优势：window.name 能保存 2M 的数据，请求端口可以不同，window.name 在文档刷新后任然存在
+
+```js
+// 主页面 http://localhost:80
+const iframe = document.createElement("iframe");
+iframe.style.display = "none";
+// 防止无限刷新
+let state = 0;
+
+iframe.onload = () => {
+  if (state === 1) {
+    console.log(JSON.parse(iframe.contentWindow.name));
+    // 清除创建的iframe
+    iframe.contentWindow.document.write("");
+    iframe.contentWindow.close();
+    document.body.removeChild(iframe);
+  } else if (state === 0) {
+    state = 1;
+    // 加载完成，指向当前域，防止错误，不能只设置域名，设置空页即可
+    iframe.contentWindow.location = "http://localhost:80/blank.html";
+  }
+};
+iframe.contentWindow.location = "http://localhost:81/index.html";
+document.appendChild(iframe);
+```
+
+```js
+// 请求页面 http://localhost:81
+window.name = "hello world";
+```
+
+### 5.location.hash 跨域
+
+iframe 子页具有修改父页 hash 值的能力，可以通过这来进行数据传递，而且父页数据不会刷新
+
+但是传递的数据有限
+
+```js
+// a页，同window.name,当state === 1时
+const data = window.location.hash;
+```
+
+```js
+// b页
+parent.location.hash = "hello world";
+```
+
+### 6.window.postMessage 跨域
+
+HTML5 新特性，可以用来向所有的 window 对象发送消息
+
+```js
+// ('msg', '*') 第二个参数是限定域，‘*’为通配符
+// A page
+window.postMessage("hello world", "*");
+// B page
+window.onmessage = function(e) {
+  e = e || event;
+  alert(e.data);
+};
+```
+
+### 7.图片 Ping
+
+图片 ping 跨域只能发送 get 请求，并且不能访问响应的文本，只能监听是否响应而已，可以用来追踪广告点击
+
+```js
+let img = new Image()
+img.src = 'https://api.peterchen.club/articles'
+img.onerror = () {
+  console.log('error')
+}
+img.onload = () {
+  console.log('success)
+}
+```
+
+### 8.websocket
+
+### 9.代理
+
+跳过浏览器的同源策略限制，通过服务器进行数据请求即可
