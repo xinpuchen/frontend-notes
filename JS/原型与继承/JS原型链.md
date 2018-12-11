@@ -23,16 +23,15 @@ a.__proto__.__proto__.__proto__; // null
 
 ### 举例：object 实例如何拥有 toString 方法
 
-```js
-let obj = {};
-obj.toString();
-
-obj.__proto__.toString() === window.Object.prototype.toString(); // true
-```
-
 1. obj 对象内为空，没有定义 toString 方法
 1. obj 含有私有属性**proto**,在其中发现了 obj.**proto**.toString 方法
 1. 实际上调用的是 window.Object.prototype.toString
+
+```js
+let obj = {};
+obj.toString();
+obj.__proto__.toString() === window.Object.prototype.toString(); // true
+```
 
 ### 举例：Array 实例如何拥有 push 方法
 
@@ -43,7 +42,6 @@ obj.__proto__.toString() === window.Object.prototype.toString(); // true
 ```js
 let a = new Array();
 a.__proto__ == Array.prototype; // array prototype
-
 a.__proto__.push() === window.Array.prototype.push(); // true
 ```
 
