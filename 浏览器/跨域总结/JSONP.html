@@ -28,6 +28,23 @@
       document.querySelector('.city').textContent = city
       document.querySelector('.degree').textContent = degree + '°C'
     }
+
+    function jsonp(url, parame, fn) {
+      window['callback'] = fn;
+      var script = document.createElement('script');
+      var queryString = '';
+      for (var key in parame) {
+        queryString += key + '=' + parame[key] + '&';
+      }
+      script.src = url + '?' + queryString + 'callback=callback';
+      document.head.appendChild(script);
+    }
+
+    jsonp('https://api.douban.com/v2/movie/coming_soon', { start: 0, count: 10 },
+      function (data) {
+        var table = document.getElementsByTagName('tbody')[0];
+        table.insertBefore("<tr><td>1</td><td>2</td><td>3</td></tr>", table);
+      });
   </script>
 </body>
 
