@@ -12,7 +12,7 @@ function Print(pRoot)
     }
     let res = []
     let temp = [pRoot]
-    
+
     while(temp.length !== 0) {
       let length = temp.length
       let tempValue = []
