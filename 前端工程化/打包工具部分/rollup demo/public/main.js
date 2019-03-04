@@ -1,8 +1,7 @@
-(function (factory) {
-	typeof define === 'function' && define.amd ? define(factory) :
-	factory();
-}(function () { 'use strict';
+(function(factory) {
+  typeof define === 'function' && define.amd ? define(factory) : factory();
+})(function() {
+  'use strict';
 
-	console.log('loading successful!');
-
-}));
+  console.log('loading successful!');
+});

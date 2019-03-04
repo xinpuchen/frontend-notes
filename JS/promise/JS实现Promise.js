@@ -22,17 +22,17 @@ promise.resolve(); //启动
 
 function getCity() {
   setTimeout(function() {
-    promise.resolve("杭州");
+    promise.resolve('杭州');
   }, 1000);
 }
 function getWeather(city) {
   setTimeout(function() {
-    promise.resolve(city + " 晴天");
+    promise.resolve(city + ' 晴天');
   }, 1000);
 }
 function getSuggestion(weather) {
   setTimeout(function() {
-    console.log(weather + " 天气不错，可携女友与狗出行");
+    console.log(weather + ' 天气不错，可携女友与狗出行');
   }, 1000);
 }
 
@@ -44,28 +44,28 @@ function getSuggestion(weather) {
       fn,
       st;
 
-    if (promise._status !== "PENDING") return;
+    if (promise._status !== 'PENDING') return;
 
     // 所以的执行都是异步调用，保证then是先执行的
     setTimeout(function() {
       promise._status = status;
-      st = promise._status === "FULFILLED";
-      queue = promise[st ? "_resolves" : "_rejects"];
+      st = promise._status === 'FULFILLED';
+      queue = promise[st ? '_resolves' : '_rejects'];
 
       while ((fn = queue.shift())) {
         value = fn.call(promise, value) || value;
       }
 
-      promise[st ? "_value" : "_reason"] = value;
-      promise["_resolves"] = promise["_rejects"] = undefined;
+      promise[st ? '_value' : '_reason'] = value;
+      promise['_resolves'] = promise['_rejects'] = undefined;
     });
   };
 
   //参数是一个函数，内部提供两个函数作为该函数的参数,分别是resolve 和 reject
   var Promise = function(resolver) {
-    if (!(typeof resolver === "function"))
+    if (!(typeof resolver === 'function'))
       throw new TypeError(
-        "You must pass a resolver function as the first argument to the promise constructor"
+        'You must pass a resolver function as the first argument to the promise constructor',
       );
     //如果不是promise实例，就new一个
     if (!(this instanceof Promise)) return new Promise(resolver);
@@ -73,7 +73,7 @@ function getSuggestion(weather) {
     var promise = this;
     promise._value;
     promise._reason;
-    promise._status = "PENDING";
+    promise._status = 'PENDING';
     //存储状态
     promise._resolves = [];
     promise._rejects = [];
@@ -81,11 +81,11 @@ function getSuggestion(weather) {
     //
     var resolve = function(value) {
       //由於apply參數是數組
-      final.apply(promise, ["FULFILLED"].concat([value]));
+      final.apply(promise, ['FULFILLED'].concat([value]));
     };
 
     var reject = function(reason) {
-      final.apply(promise, ["REJECTED"].concat([reason]));
+      final.apply(promise, ['REJECTED'].concat([reason]));
     };
 
     resolver(resolve, reject);
@@ -98,17 +98,17 @@ function getSuggestion(weather) {
       function handle(value) {
         // 這一步很關鍵，只有這樣才可以將值傳遞給下一個resolve
         var ret =
-          (typeof onFulfilled === "function" && onFulfilled(value)) || value;
+          (typeof onFulfilled === 'function' && onFulfilled(value)) || value;
 
         //判断是不是promise 对象
-        if (ret && typeof ret["then"] == "function") {
+        if (ret && typeof ret['then'] == 'function') {
           ret.then(
             function(value) {
               resolve(value);
             },
             function(reason) {
               reject(reason);
-            }
+            },
           );
         } else {
           resolve(ret);
@@ -117,11 +117,11 @@ function getSuggestion(weather) {
 
       function errback(reason) {
         reason =
-          (typeof onRejected === "function" && onRejected(reason)) || reason;
+          (typeof onRejected === 'function' && onRejected(reason)) || reason;
         reject(reason);
       }
 
-      if (promise._status === "PENDING") {
+      if (promise._status === 'PENDING') {
         promise._resolves.push(handle);
         promise._rejects.push(errback);
       } else if (promise._status === FULFILLED) {
@@ -147,7 +147,7 @@ function getSuggestion(weather) {
     return new Promise(function(resolve, reject) {
       setTimeout(function() {
         resolve(value);
-        console.log("1");
+        console.log('1');
       }, ms);
     });
   };
@@ -166,7 +166,7 @@ function getSuggestion(weather) {
 
   Promise.all = function(promises) {
     if (!Array.isArray(promises)) {
-      throw new TypeError("You must pass an array to all.");
+      throw new TypeError('You must pass an array to all.');
     }
     return Promise(function(resolve, reject) {
       var i = 0,
@@ -200,7 +200,7 @@ function getSuggestion(weather) {
 
   Promise.race = function(promises) {
     if (!Array.isArray(promises)) {
-      throw new TypeError("You must pass an array to race.");
+      throw new TypeError('You must pass an array to race.');
     }
     return Promise(function(resolve, reject) {
       var i = 0,

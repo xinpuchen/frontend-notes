@@ -3,7 +3,7 @@
  */
 class Plug {
   getName() {
-    return "插头";
+    return '插头';
   }
 }
 

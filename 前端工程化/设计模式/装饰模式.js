@@ -10,9 +10,9 @@ function readonly(target, key, descriptor) {
 
 class Test {
   @readonly
-  name = "cxp";
+  name = 'cxp';
 }
 
 let t = new Test();
 
-t.yck = "111"; // 不可修改
+t.yck = '111'; // 不可修改

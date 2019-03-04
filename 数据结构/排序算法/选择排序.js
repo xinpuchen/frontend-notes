@@ -1,4 +1,4 @@
-const { check, swap, Arr } = require("./sort");
+const { check, swap, Arr } = require('./sort');
 
 /**
  * 选择排序的原理如下：

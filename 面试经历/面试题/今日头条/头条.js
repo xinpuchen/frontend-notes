@@ -32,7 +32,7 @@ const M = 5,
   main = (ARRAY = getRamArr()) => {
     let array = ARRAY.map(e => e.map(e => e)),
       num = 0;
-    console.log("ARRAY:", ARRAY);
+    console.log('ARRAY:', ARRAY);
 
     for (let x = 0; x < array.length; x++) {
       for (let y = 0; y < array.length; y++) {

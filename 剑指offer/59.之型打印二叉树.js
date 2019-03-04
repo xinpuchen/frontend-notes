@@ -5,7 +5,6 @@
     this.left = null;
     this.right = null;
 } */
-function Print(pRoot)
-{
-    // write code here
+function Print(pRoot) {
+  // write code here
 }

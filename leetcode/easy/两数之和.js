@@ -21,20 +21,20 @@
  * @return {number[]}
  */
 const twoSum = (nums, target) => {
-  let numsMap = new Map()
+  let numsMap = new Map();
 
-  for(let index = 0; index < nums.length; index++) {
-    const num = nums[index]
-    const complement = target - num
+  for (let index = 0; index < nums.length; index++) {
+    const num = nums[index];
+    const complement = target - num;
 
     if (numsMap.has(complement)) {
-      return [numsMap.get(complement), index]
+      return [numsMap.get(complement), index];
     } else {
-      numsMap.set(num, index)
+      numsMap.set(num, index);
     }
   }
-  
-  return null
-}
 
-console.log(twoSum([2, 7, 11, 15], 9))
+  return null;
+};
+
+console.log(twoSum([2, 7, 11, 15], 9));

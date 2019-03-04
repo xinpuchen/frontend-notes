@@ -8,7 +8,7 @@
  */
 console.log(a); //undefined
 var a = 100;
-function foo(){
+function foo() {
   console.log(a); // undefined
   var a = 200;
   console.log(a); // 200
@@ -17,10 +17,10 @@ foo();
 console.log(a); // 100
 // *************
 b();
-function b(){
+function b() {
   console.log('call b first');
 }
-function b(){
+function b() {
   console.log('call b second'); // call b second
 }
 var b = 'call b';

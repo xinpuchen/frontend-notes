@@ -22,7 +22,7 @@ function Permutation(str) {
     return [];
   }
 
-  arr = str.split("");
+  arr = str.split('');
 
   loop(0);
 
@@ -37,7 +37,7 @@ function loop(index) {
     if (index + 1 < arr.length - 1) {
       loop(index + 1);
     } else {
-      result.push(arr.join(""));
+      result.push(arr.join(''));
     }
     swap(arr, i, index);
   }
@@ -49,7 +49,7 @@ function swap(arr, i, index) {
   arr[index] = temp;
 }
 
-console.log(Permutation("ab"));
+console.log(Permutation('ab'));
 
 /**
  * 解法2
@@ -63,7 +63,7 @@ console.log(Permutation("ab"));
 
 var count = 0;
 function show(arr) {
-  console.log("P<sub>" + ++count + "</sub>: " + arr + "<br />");
+  console.log('P<sub>' + ++count + '</sub>: ' + arr + '<br />');
 }
 function perm(arr) {
   (function fn(source, result) {
@@ -72,10 +72,10 @@ function perm(arr) {
       for (var i = 0; i < source.length; i++)
         fn(
           source.slice(0, i).concat(source.slice(i + 1)),
-          result.concat(source[i])
+          result.concat(source[i]),
         );
   })(arr, []);
 }
-perm(["e1", "e2", "e3", "e4"]);
+perm(['e1', 'e2', 'e3', 'e4']);
 
 // 更多解法: http://www.jb51.net/article/39291.htm

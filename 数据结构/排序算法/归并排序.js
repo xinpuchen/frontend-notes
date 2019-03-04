@@ -1,4 +1,4 @@
-const { check, swap, Arr } = require("./sort");
+const { check, swap, Arr } = require('./sort');
 
 /**
  * 归并排序的原理如下：
@@ -46,4 +46,4 @@ const mergeSort = (arr, left, right) => {
   check(arr);
   mergeSort(arr, 0, arr.length - 1);
   return console.log(...arr);
-})(Arr)
+})(Arr);

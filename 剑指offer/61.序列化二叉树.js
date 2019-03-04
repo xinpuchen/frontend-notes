@@ -11,33 +11,30 @@
 
 // 思路：先序遍历进行递归存储，递归拆解
 
-let arr = []
+let arr = [];
 
-function Serialize(pRoot)
-{
-    // 根据先序遍历保存数组
-    if(!pRoot) {
-      arr.push('end')
-    } else {
-      arr.push(pRoot.val)
-      Serialize(pRoot.left)
-      Serialize(pRoot.right)
-    }
+function Serialize(pRoot) {
+  // 根据先序遍历保存数组
+  if (!pRoot) {
+    arr.push('end');
+  } else {
+    arr.push(pRoot.val);
+    Serialize(pRoot.left);
+    Serialize(pRoot.right);
+  }
 }
-function Deserialize(s)
-{
-    // 拆解数组
-    if(arr.length < 1) {
-      return null
-    }
-    let head = arr.shift()
-    let node
-    if(typeof head === 'number') {
-      node = new TreeNode(head)
-      node.left = Deserialize(node.left)
-      node.right = Deserialize(node.right)
-    }
-    
-    return node
-    
+function Deserialize(s) {
+  // 拆解数组
+  if (arr.length < 1) {
+    return null;
+  }
+  let head = arr.shift();
+  let node;
+  if (typeof head === 'number') {
+    node = new TreeNode(head);
+    node.left = Deserialize(node.left);
+    node.right = Deserialize(node.right);
+  }
+
+  return node;
 }

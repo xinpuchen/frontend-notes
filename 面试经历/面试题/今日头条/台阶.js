@@ -30,7 +30,7 @@ const M = 3,
   B = 1,
   N = 0,
   ARRAY_N = [],
-  getNum = async(index = 0, m = M, a = A, b = B, arrn = ARRAY_N) => {
+  getNum = async (index = 0, m = M, a = A, b = B, arrn = ARRAY_N) => {
     const arr = [];
     if (index === -1 || index === m) {
       return index;
@@ -38,15 +38,14 @@ const M = 3,
     // console.log(index);
     for (let i = 0; i + a <= b; i++) {
       const num = index + a + i;
-      arr[i] = (ARRAY_N.find(e => e * 1 === num) || num > m
-        ? -1
-        : await getNum(num));
+      arr[i] =
+        ARRAY_N.find(e => e * 1 === num) || num > m ? -1 : await getNum(num);
       // (num === 4) && console.log(index, i, arr[i]);
     }
     return arr;
   },
-  getRouteNum = async(array = [], m = M) => {
-    let length = await array.reduce(async(s, e) => {
+  getRouteNum = async (array = [], m = M) => {
+    let length = await array.reduce(async (s, e) => {
       s = await s;
       if (e === m) {
         s += 1;

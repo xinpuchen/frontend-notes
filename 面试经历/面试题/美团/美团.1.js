@@ -15,18 +15,20 @@
  * @param {*} i
  */
 const N = 4,
-		M = 6,
-		count = (n = N, m = M, i = 0) => {
-				if (n >= m) {
-						n -= 2;
-						m -= 1;
-				} else {
-						n -= 1;
-						m -= 2;
-				}
-				if (n + m >= 3) {
-						return count(n, m, i)
-				}
-				return i
-		};
-console.log(`在ACM-ICPC竞赛中，一支队伍由三名队员组成，${N}名擅长算法，和${M}名擅长编程的学生，最多能组成${count()}支队伍`);
+  M = 6,
+  count = (n = N, m = M, i = 0) => {
+    if (n >= m) {
+      n -= 2;
+      m -= 1;
+    } else {
+      n -= 1;
+      m -= 2;
+    }
+    if (n + m >= 3) {
+      return count(n, m, i);
+    }
+    return i;
+  };
+console.log(
+  `在ACM-ICPC竞赛中，一支队伍由三名队员组成，${N}名擅长算法，和${M}名擅长编程的学生，最多能组成${count()}支队伍`,
+);

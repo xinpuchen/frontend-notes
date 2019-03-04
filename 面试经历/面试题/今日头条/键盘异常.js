@@ -24,12 +24,12 @@
  * 对于100%输入数据，字符串对于的字符个数<=100000
  */
 
-const Str = "zijietiaodong",
+const Str = 'zijietiaodong',
   main = (str = Str, arr = []) => {
     for (let i = 0; i < str.length; i++) {
-      if (str[i] == "i") {
-        if (str[i + 1] !== "o") arr.pop();
-      } else if (str[i] == "o") {
+      if (str[i] == 'i') {
+        if (str[i + 1] !== 'o') arr.pop();
+      } else if (str[i] == 'o') {
         arr.pop();
       } else {
         arr.push(str[i]);
@@ -40,5 +40,5 @@ const Str = "zijietiaodong",
 console.log(
   main()
     .toString()
-    .replace(/,/g, "")
+    .replace(/,/g, ''),
 );

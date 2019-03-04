@@ -2,29 +2,29 @@
 
 // 思路：使用两个指针，头尾开始搜索， 相等开始比较，找小的
 function FindNumbersWithSum(array, sum) {
-    if (!array) {
-        return null
+  if (!array) {
+    return null;
+  }
+  let aHead = 0;
+  let bHead = array.length - 1;
+  let minResult = Number.MAX_SAFE_INTEGER;
+  let arr = [];
+  while (aHead <= bHead) {
+    let total = array[aHead] + array[bHead];
+    if (total > sum) {
+      bHead--;
+    } else if (total === sum) {
+      if (total < minResult) {
+        minResult = total;
+        arr.length = 0;
+        arr.push(array[aHead]);
+        arr.push(array[bHead]);
+      }
+      aHead++;
+      bHead--;
+    } else {
+      aHead++;
     }
-    let aHead = 0
-    let bHead = array.length - 1
-    let minResult = Number.MAX_SAFE_INTEGER
-    let arr = []
-    while (aHead <= bHead) {
-        let total = array[aHead] + array[bHead]
-        if (total > sum) {
-            bHead--
-        } else if (total === sum) {
-            if (total < minResult) {
-                minResult = total
-                arr.length = 0
-                arr.push(array[aHead])
-                arr.push(array[bHead])
-            }
-            aHead++
-            bHead--
-        } else {
-            aHead++
-        }
-    }
-    return arr
+  }
+  return arr;
 }

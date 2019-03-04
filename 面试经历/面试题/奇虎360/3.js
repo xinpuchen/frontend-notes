@@ -24,18 +24,13 @@
  * L(P1)=3，L(P2)=5，L(P3)=4，L(P4)=5，L(P5)=4，L(P6)=3。
  */
 const N = 3,
-  ARR = [
-    0, 1, 3
-  ],
+  ARR = [0, 1, 3],
   getList = (arr = [], array = ARR) => {
     let list = [],
       str = arr.join('');
     for (let index = 0; index < array.length; index++) {
       if (str.indexOf(array[index]) === -1) {
-        let listInner = [
-          ...arr,
-          array[index]
-        ];
+        let listInner = [...arr, array[index]];
         if (listInner.length < array.length) {
           list.push(...getList(listInner, array));
         } else {
@@ -51,9 +46,7 @@ const N = 3,
     for (let index = 0; index < LIST.length; index++) {
       const element = LIST[index];
       let a = element.reduce((prev, curr, idx, arr) => {
-        return Math.abs(arr[idx - 1] - curr) + (idx === 1
-          ? 0
-          : prev);
+        return Math.abs(arr[idx - 1] - curr) + (idx === 1 ? 0 : prev);
       });
       console.log(element, a);
       total += a;

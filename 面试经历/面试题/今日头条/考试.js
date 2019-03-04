@@ -18,7 +18,6 @@
 // 输出
 // 输出一个数，小明的最高得分。
 
-
 // 样例输入
 // 4
 // 20 20 100 60
@@ -29,42 +28,36 @@
 // 94
 
 let num = 4,
-		arr = [
-				[ 20, 20, 100, 60 ],
-				[ 50, 30, 80, 55 ],
-				[ 100, 60, 110, 88 ],
-				[5, 3, 10, 6]
-		],
-		array = [],
-		arrFormat = (i) => {
-				let e = arr[i]
-				array[i] = [
-						[ 0, 0 ],
-						[ e[0], e[1] ],
-						[e[2], e[3]]
-				]
+  arr = [
+    [20, 20, 100, 60],
+    [50, 30, 80, 55],
+    [100, 60, 110, 88],
+    [5, 3, 10, 6],
+  ],
+  array = [],
+  arrFormat = i => {
+    let e = arr[i];
+    array[i] = [[0, 0], [e[0], e[1]], [e[2], e[3]]];
+  },
+  findRount = (t = 0, time = 120, score = 0) => {
+    if (t >= num) return score;
+    const element = array[t],
+      scoreArr = [];
+    for (let y = 0; y < 3; y++) {
+      let tempTime = time - element[y][0],
+        tempScore = score + element[y][1];
+      if (tempTime >= 0) {
+        scoreArr[y] = findRount(t + 1, tempTime, tempScore);
+      } else {
+        scoreArr[y] = score;
+      }
+    }
+    return Math.max(...scoreArr);
+  };
 
-		},
-		findRount = (t = 0, time = 120, score = 0) => {
-				if (t >= num) 
-						return score;
-				const element = array[t],
-						scoreArr = [];
-				for (let y = 0; y < 3; y++) {
-						let tempTime = time - element[y][0],
-								tempScore = score + element[y][1];
-						if (tempTime >= 0) {
-								scoreArr[y] = findRount(t + 1, tempTime, tempScore);
-						} else {
-								scoreArr[y] = score;
-						}
-				}
-				return Math.max(...scoreArr);
-		}
+for (let index = 0; index < num; index++) {
+  console.log(index, arr[index]);
+  arrFormat(index);
+}
 
-		for (let index = 0; index < num; index++) {
-				console.log(index, arr[index]);
-				arrFormat(index);
-		}
-
-		console.log(findRount());
+console.log(findRount());

@@ -1,10 +1,10 @@
-var name = "CVTE";
+var name = 'CVTE';
 
 function makeFunc() {
   function displayName() {
     console.log(name);
   }
-  var name  = "SEEWO";
+  var name = 'SEEWO';
   return displayName;
 }
 

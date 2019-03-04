@@ -3,11 +3,11 @@ import resolve from 'rollup-plugin-node-resolve';
 import commonjs from 'rollup-plugin-commonjs';
 
 export default {
-  input: "app.js",
+  input: 'app.js',
   output: {
-    file: "public/main.js",
-    format: "umd",
-    name: 'bundle-name'
+    file: 'public/main.js',
+    format: 'umd',
+    name: 'bundle-name',
   },
   plugins: [
     resolve({

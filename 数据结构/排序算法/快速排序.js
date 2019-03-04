@@ -50,7 +50,7 @@ const quickSort = arr => {
   let _right = quickSort(right);
 
   return _left.concat(midItem, _right);
-}
+};
 
 // 一行代码实现
 const quickSortLine = arr => {
@@ -58,9 +58,9 @@ const quickSortLine = arr => {
     ? arr
     : quickSort(arr.slice(1).filter(item => item <= arr[0])).concat(
         arr[0],
-        quickSort(arr.slice(1).filter(item => item > arr[0]))
+        quickSort(arr.slice(1).filter(item => item > arr[0])),
       );
-}
+};
 
 console.log(quickSort([1, 2, 4, 10, 2, 9, 4, 1]));
 console.log(quickSortLine([1, 2, 4, 10, 2, 9, 4, 1]));

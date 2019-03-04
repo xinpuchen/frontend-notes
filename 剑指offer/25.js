@@ -5,14 +5,13 @@
     this.next = null;
     this.random = null;
 }*/
-function Clone(pHead)
-{
-    if(!pHead) {
-        return null
-    }
-    let node = new RandomListNode()
-    node.label = pHead.label
-    node.random = pHead.random
-    node.next = Clone(pHead.next)
-    return node
+function Clone(pHead) {
+  if (!pHead) {
+    return null;
+  }
+  let node = new RandomListNode();
+  node.label = pHead.label;
+  node.random = pHead.random;
+  node.next = Clone(pHead.next);
+  return node;
 }

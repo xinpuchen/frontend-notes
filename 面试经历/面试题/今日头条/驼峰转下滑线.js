@@ -36,14 +36,14 @@
  */
 
 const N = 3,
-  ARRAY = ["variable", "oneVariable", "OneHTTPRequest"],
+  ARRAY = ['variable', 'oneVariable', 'OneHTTPRequest'],
   isUpperCase = char => {
     const regexp = /^[A-Z]+$/;
     return regexp.test(char);
   },
   tansWord = str => {
     str = str
-      .split("")
+      .split('')
       .map((e, i, a) => {
         if (i > 0 && i < a.length - 1) {
           if (!isUpperCase(e) && isUpperCase(a[i + 1])) return `${e}_`;
@@ -56,8 +56,8 @@ const N = 3,
         }
         return e;
       })
-      .join("")
-      .replace(/_+/g, "_")
+      .join('')
+      .replace(/_+/g, '_')
       .toLowerCase();
     return str;
   },

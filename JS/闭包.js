@@ -39,7 +39,7 @@ const makeCounter = function() {
     },
     value: function() {
       return privateCounter;
-    }
+    },
   };
 };
 
@@ -69,21 +69,25 @@ for (var i = 1; i <= 5; i++) {
 // 解决办法：
 // 1、使用闭包
 for (var i = 1; i <= 5; i++) {
-  ((j) => {
+  (j => {
     setTimeout(() => {
       // console.log(j);
     }, j * 1000);
   })(i);
 }
 // 2、使用 setTimeout 的第三个参数
-for(var i=1;i<=5;i++){
-  setTimeout((i) => {
-    // console.log(i);
-  }, i*1000, i);
+for (var i = 1; i <= 5; i++) {
+  setTimeout(
+    i => {
+      // console.log(i);
+    },
+    i * 1000,
+    i,
+  );
 }
 // 3、使用 let 定义 i
-for(let i=1;i<=5;i++){
+for (let i = 1; i <= 5; i++) {
   setTimeout(() => {
     console.log(i);
-  }, i*1000);
+  }, i * 1000);
 }

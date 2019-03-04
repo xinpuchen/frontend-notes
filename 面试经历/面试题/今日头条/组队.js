@@ -11,26 +11,25 @@
 // 输出
 // 输出最多能组成的队伍数。
 
-
 // 样例输入
 // 4 6
 // 样例输出
 // 3
 
-const count = (n, m, i=0) => {
-    if(n>=m){
-        n-=2;
-        m-=1;
-        i++
-    }else{
-        m-=2;
-        n-=1;
-        i++
-    }
-    if(n>=1&&m>=1&&n+m>=3){
-        return count(n, m, i);
-    }else{
-        return i;
-    }
-}
-console.log(count(10,10));
+const count = (n, m, i = 0) => {
+  if (n >= m) {
+    n -= 2;
+    m -= 1;
+    i++;
+  } else {
+    m -= 2;
+    n -= 1;
+    i++;
+  }
+  if (n >= 1 && m >= 1 && n + m >= 3) {
+    return count(n, m, i);
+  } else {
+    return i;
+  }
+};
+console.log(count(10, 10));

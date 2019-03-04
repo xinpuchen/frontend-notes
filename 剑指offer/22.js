@@ -5,19 +5,18 @@
     this.left = null;
     this.right = null;
 } */
-function PrintFromTopToBottom(root)
-{
-    if(!root) {
-        return false
-    }
-    let list = []
-    let start = root
-    let result = []
-    while(start) {
-        result.push(start.val)
-        start.left && list.push(start.left)
-        start.right && list.push(start.right)
-        start = list.shift()
-    }
-    return result
+function PrintFromTopToBottom(root) {
+  if (!root) {
+    return false;
+  }
+  let list = [];
+  let start = root;
+  let result = [];
+  while (start) {
+    result.push(start.val);
+    start.left && list.push(start.left);
+    start.right && list.push(start.right);
+    start = list.shift();
+  }
+  return result;
 }

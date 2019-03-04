@@ -7,24 +7,26 @@
 } */
 
 // 递归查看左右子树是否相等
-function isSymmetricalII(lRoot,rRoot) {
-  if(!lRoot && !rRoot) {
-    return true
+function isSymmetricalII(lRoot, rRoot) {
+  if (!lRoot && !rRoot) {
+    return true;
   } else if (!lRoot || !rRoot) {
-    return false
+    return false;
   } else if (lRoot.val !== rRoot.val) {
-    return false
+    return false;
   }
-  return isSymmetricalII(lRoot.left,rRoot.right) && isSymmetricalII(lRoot.right,rRoot.left)
+  return (
+    isSymmetricalII(lRoot.left, rRoot.right) &&
+    isSymmetricalII(lRoot.right, rRoot.left)
+  );
 }
 
-function isSymmetrical(pRoot)
-{
-  if(!pRoot) {
-    return true
-  } else if(pRoot.left && !pRoot.right || !pRoot.left && pRoot.right ) {
-    return false
+function isSymmetrical(pRoot) {
+  if (!pRoot) {
+    return true;
+  } else if ((pRoot.left && !pRoot.right) || (!pRoot.left && pRoot.right)) {
+    return false;
   }
-  
-  return isSymmetricalII(pRoot.left,pRoot.right)
+
+  return isSymmetricalII(pRoot.left, pRoot.right);
 }

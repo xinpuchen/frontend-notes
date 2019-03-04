@@ -25,27 +25,26 @@
  * 120
  */
 /* ------ */
-var Sub = function (initValue) {
+var Sub = function(initValue) {
   /* 请在此处编写你的代码，其他部分请勿修改，否则不记分。 */
   // begin
   this.num = initValue;
-  this.add = (i) => {
-    if (typeof i === "number") 
-      this.num += i;
-    
+  this.add = i => {
+    if (typeof i === 'number') this.num += i;
+
     // console.log(this.num);
     return this;
   };
   this.getResult = () => {
     return this.num;
-  }
+  };
   // end
-}
+};
 
 var num = new Sub(0)
   .add(100)
   .add(50)
-  .add("123")
+  .add('123')
   .getResult();
 console.log(num); //==> 120
 // 以下代码请勿修改 var s = read_line() print(eval(s))

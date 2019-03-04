@@ -4,15 +4,15 @@
 // 将meta = 1左移，依次判断测试数的1的个数，直到meta << 1 = 0
 
 function NumberOf1(n) {
-    let meta = 1
-    let sum = 0
-    while (meta) {
-        if (n & meta) {
-            sum++
-        }
-        meta = meta << 1
+  let meta = 1;
+  let sum = 0;
+  while (meta) {
+    if (n & meta) {
+      sum++;
     }
-    return sum
+    meta = meta << 1;
+  }
+  return sum;
 }
 
 // 巧妙做法

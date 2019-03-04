@@ -13,9 +13,9 @@ const clone = target => {
   // 判断拷贝的数据类型
   let result,
     targetType = checkedType(target);
-  if (targetType === "Object") {
+  if (targetType === 'Object') {
     result = {};
-  } else if (targetType === "Array") {
+  } else if (targetType === 'Array') {
     result = [];
   } else {
     return result;
@@ -25,7 +25,7 @@ const clone = target => {
     // 获取遍历目标的每一项值
     let value = target[i];
     // 判断目标结构里的每一值是否存在对象或数组
-    if (checkedType(value) === "Object" || checkedType(value) === "Array") {
+    if (checkedType(value) === 'Object' || checkedType(value) === 'Array') {
       // 进一步遍历
       result[i] = clone(value);
     } else {

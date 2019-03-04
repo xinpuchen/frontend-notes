@@ -47,18 +47,16 @@ const N = 2,
     }
     return arr;
   },
-  count = (str = "", arr = []) => {
+  count = (str = '', arr = []) => {
     let a1 = str.split('a');
     a1.forEach((e, i, a) => {
-      a[i] = a[i]
-        .split(',')
-        .filter(e => e);
+      a[i] = a[i].split(',').filter(e => e);
       if (i > 0) {
         // console.log(a[i - 1], a[i]);
-        arr.push(a[i - 1].length + a[i].length + 1)
+        arr.push(a[i - 1].length + a[i].length + 1);
       } else if (a.length === 1) {
         // console.log(e, i, a);
-        arr.push(a[i].length)
+        arr.push(a[i].length);
       }
     });
   };

@@ -18,7 +18,7 @@ class Factory {
   }
 }
 
-Factory.create("cxp").getName();
+Factory.create('cxp').getName();
 
 function createPerson(name) {
   var p = new Object();
@@ -29,7 +29,7 @@ function createPerson(name) {
   return p;
 }
 
-var person = createPerson("kevin");
+var person = createPerson('kevin');
 person.getName();
 console.log(person instanceof createPerson);
 console.log(person instanceof Object);

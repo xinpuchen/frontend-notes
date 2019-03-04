@@ -5,27 +5,26 @@
     this.left = null;
     this.right = null;
 } */
-function Print(pRoot)
-{
-    if(!pRoot) {
-      return []
+function Print(pRoot) {
+  if (!pRoot) {
+    return [];
+  }
+  let res = [];
+  let temp = [pRoot];
+
+  while (temp.length !== 0) {
+    let length = temp.length;
+    let tempValue = [];
+
+    while (length) {
+      let node = temp.shift();
+      tempValue.push(node.val);
+      node.left && temp.push(node.left);
+      node.right && temp.push(node.right);
+      length--;
     }
-    let res = []
-    let temp = [pRoot]
 
-    while(temp.length !== 0) {
-      let length = temp.length
-      let tempValue = []
-
-      while(length) {
-        let node = temp.shift()
-        tempValue.push(node.val)
-        node.left && temp.push(node.left)
-        node.right && temp.push(node.right)
-        length--
-      }
-
-      res.push(tempValue)
-    }
-    return res
+    res.push(tempValue);
+  }
+  return res;
 }

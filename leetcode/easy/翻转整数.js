@@ -26,25 +26,27 @@
  * @return {number}
  */
 const reverse = function(x) {
-    
-  let reversedNumStr = x.toString().split('').reverse().join('')
-  let resultNum = 0
-  let range = Math.pow(2, 31)
+  let reversedNumStr = x
+    .toString()
+    .split('')
+    .reverse()
+    .join('');
+  let resultNum = 0;
+  let range = Math.pow(2, 31);
 
   // 判断是否为负数
   if (reversedNumStr.endsWith('-')) {
-    resultNum = Number(-reversedNumStr.slice(0, reversedNumStr.length - 1))
+    resultNum = Number(-reversedNumStr.slice(0, reversedNumStr.length - 1));
   } else {
-    resultNum = Number(reversedNumStr)
+    resultNum = Number(reversedNumStr);
   }
 
   // 判断是否溢出
   if (resultNum < range - 1 && resultNum > -range) {
-    return resultNum
+    return resultNum;
   } else {
-    return 0
+    return 0;
   }
+};
 
-}
-
-console.log(reverse(1230))
+console.log(reverse(1230));

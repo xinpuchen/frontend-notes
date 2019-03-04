@@ -25,33 +25,23 @@
 
 const N = 130,
   M = 3,
-  ARRAY = [
-    [
-      100, 380
-    ],
-    [
-      20, 320
-    ],
-    [
-      40, 360
-    ],
-    [
-      50, 310
-    ],
-    [100, 380]
-  ],
+  ARRAY = [[100, 380], [20, 320], [40, 360], [50, 310], [100, 380]],
   count = (n = N, m = M, arr1 = ARRAY, arr2 = [], a = 0) => {
     if (arr2.length < m) {
       let array = [];
-      for (let index = a; index < arr1.length - (m - 1 - arr2.length); index++) {
-        if (countCheck(arr2, 0) + arr1[index][0] <= n && !findIndex(index, arr2)) {
+      for (
+        let index = a;
+        index < arr1.length - (m - 1 - arr2.length);
+        index++
+      ) {
+        if (
+          countCheck(arr2, 0) + arr1[index][0] <= n &&
+          !findIndex(index, arr2)
+        ) {
           // console.log(arr2.length, index, arr1[index][0]);
           arr1[index][2] = index;
           arr1[index][3] = findIndex(index, arr2);
-          let temp = [
-            ...arr2,
-            arr1[index]
-          ];
+          let temp = [...arr2, arr1[index]];
           // console.log(...temp);
           array.push(...count(n, m, arr1, temp, index));
         }
@@ -63,13 +53,13 @@ const N = 130,
         console.log(...arr2[1]);
         console.log(...arr2[2]);
         console.log(countCheck(arr2, 1));
-        console.log("==========");
+        console.log('==========');
         return [arr2];
       } else {
         return null;
       }
     } else {
-      console.warn("发生了错误", arr2);
+      console.warn('发生了错误', arr2);
     }
   },
   countCheck = (arr = [], n = 0) => {
@@ -82,9 +72,8 @@ const N = 130,
   findIndex = (i = 0, arr = []) => {
     for (let index = 0; index < arr.length; index++) {
       const element = arr[index];
-      if (element[2] === i) 
-        return !0;
-      }
+      if (element[2] === i) return !0;
+    }
     return !1;
   };
 

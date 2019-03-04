@@ -4,31 +4,33 @@
  * > fun.bind(thisArg[, arg1[, arg2[, ...]]])
  */
 
-this.x = 1
+this.x = 1;
 const module1 = {
   x: 2,
   getX: function() {
-    return this.x
-  }
-}
+    return this.x;
+  },
+};
 
-console.log(module1.getX()) // 2
+console.log(module1.getX()); // 2
 
-let getValue = module1.getX
-console.log(getValue()) // 1
+let getValue = module1.getX;
+console.log(getValue()); // 1
 
-let getTrueValue = module1.getX.bind(module1)
-console.log(getTrueValue()) // 2
+let getTrueValue = module1.getX.bind(module1);
+console.log(getTrueValue()); // 2
 
 // bind函数的兼容性写法
 
-Function.prototype.bind = Function.prototype.bind || function(context){
+Function.prototype.bind =
+  Function.prototype.bind ||
+  function(context) {
     var self = this;
 
-    return function(){
-        return self.apply(context, arguments);
+    return function() {
+      return self.apply(context, arguments);
     };
-}
+  };
 
 /**
  *
@@ -37,13 +39,13 @@ Function.prototype.bind = Function.prototype.bind || function(context){
  */
 
 Function.prototype.call2 = function(context, ...args) {
-    context = context || window;
-    let fn = Symbol()
-    context[fn] = this;
-    var result =  context[fn](...args)
-    Reflect.deleteProperty(context, fn)
-    return result;
-}
+  context = context || window;
+  let fn = Symbol();
+  context[fn] = this;
+  var result = context[fn](...args);
+  Reflect.deleteProperty(context, fn);
+  return result;
+};
 
 /**
  *
@@ -52,22 +54,22 @@ Function.prototype.call2 = function(context, ...args) {
  * > fun.apply(thisArg[, argsArray])
  */
 
-
 // min/max number in an array
 var numbers = [5, 6, 2, 3, 7];
 
 // using Math.min/Math.max apply
-var max = Math.max.apply(null, numbers); /* This about equal to Math.max(numbers[0], ...) or Math.max(5, 6, ..) */
+var max = Math.max.apply(
+  null,
+  numbers,
+); /* This about equal to Math.max(numbers[0], ...) or Math.max(5, 6, ..) */
 var min = Math.min.apply(null, numbers);
 
 // vs. simple loop based algorithm
-max = -Infinity, min = +Infinity;
+(max = -Infinity), (min = +Infinity);
 
 for (var i = 0; i < numbers.length; i++) {
-  if (numbers[i] > max)
-    max = numbers[i];
-  if (numbers[i] < min)
-    min = numbers[i];
+  if (numbers[i] > max) max = numbers[i];
+  if (numbers[i] < min) min = numbers[i];
 }
 
 /**
@@ -83,11 +85,11 @@ function Person(name, age) {
 }
 var obj = {
   name: 'kk',
-  age: 6
+  age: 6,
 };
 Person.call(obj, 'mm', 10); // obj，{name: "mm", age: 10}
 
-Person.apply(obj, ['mm', 10]);  // obj，{name: "mm", age: 10}
+Person.apply(obj, ['mm', 10]); // obj，{name: "mm", age: 10}
 
-var p1 = Person.bind(obj, 'mm', 10)
-var p2 = new p1();  // Person {name: "mm", age: 10}
+var p1 = Person.bind(obj, 'mm', 10);
+var p2 = new p1(); // Person {name: "mm", age: 10}

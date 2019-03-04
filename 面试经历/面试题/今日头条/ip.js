@@ -12,17 +12,24 @@
  * 1
  */
 
-const ipN = "101001",
+const ipN = '101001',
   insertDot = (str = ipN, x = 1, y = 2, z = 3) => {
-    str = `${str.substring(0, x)}.${str.substring(x, y)}.${str.substring(y, z)}.${str.substring(z, str.length)}`;
+    str = `${str.substring(0, x)}.${str.substring(x, y)}.${str.substring(
+      y,
+      z,
+    )}.${str.substring(z, str.length)}`;
     console.log(str);
     return str;
   },
-  checkIP = (str) => {
-    str = str.split(".");
+  checkIP = str => {
+    str = str.split('.');
     for (let index = 0; index < str.length; index++) {
       const element = Number(str[index]);
-      if (element < 0 || element >= 256 || str[index].length > 1 && str[index].search(/^0/g) !== -1) {
+      if (
+        element < 0 ||
+        element >= 256 ||
+        (str[index].length > 1 && str[index].search(/^0/g) !== -1)
+      ) {
         return false;
       }
     }
@@ -42,5 +49,5 @@ const ipN = "101001",
       }
     }
     return ipG;
-  }
-  console.log(parseIP('10100101'));
+  };
+console.log(parseIP('10100101'));

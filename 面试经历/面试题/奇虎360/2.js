@@ -19,39 +19,45 @@
  * 8 1 100
  * 样例输出
  * 63
-*/
-const q = 3
+ */
+const q = 3;
 const arr = [
   {
     k: 8,
     l: 1,
-    r: 100
-  }, {
+    r: 100,
+  },
+  {
     k: 8,
     l: 1,
-    r: 100
-  }, {
+    r: 100,
+  },
+  {
     k: 8,
     l: 1,
-    r: 100
-  }
-]
+    r: 100,
+  },
+];
 
 for (let index = 0; index < q; index++) {
-  const {k, l, r} = arr[index];
+  const { k, l, r } = arr[index];
   k2 = k - 1;
   const a = [];
   for (let x = l; x <= r; x++) {
     const e = x.toString(k);
-    const n = (e.split(k2)).length - 1;
+    const n = e.split(k2).length - 1;
     console.log(`数字${x}===(${e})${k} 其中${k2}出现${n}次`);
-    a.push({num: x, count: n});
+    a.push({ num: x, count: n });
   }
   const max = Math.max(...a.map(e => e.count));
   for (let y = 0; y < a.length; y++) {
     const e = a[y];
     if (e.count === max) {
-      console.log(`数字${e.num}在[${l},${r}]中${k}进制时为(${e.num.toString(k)})${k}，可以得到${k2}的最大个数：${max}`);
+      console.log(
+        `数字${e.num}在[${l},${r}]中${k}进制时为(${e.num.toString(
+          k,
+        )})${k}，可以得到${k2}的最大个数：${max}`,
+      );
       break;
     }
   }

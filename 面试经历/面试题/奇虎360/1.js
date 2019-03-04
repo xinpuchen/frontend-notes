@@ -24,29 +24,18 @@
  * 用三根6，8，10的木棍可以组成一个直角三角形的图形。
  */
 const N = 5,
-  array = [
-    6,
-    8,
-    14,
-    12,
-    14,
-    15,
-    16,
-    17
-  ],
+  array = [6, 8, 14, 12, 14, 15, 16, 17],
   testPolygon = (n, arr) => {
     let testFlag = null;
-    if (n === 3) 
-      return (arr[0] + arr[1] > arr[2] && arr[2] > Math.abs(arr[0] - arr[1])
+    if (n === 3)
+      return arr[0] + arr[1] > arr[2] && arr[2] > Math.abs(arr[0] - arr[1])
         ? true
-        : -1);
+        : -1;
     const max = Math.max(...arr),
       sum = arr.reduce((prev, curr, idx, arr) => {
         return prev + curr;
       });
-    return (sum > max * 2
-      ? true
-      : -1);
+    return sum > max * 2 ? true : -1;
   },
   count = (n, arr) => {
     let test = -1;

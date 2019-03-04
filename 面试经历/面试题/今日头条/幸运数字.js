@@ -23,7 +23,6 @@
  * 1
  */
 
-
 const A = 1,
   B = 2,
   K = 2,
@@ -43,7 +42,7 @@ const A = 1,
       }
       return [];
     } else {
-      console.warn("发生了错误", arr2);
+      console.warn('发生了错误', arr2);
       return null;
     }
   },
@@ -52,7 +51,7 @@ const A = 1,
       prev,
       curr,
       idx,
-      arr
+      arr,
     ) {
       return prev + curr;
     });
@@ -69,5 +68,5 @@ const A = 1,
       return total > a && total > b;
     }
   };
-let t = count()
+let t = count();
 console.log(`一共有${t.length}个${K}位长度的幸运数字。`);

@@ -11,34 +11,34 @@
  * 这时使用requestAnimationFrame()的效果要好于setTimeout()。
  */
 
-console.log("begin");
+console.log('begin');
 
 setTimeout(
   (() => {
-    console.log("setTimeout1");
-    return () => console.log("setTimeout2");
+    console.log('setTimeout1');
+    return () => console.log('setTimeout2');
   })(),
-  0
+  0,
 );
 
 setTimeout(() => {
-  console.log("setTimeout3");
+  console.log('setTimeout3');
 }, 0);
 
 new Promise(resolve => {
-  console.log("promise1");
+  console.log('promise1');
   resolve();
 })
   .then(() => {
-    console.log("promise2");
+    console.log('promise2');
   })
   .then(() => {
-    console.log("promise3");
+    console.log('promise3');
   });
 
-console.log("main");
+console.log('main');
 
-console.log("end");
+console.log('end');
 
 /**
  * 运行结果：

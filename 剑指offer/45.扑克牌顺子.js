@@ -3,25 +3,25 @@
 // 思路：判断五张牌的gap，和癞子数量
 function IsContinuous(numbers) {
   if (!numbers || numbers.length === 0) {
-    return false
+    return false;
   }
 
-  let length = numbers.length
-  let omnipotent = 0
-  let gap = 0
-  numbers = numbers.sort()
+  let length = numbers.length;
+  let omnipotent = 0;
+  let gap = 0;
+  numbers = numbers.sort();
   // 癞子数量
-  numbers.map(number => number === 0 ? omnipotent++ : '')
-  
-  let head = omnipotent
-  let head2 = head + 1
+  numbers.map(number => (number === 0 ? omnipotent++ : ''));
+
+  let head = omnipotent;
+  let head2 = head + 1;
   while (head2 < length) {
     if (numbers[head] === numbers[head2]) {
-      return false
+      return false;
     }
-    gap += numbers[head2] - numbers[head] - 1
-    head = head2
-    head2++
+    gap += numbers[head2] - numbers[head] - 1;
+    head = head2;
+    head2++;
   }
-  return gap <= omnipotent ? true : false
+  return gap <= omnipotent ? true : false;
 }

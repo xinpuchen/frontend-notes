@@ -5,32 +5,31 @@
     this.right = null;
 } */
 function Convert(pRootOfTree) {
-    if (!pRootOfTree || pRootOfTree.length < 2) {
-        return pRootOfTree
+  if (!pRootOfTree || pRootOfTree.length < 2) {
+    return pRootOfTree;
+  }
+  // 转换左子树
+  if (pRootOfTree.left) {
+    var left = Convert(pRootOfTree.left);
+    // 寻找root左边第一个节点
+    let nearRoot = left;
+    while (nearRoot && nearRoot.right) {
+      nearRoot = nearRoot.right;
     }
-    // 转换左子树
-    if (pRootOfTree.left) {
-        var left = Convert(pRootOfTree.left)
-        // 寻找root左边第一个节点
-        let nearRoot = left
-        while (nearRoot && nearRoot.right) {
-            nearRoot = nearRoot.right
-        }
-        // 联结根节点
-        nearRoot.right = pRootOfTree
-        pRootOfTree.left = nearRoot
-
-    }
-    if (pRootOfTree.right) {
-        // 转换右子树
-        let right = Convert(pRootOfTree.right)
-        //联结根节点
-        pRootOfTree.right = right
-        right.left = pRootOfTree
-    }
-    if(!left) {
-        return pRootOfTree
-    } else {
-        return left
-    }
+    // 联结根节点
+    nearRoot.right = pRootOfTree;
+    pRootOfTree.left = nearRoot;
+  }
+  if (pRootOfTree.right) {
+    // 转换右子树
+    let right = Convert(pRootOfTree.right);
+    //联结根节点
+    pRootOfTree.right = right;
+    right.left = pRootOfTree;
+  }
+  if (!left) {
+    return pRootOfTree;
+  } else {
+    return left;
+  }
 }

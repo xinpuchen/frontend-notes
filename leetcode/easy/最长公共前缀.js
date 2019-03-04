@@ -24,22 +24,22 @@
  * @param {string[]} strs
  * @return {string}
  */
-const longestCommonPrefix = (strs) => {
-    let shortestStr = strs.sort((pre, next) => pre > next)[0]
+const longestCommonPrefix = strs => {
+  let shortestStr = strs.sort((pre, next) => pre > next)[0];
 
-    if (!shortestStr) {
-        return ''
-    }
-    
-    for(let i = shortestStr.length; i > 0; i--) {
-        let sameStr = shortestStr.slice(0, i)
-        let sign = strs.every((str) => str.startsWith(sameStr))
-        if (sign) {
-            return sameStr
-        }
-    }
+  if (!shortestStr) {
+    return '';
+  }
 
-    return ''
+  for (let i = shortestStr.length; i > 0; i--) {
+    let sameStr = shortestStr.slice(0, i);
+    let sign = strs.every(str => str.startsWith(sameStr));
+    if (sign) {
+      return sameStr;
+    }
+  }
+
+  return '';
 };
 
-console.log(longestCommonPrefix(["dog","racecar","car"]))
+console.log(longestCommonPrefix(['dog', 'racecar', 'car']));

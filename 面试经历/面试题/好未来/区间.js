@@ -26,10 +26,8 @@
 const L = 88,
   R = 110,
   check = i => {
-    let arr1 = i.split(""),
-      arr2 = arr1
-        .slice(0)
-        .reverse();
+    let arr1 = i.split(''),
+      arr2 = arr1.slice(0).reverse();
     for (i = 0; i < arr1.length; i++) {
       if (arr1[i] !== arr2[i]) {
         return false;

@@ -8,5 +8,5 @@ module.exports = {
     array[left] = rightValue;
     return;
   },
-  Arr: [3, 4, 5, 9, 10, 2, 4, 6, 8, 11]
+  Arr: [3, 4, 5, 9, 10, 2, 4, 6, 8, 11],
 };

@@ -28,21 +28,8 @@
 const N = 3,
   M = 4,
   P = 2,
-  Arr = [
-    5, 3, 1
-  ],
-  array = [
-    [
-      'B', 1
-    ],
-    [
-      'A', 2
-    ],
-    [
-      'A', 2
-    ],
-    ['A', 3]
-  ],
+  Arr = [5, 3, 1],
+  array = [['B', 1], ['A', 2], ['A', 2], ['A', 3]],
   setI = (a = 'A', i = 0, arr = Arr) => {
     if (a === 'A') {
       arr[i - 1]++;
@@ -57,14 +44,14 @@ const N = 3,
           if (a < b) {
             return 1;
           } else if (a > b) {
-            return -1
+            return -1;
           } else {
             return 0;
           }
         }),
       num = arr[i - 1];
 
-    return ARR.findIndex((e) => e === num) + 1;
+    return ARR.findIndex(e => e === num) + 1;
   },
   setDay = (arr = array) => {
     for (let index = 0; index < arr.length; index++) {

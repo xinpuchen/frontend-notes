@@ -9,12 +9,11 @@ function TreeNode(x) {
 */
 
 // 递归查找左右子树，比较后，返回较大的+1
-function TreeDepth(pRoot)
-{
-    if(!pRoot) {
-        return 0
-    }
-    let leftDepth = TreeDepth(pRoot.left)
-    let rightDepth = TreeDepth(pRoot.right)
-    return leftDepth > rightDepth ? leftDepth + 1: rightDepth + 1
+function TreeDepth(pRoot) {
+  if (!pRoot) {
+    return 0;
+  }
+  let leftDepth = TreeDepth(pRoot.left);
+  let rightDepth = TreeDepth(pRoot.right);
+  return leftDepth > rightDepth ? leftDepth + 1 : rightDepth + 1;
 }

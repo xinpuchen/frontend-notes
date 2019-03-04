@@ -22,7 +22,7 @@
 
 // 首遍思路： 两个指针，首位对比
 // 进阶思路：
-// 较好思路： 
+// 较好思路：
 // 时间复杂度：o(n)
 
 /**
@@ -30,20 +30,20 @@
  * @return {boolean}
  */
 const isPalindrome = function(x) {
-  let numArr = x.toString().split('')
-  let numArrLength = numArr.length
+  let numArr = x.toString().split('');
+  let numArrLength = numArr.length;
 
-  let pointerOne
+  let pointerOne;
   for (let pointerTwo = 0; pointerTwo < numArrLength; pointerTwo++) {
-    pointerOne = numArrLength - pointerTwo - 1
+    pointerOne = numArrLength - pointerTwo - 1;
     if (numArr[pointerOne] === numArr[pointerTwo]) {
-      continue
+      continue;
     } else {
-      return false
+      return false;
     }
   }
 
-  return true
-}
+  return true;
+};
 
-console.log(isPalindrome(123211))
+console.log(isPalindrome(123211));

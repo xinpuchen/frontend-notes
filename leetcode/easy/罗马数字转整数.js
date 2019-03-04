@@ -50,30 +50,30 @@ C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。
  * @return {number}
  */
 const romanToInt = function(s) {
-    const charValueMap = new Map()
-    
-    charValueMap.set('I', 1)
-    charValueMap.set('V', 5)
-    charValueMap.set('X', 10)
-    charValueMap.set('L', 50)
-    charValueMap.set('C', 100)
-    charValueMap.set('D', 500)
-    charValueMap.set('M', 1000)
+  const charValueMap = new Map();
 
-    const stringArr = s.split('')
-    let result = 0
+  charValueMap.set('I', 1);
+  charValueMap.set('V', 5);
+  charValueMap.set('X', 10);
+  charValueMap.set('L', 50);
+  charValueMap.set('C', 100);
+  charValueMap.set('D', 500);
+  charValueMap.set('M', 1000);
 
-    // 避开判断最后一位
-    for(let i = 0; i < stringArr.length - 1; i++) {
-      if (charValueMap.get(stringArr[i]) < charValueMap.get(stringArr[i + 1])) {
-        result -= charValueMap.get(stringArr[i])
-      } else {
-        result += charValueMap.get(stringArr[i])
-      }
+  const stringArr = s.split('');
+  let result = 0;
+
+  // 避开判断最后一位
+  for (let i = 0; i < stringArr.length - 1; i++) {
+    if (charValueMap.get(stringArr[i]) < charValueMap.get(stringArr[i + 1])) {
+      result -= charValueMap.get(stringArr[i]);
+    } else {
+      result += charValueMap.get(stringArr[i]);
     }
+  }
 
-    // 最后一位直接相加
-    return result + charValueMap.get(stringArr[stringArr.length - 1])
-}
+  // 最后一位直接相加
+  return result + charValueMap.get(stringArr[stringArr.length - 1]);
+};
 
-console.log(romanToInt("IV"))
+console.log(romanToInt('IV'));

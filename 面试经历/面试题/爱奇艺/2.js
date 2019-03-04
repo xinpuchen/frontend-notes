@@ -19,7 +19,7 @@
  * 样例解释：将前三位任意一个改为9即可满足条件，操作数为1
  */
 const NUM = '000118',
-  getA = (n) => {
+  getA = n => {
     return n[0] + n[1] + n[2];
   },
   getAM = (n, i) => {
@@ -28,7 +28,7 @@ const NUM = '000118',
     }
     return Math.min(n[0], n[1], n[2]);
   },
-  getB = (n) => {
+  getB = n => {
     return n[3] + n[4] + n[5];
   },
   getBM = (n, i) => {
@@ -48,7 +48,7 @@ const NUM = '000118',
       if (a - b >= 9 - bmin) {
         n[n.lastIndexOf(bmin)] = 9;
       } else {
-        n[n.lastIndexOf(bmin)] += (a - b);
+        n[n.lastIndexOf(bmin)] += a - b;
       }
       n[n.lastIndexOf(bmin)] = 9;
       return add(++total, n);
@@ -56,7 +56,7 @@ const NUM = '000118',
       if (b - a >= 9 - amin) {
         n[n.lastIndexOf(amin)] = 9;
       } else {
-        n[n.lastIndexOf(amin)] += (b - a);
+        n[n.lastIndexOf(amin)] += b - a;
       }
       return add(++total, n);
     } else {
@@ -74,14 +74,14 @@ const NUM = '000118',
       if (a - b >= amax) {
         n[n.lastIndexOf(amin)] = 0;
       } else {
-        n[n.lastIndexOf(amin)] -= (a - b);
+        n[n.lastIndexOf(amin)] -= a - b;
       }
       return mult(++total, n);
     } else if (a < b) {
       if (b - a >= bmax) {
         n[n.lastIndexOf(bmax)] = 0;
       } else {
-        n[n.lastIndexOf(bmax)] -= (b - a);
+        n[n.lastIndexOf(bmax)] -= b - a;
       }
       return mult(++total, n);
     } else {
