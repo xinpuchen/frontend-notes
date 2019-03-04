@@ -14,12 +14,17 @@ const find = (
       col--;
       continue;
     } else {
-      return console.log('找到啦！');
+      return true;
     }
   }
   return false;
 };
 
-exports = module.exports = {
+function replaceSpace(str) {
+  return str.replace(/\s/g, '%20');
+}
+
+module.exports = {
   find,
+  replaceSpace,
 };
