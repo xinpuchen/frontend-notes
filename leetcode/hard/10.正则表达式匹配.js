@@ -77,29 +77,58 @@
  */
 var isMatch = function(s, p) {
     // return RegExp(`^${p}$`).test(s);
-    const chars = '.abcdefghijklmnopqrstuvwxyz'.split('');
+    // console.log(s, p)
     let strIndex = 0;
     for (let i = 0; i < p.length; ) {
-      const index = chars.findIndex(e => e === p[i]);
-      if (index === -1 && p[i] === '*' && i > 0) {
-        for (let j = strIndex; j < s.length; j++) {
-          if (isMatch(s.substring(j), p.substring(i + 1)))
+      if (p[i] === '*' && i > 0) {
+        for (let j = strIndex; j <= s.length; ) {
+          // console.log(p[i - 1], s[j], matchChar(p[i - 1], s[j]))
+          const matchFlag = isMatch(s.substring(j), p.substring(i + 1));
+          if (matchChar(p[i - 1], s[j]))
+            j++;
+          else if (!matchFlag)
+            return false;
+          // console.log(j, i)
+          if (matchFlag || j === s.length && i + 1 === p.length)
             return true;
         }
         return false;
       } else {
         if (i + 1 < p.length && p[i + 1] === '*') {
           i++;
-          break;
+          continue;
         }
-        if (index !== 0 && s[strIndex] !== p[i])
+        // console.log(s, s[strIndex], p, i)
+        if (!matchChar(p[i], s[strIndex]))
           return false;
         i++;
         strIndex++;
       }
     }
-    return true;
+    if (strIndex === s.length)
+      return true;
+    return false;
 };
 
-console.log(isMatch('mississippi', 'mis*is*p*.'));
+function matchChar(c, s) {
+  if(c === s || c === '.')
+    return true;
+  return false;
+}
+
+// console.log(isMatch('aa', 'a'));
+
+// console.log(isMatch('aa', 'a*'));
+
+// console.log(isMatch('ab', '.*'));
+
+// console.log(isMatch('aab', 'c*a*b'));
+
+// console.log(isMatch('mississippi', 'mis*is*p*.'));
+
+// console.log(isMatch('mississippi', 'mis*is*ip*.'));
+
+// console.log(isMatch('ab', '.*c'));
+
+// console.log(isMatch('a', 'ab*'));
 
