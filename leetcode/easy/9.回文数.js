@@ -45,7 +45,7 @@
 var isPalindrome = function(x) {
     if (x < 0)
       return false;
-    return verify(getNumArr(x));
+    return verifyPalindrome(getNumArr(x));
 };
 
 function getNumArr(x) {
@@ -59,7 +59,7 @@ function getNumArr(x) {
   return arr;
 }
 
-function verify (arr) {
+function verifyPalindrome (arr) {
   for (let i = 0; i < arr.length / 2; i++) {
     if(arr[i] !== arr[arr.length - i - 1])
       return false;
