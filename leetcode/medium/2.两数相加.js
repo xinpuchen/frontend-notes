@@ -38,7 +38,7 @@
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-    return addNode(l1, l2, 0);
+  return addNode(l1, l2, 0);
 };
 
 function addNode(l1, l2, x) {
@@ -46,11 +46,10 @@ function addNode(l1, l2, x) {
   l1 && l1.val > 0 && (val += l1.val);
   l2 && l2.val > 0 && (val += l2.val);
   x = Math.floor(val / 10);
-  l1 = l1 && l1.next || null;
-  l2 = l2 && l2.next || null;
+  l1 = (l1 && l1.next) || null;
+  l2 = (l2 && l2.next) || null;
   return {
     val: val % 10,
-    next: (l1 || l2 || x > 0) ? addNode(l1, l2, x) : null
-  }
+    next: l1 || l2 || x > 0 ? addNode(l1, l2, x) : null,
+  };
 }
-

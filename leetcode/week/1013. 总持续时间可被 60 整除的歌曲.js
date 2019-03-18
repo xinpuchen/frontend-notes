@@ -13,7 +13,7 @@ var numPairsDivisibleBy60 = function(time) {
   return sum;
 };
 
-console.log(numPairsDivisibleBy60([30,20,150,100,40])); // 3
+console.log(numPairsDivisibleBy60([30, 20, 150, 100, 40])); // 3
 
 console.log(numPairsDivisibleBy60([60, 60, 60])); // 3
 

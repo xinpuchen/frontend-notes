@@ -52,10 +52,8 @@ var lengthOfLongestSubstring = function(s) {
 function getUniqueString(s) {
   let uniqueString = new Map();
   for (let i = 0; i < s.length; i++) {
-    if(!uniqueString.get(s[i]))
-      uniqueString.set(s[i], i);
-    else
-      break;
+    if (!uniqueString.get(s[i])) uniqueString.set(s[i], i);
+    else break;
   }
   return uniqueString.size;
 }

@@ -2,11 +2,11 @@
 // 输入一个链表，从尾到头打印链表每个节点的值。
 
 // 链表 IN js
-function ListNode(x, n = undefined){
-    return {
-      val: x,
-      next: n
-    };
+function ListNode(x, n = undefined) {
+  return {
+    val: x,
+    next: n,
+  };
 }
 
 function printListFromTailToHead(head) {

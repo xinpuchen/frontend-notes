@@ -28,7 +28,9 @@ var twoSum = function(nums, target) {
   for (const key in nums) {
     if (nums.hasOwnProperty(key)) {
       const element = target - nums[key];
-      const seckey = nums.findIndex((e, i) => e === element && i !== Number(key));
+      const seckey = nums.findIndex(
+        (e, i) => e === element && i !== Number(key),
+      );
       if (seckey !== -1) {
         return [Number(key), Number(seckey)];
       }
@@ -37,4 +39,3 @@ var twoSum = function(nums, target) {
 };
 
 console.log(twoSum([3, 2, 4], 6));
-

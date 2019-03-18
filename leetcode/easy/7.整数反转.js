@@ -43,23 +43,25 @@
  */
 var reverse = function(x) {
   let str = Number(isOver(x)).toString(10);
-  if (str === '0')
-    return 0;
+  if (str === '0') return 0;
   let flag = 0;
   if (str[0] === '-') {
     flag = 1;
     str = str.substring(1);
   }
-  const num = Number(str.split('').reverse().join(''));
+  const num = Number(
+    str
+      .split('')
+      .reverse()
+      .join(''),
+  );
   return isOver(flag === 1 ? -num : num);
 
   function isOver(x) {
-    if (Math.pow(2, 31) > x && x >= Math.pow(-2, 31))
-      return x;
+    if (Math.pow(2, 31) > x && x >= Math.pow(-2, 31)) return x;
     return 0;
   }
 };
 
 console.log(reverse(-123)); // -321
 console.log(reverse(1534236469)); // 0
-

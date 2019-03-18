@@ -7,11 +7,7 @@
 const { find } = require('../playground/Interview-oriented');
 const test = {
   tagrget: 9,
-  arr: [
-    [1, 2, 3, 4, 5, 6, 7],
-    [2, 3, 4, 5, 6, 7, 8],
-    [3, 4, 5, 6, 7, 8, 9],
-  ]
+  arr: [[1, 2, 3, 4, 5, 6, 7], [2, 3, 4, 5, 6, 7, 8], [3, 4, 5, 6, 7, 8, 9]],
 };
 
-console.log(find(test.tagrget, test.arr)? '找到啦！' : '没有找到！');
+console.log(find(test.tagrget, test.arr) ? '找到啦！' : '没有找到！');

@@ -32,25 +32,22 @@
  * @return {string}
  */
 var longestPalindrome = function(s) {
-    for (let i = s.length; i > 0; i--) {
-      for (let j = 0; i + j <= s.length; j++) {
-        const str = s.substring(j, i + j);
-        // console.log(str, i ,j)
-        if (verifyPalindrome(str))
-          return str;
-      }
+  for (let i = s.length; i > 0; i--) {
+    for (let j = 0; i + j <= s.length; j++) {
+      const str = s.substring(j, i + j);
+      // console.log(str, i ,j)
+      if (verifyPalindrome(str)) return str;
     }
-    return '';
+  }
+  return '';
 };
 
-function verifyPalindrome (s) {
+function verifyPalindrome(s) {
   // return s === s.split('').reverse().join('');
   for (let i = 0; i < s.length / 2; i++) {
-    if(s[i] !== s[s.length - i - 1])
-      return false;
+    if (s[i] !== s[s.length - i - 1]) return false;
   }
   return true;
 }
 
 // console.log(longestPalindrome('civilwartestingwhetherthatnaptionoranynartionsoconceivedandsodedicatedcanlongendureWeareqmetonagreatbattlefiemldoftzhatwarWehavecometodedicpateaportionofthatfieldasafinalrestingplaceforthosewhoheregavetheirlivesthatthatnationmightliveItisaltogetherfangandproperthatweshoulddothisButinalargersensewecannotdedicatewecannotconsecratewecannothallowthisgroundThebravelmenlivinganddeadwhostruggledherehaveconsecrateditfaraboveourpoorponwertoaddordetractTgheworldadswfilllittlenotlenorlongrememberwhatwesayherebutitcanneverforgetwhattheydidhereItisforusthelivingrathertobededicatedheretotheulnfinishedworkwhichtheywhofoughtherehavethusfarsonoblyadvancedItisratherforustobeherededicatedtothegreattdafskremainingbeforeusthatfromthesehonoreddeadwetakeincreaseddevotiontothatcauseforwhichtheygavethelastpfullmeasureofdevotionthatweherehighlyresolvethatthesedeadshallnothavediedinvainthatthisnationunsderGodshallhaveanewbirthoffreedomandthatgovernmentofthepeoplebythepeopleforthepeopleshallnotperishfromtheearth'))
-

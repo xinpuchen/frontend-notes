@@ -71,15 +71,16 @@
  * @return {number}
  */
 var myAtoi = function(str) {
-    const arr = str.match(/\S\d*/gim);
-    if (arr && /^[\d+-]/.test(arr[0])) {
-      const num = Number(arr[0]);
-      return num < Math.pow(-2, 31) ? Math.pow(-2, 31) // 'INT_MIN (−2^31)'
-                : num > Math.pow(2, 31) - 1 ? Math.pow(2, 31) - 1 // 'INT_MAX (2^31 − 1)'
-                : num || 0;
-    }
-    return 0;
+  const arr = str.match(/\S\d*/gim);
+  if (arr && /^[\d+-]/.test(arr[0])) {
+    const num = Number(arr[0]);
+    return num < Math.pow(-2, 31)
+      ? Math.pow(-2, 31) // 'INT_MIN (−2^31)'
+      : num > Math.pow(2, 31) - 1
+      ? Math.pow(2, 31) - 1 // 'INT_MAX (2^31 − 1)'
+      : num || 0;
+  }
+  return 0;
 };
-
 
 // console.log(myAtoi("-91283472332"));

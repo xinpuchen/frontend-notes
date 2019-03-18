@@ -33,6 +33,5 @@
  * @return {boolean}
  */
 var isPowerOfFour = function(num) {
-  return /^10*$/ig.test(Number(num).toString(4));
+  return /^10*$/gi.test(Number(num).toString(4));
 };
-

@@ -7,7 +7,7 @@
 
 const { replaceSpace } = require('../playground/Interview-oriented');
 const test = {
-  str: 'We Are Happy'
+  str: 'We Are Happy',
 };
 
 // 空格替换

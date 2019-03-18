@@ -6,5 +6,5 @@
 var bitwiseComplement = function(N) {
   let arr = N.toString(2).split('');
   arr = arr.map(e => Math.abs(Number(e) - 1));
-  return parseInt(arr.join('') , 2);
+  return parseInt(arr.join(''), 2);
 };

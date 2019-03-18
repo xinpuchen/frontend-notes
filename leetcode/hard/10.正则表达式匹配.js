@@ -76,43 +76,37 @@
  * @return {boolean}
  */
 var isMatch = function(s, p) {
-    // return RegExp(`^${p}$`).test(s);
-    // console.log(s, p)
-    let strIndex = 0;
-    for (let i = 0; i < p.length; ) {
-      if (p[i] === '*' && i > 0) {
-        for (let j = strIndex; j <= s.length; ) {
-          // console.log(p[i - 1], s[j], matchChar(p[i - 1], s[j]))
-          const matchFlag = isMatch(s.substring(j), p.substring(i + 1));
-          if (matchChar(p[i - 1], s[j]))
-            j++;
-          else if (!matchFlag)
-            return false;
-          // console.log(j, i)
-          if (matchFlag || j === s.length && i + 1 === p.length)
-            return true;
-        }
-        return false;
-      } else {
-        if (i + 1 < p.length && p[i + 1] === '*') {
-          i++;
-          continue;
-        }
-        // console.log(s, s[strIndex], p, i)
-        if (!matchChar(p[i], s[strIndex]))
-          return false;
-        i++;
-        strIndex++;
+  // return RegExp(`^${p}$`).test(s);
+  // console.log(s, p)
+  let strIndex = 0;
+  for (let i = 0; i < p.length; ) {
+    if (p[i] === '*' && i > 0) {
+      for (let j = strIndex; j <= s.length; ) {
+        // console.log(p[i - 1], s[j], matchChar(p[i - 1], s[j]))
+        const matchFlag = isMatch(s.substring(j), p.substring(i + 1));
+        if (matchChar(p[i - 1], s[j])) j++;
+        else if (!matchFlag) return false;
+        // console.log(j, i)
+        if (matchFlag || (j === s.length && i + 1 === p.length)) return true;
       }
+      return false;
+    } else {
+      if (i + 1 < p.length && p[i + 1] === '*') {
+        i++;
+        continue;
+      }
+      // console.log(s, s[strIndex], p, i)
+      if (!matchChar(p[i], s[strIndex])) return false;
+      i++;
+      strIndex++;
     }
-    if (strIndex === s.length)
-      return true;
-    return false;
+  }
+  if (strIndex === s.length) return true;
+  return false;
 };
 
 function matchChar(c, s) {
-  if(c === s || c === '.')
-    return true;
+  if (c === s || c === '.') return true;
   return false;
 }
 
@@ -131,4 +125,3 @@ function matchChar(c, s) {
 // console.log(isMatch('ab', '.*c'));
 
 // console.log(isMatch('a', 'ab*'));
-

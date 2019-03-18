@@ -50,14 +50,14 @@
  * @return {string}
  */
 var convert = function(s, numRows) {
-    const arr = getZArray(numRows);
-    // console.log(arr);
-    const array = new Array(numRows).fill('');
-    for (let i = 0; i < s.length; i++) {
-      array[arr[i % arr.length]] += s[i];
-    }
-    // console.log(array);
-    return array.join('');
+  const arr = getZArray(numRows);
+  // console.log(arr);
+  const array = new Array(numRows).fill('');
+  for (let i = 0; i < s.length; i++) {
+    array[arr[i % arr.length]] += s[i];
+  }
+  // console.log(array);
+  return array.join('');
 };
 
 function getZArray(n) {
@@ -68,4 +68,3 @@ function getZArray(n) {
   }
   return len ? arr : [0];
 }
-

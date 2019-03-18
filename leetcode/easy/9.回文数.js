@@ -43,9 +43,8 @@
  * @return {boolean}
  */
 var isPalindrome = function(x) {
-    if (x < 0)
-      return false;
-    return verifyPalindrome(getNumArr(x));
+  if (x < 0) return false;
+  return verifyPalindrome(getNumArr(x));
 };
 
 function getNumArr(x) {
@@ -59,13 +58,11 @@ function getNumArr(x) {
   return arr;
 }
 
-function verifyPalindrome (arr) {
+function verifyPalindrome(arr) {
   for (let i = 0; i < arr.length / 2; i++) {
-    if(arr[i] !== arr[arr.length - i - 1])
-      return false;
+    if (arr[i] !== arr[arr.length - i - 1]) return false;
   }
   return true;
 }
 
 // console.log(isPalindrome(121));
-

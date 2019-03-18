@@ -43,6 +43,5 @@
  * @return {boolean}
  */
 var isPowerOfThree = function(n) {
-  return /^10*$/ig.test(Number(n).toString(3));
+  return /^10*$/gi.test(Number(n).toString(3));
 };
-
