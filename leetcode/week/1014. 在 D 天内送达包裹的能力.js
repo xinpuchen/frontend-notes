@@ -56,7 +56,7 @@
 //     .concat([array[index] + array[index + 1]], array.slice(index + 2));
 // }
 
-var shipWithinDays = function(weights, D) {
+var shipWithinDays1 = function(weights, D) {
   let len = weights.length;
   let weight = Math.max(...weights);
   let i = 0;
@@ -77,18 +77,47 @@ var shipWithinDays = function(weights, D) {
   return weight;
 };
 
-console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10)); // 10
+const shipWithinDays2 = (weights, D) => {
+  const len = weights.length;
+  let minresult = Math.max(...weights);
+  let day = 1;
+  let i = 1;
+  let [startNum] = weights;
+  while (i < len) {
+    if (startNum + weights[i] <= minresult) {
+      startNum += weights[i];
+      i++;
+    } else {
+      if (day == D && i < len) {
+        // 货没送完，时间到了
+        day = 1;
+        i = 0;
+        minresult++;
+        startNum = 0;
+      } else if (day <= D && i > len) {
+        // 货刚好或提前送完了
+        break;
+      } else {
+        day++;
+        startNum = 0;
+      }
+    }
+  }
+  return minresult;
+};
 
-console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)); // 15
+console.log(shipWithinDays1([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 10)); // 10
 
-console.log(shipWithinDays([1, 2, 3, 1, 1], 2)); // 5
+console.log(shipWithinDays1([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5)); // 15
 
-console.log(shipWithinDays([1, 2, 3, 1, 1], 4)); // 3
+console.log(shipWithinDays1([1, 2, 3, 1, 1], 2)); // 5
 
-console.log(shipWithinDays([3, 2, 2, 4, 1, 4], 3)); // 6
+console.log(shipWithinDays1([1, 2, 3, 1, 1], 4)); // 3
+
+console.log(shipWithinDays1([3, 2, 2, 4, 1, 4], 3)); // 6
 
 console.log(
-  shipWithinDays(
+  shipWithinDays1(
     [
       147,
       73,
@@ -116,7 +145,7 @@ console.log(
 ); // 602
 
 console.log(
-  shipWithinDays(
+  shipWithinDays1(
     [
       180,
       373,
