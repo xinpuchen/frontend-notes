@@ -58,9 +58,9 @@ function getNumArr(x) {
   return arr;
 }
 
-function verifyPalindrome(arr) {
-  for (let i = 0; i < arr.length / 2; i++) {
-    if (arr[i] !== arr[arr.length - i - 1]) return false;
+function verifyPalindrome(e) {
+  for (let i = 0; i < e.length / 2; i++) {
+    if (e[i] !== e[e.length - i - 1]) return false;
   }
   return true;
 }
