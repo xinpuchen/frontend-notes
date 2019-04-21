@@ -109,6 +109,7 @@ function numDupDigitsAtMostN(N) {
   let res = 0;
   let n = L.length;
   for (let i = 1; i < n; ++i) {
+    console.log(i)
     res += 9 * A(9, i - 1);
   }
 
@@ -129,16 +130,16 @@ function A(m, n) {
   return n == 0 ? 1 : A(m, n - 1) * (m - n + 1);
 }
 
-console.log(numDupDigitsAtMostN(20)); // 1
+// console.log(numDupDigitsAtMostN(20)); // 1
 
 console.log(numDupDigitsAtMostN(100)); // 10
 
-console.log(numDupDigitsAtMostN(738935)); // 609230
+// console.log(numDupDigitsAtMostN(738935)); // 609230
 
-console.log(numDupDigitsAtMostN(6718458)); // 6205653
+// console.log(numDupDigitsAtMostN(6718458)); // 6205653
 
-console.log(numDupDigitsAtMostN(29947500)); // 28871730
+// console.log(numDupDigitsAtMostN(29947500)); // 28871730
 
-console.log(numDupDigitsAtMostN(31034990)); // 29938700
+// console.log(numDupDigitsAtMostN(31034990)); // 29938700
 
-console.log(numDupDigitsAtMostN(44753017)); // 43415167
+// console.log(numDupDigitsAtMostN(44753017)); // 43415167
