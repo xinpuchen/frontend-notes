@@ -100,36 +100,6 @@ var solveSudoku = function(board) {
         i = 0;
         continue outer;
       }
-      // // 一行只差一个数字
-      // if (row[i].filter(e => !e).length === 1) {
-      //   const o = stack.splice(
-      //       stack.findIndex(settleValueRow(row[i].indexOf(false))),
-      //       1,
-      //     )[0] || {i, j, v: row[i].indexOf(false)};
-      //   setSudoku(board, row, column, cell, stack, o);
-      //   i = 0;
-      //   continue outer;
-      // }
-      // // 一列只差一个数字
-      // if (column[j].filter(e => !e).length === 1) {
-      //   const o = stack.splice(
-      //       stack.findIndex(settleValueColumn(column[j].indexOf(false))),
-      //       1,
-      //     )[0] || {i, j, v: column[j].indexOf(false)};
-      //   setSudoku(board, row, column, cell, stack, o);
-      //   i = 0;
-      //   continue outer;
-      // }
-      // // 一个九宫格只差一个数字
-      // if (cell[getCellNum(i, j)].filter(e => !e).length === 1) {
-      //   const o = stack.splice(
-      //       stack.findIndex(settleValueCell(cell[getCellNum(i, j)].indexOf(false))),
-      //       1,
-      //     )[0] || {i, j, v: cell[getCellNum(i, j)].indexOf(false)};
-      //   setSudoku(board, row, column, cell, stack, o);
-      //   i = 0;
-      //   continue outer;
-      // }
       for (let k = 0; k < 9; k++) {
         // 单行内有确定值
         if (!row[i][k] && stack.filter(settleValueRow(k)).length === 1) {
@@ -168,6 +138,11 @@ var solveSudoku = function(board) {
     //   continue outer;
     // }
   }
+  for (let index = 0; index < stack.length; index++) {
+    board[stack[index].i][stack[index].j] += String(+stack[index].v + 1);
+  }
+  this.print(board);
+  debugger
 };
 
 function setSudoku(board, row, column, cell, stack, {i, j, v}) {
