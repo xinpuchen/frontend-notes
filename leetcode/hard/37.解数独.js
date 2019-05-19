@@ -47,145 +47,57 @@
  * @return {void} Do not return anything, modify board in-place instead.
  */
 var solveSudoku = function(board) {
-  const row = new Array(9).fill().map(() => new Array(9).fill(false));
-  const column = new Array(9).fill().map(() => new Array(9).fill(false));
-  const cell = new Array(9).fill().map(() => new Array(9).fill(false));
+  // 记录某行，某位数字是否已经被摆放
+  const row = new Array(9).fill().map(() => new Array(10).fill(false));
+  // 记录某列，某位数字是否已经被摆放
+  const col = new Array(9).fill().map(() => new Array(10).fill(false));
+  // 记录某 3x3 宫格内，某位数字是否已经被摆放
+  const block = new Array(9).fill().map(() => new Array(10).fill(false));
 
   for (let i = 0; i < 9; i++) {
     for (let j = 0; j < 9; j++) {
       if (!isNaN(board[i][j])) {
-        const temp = + board[i][j] - 1;
-        const n = getCellNum(i, j);
-        row[i][temp] = column[j][temp] = cell[n][temp] = true;
+        const num = Number(board[i][j]);
+        row[i][num] = true;
+        col[j][num] = true;
+        block[getCellNum(i, j)][num] = true;
       }
     }
   }
-
-  let stack = [];
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      const n = getCellNum(i, j);
-      if (isNaN(board[i][j])) {
-        for (let k = 0; k < 9; k++) {
-          if (!(row[i][k] || column[j][k] || cell[n][k])) {
-            stack.push({i, j, v: k});
-          }
-        }
-      };
-    }
-  }
-  outer:
-  for (let i = 0; i < 9; i++) {
-    for (let j = 0; j < 9; j++) {
-      const n = getCellNum(i, j);
-      const settleValue = k => e => e.i === i && e.j === j && (k === -1 || k === e.v);
-      const settleValueRow = k => e => e.i === i && e.v === k;
-      const settleValueColumn = k => e => e.j === j && e.v === k;
-      const settleValueCell = k => e => 
-      getCellNum(e.i, e.j) === n && e.v === k;
-      // if (isNaN(board[i][j])) {
-      //   for (let k = 0; k < 9; k++) {
-      //     if (!(row[i][k] || column[j][k] || cell[n][k]) && stack.findIndex(settleValue(k)) === -1) {
-      //       stack.push({i, j, v: k});
-      //     }
-      //   }
-      // };
-      // 有唯一确定值
-      if (stack.filter(settleValue(-1)).length === 1) {
-        const o = stack.splice(
-            stack.findIndex(settleValue(-1)),
-            1,
-          )[0];
-        setSudoku(board, row, column, cell, stack, o);
-        i = 0;
-        continue outer;
-      }
-      // // 一行只差一个数字
-      // if (row[i].filter(e => !e).length === 1) {
-      //   const o = stack.splice(
-      //       stack.findIndex(settleValueRow(row[i].indexOf(false))),
-      //       1,
-      //     )[0] || {i, j, v: row[i].indexOf(false)};
-      //   setSudoku(board, row, column, cell, stack, o);
-      //   i = 0;
-      //   continue outer;
-      // }
-      // // 一列只差一个数字
-      // if (column[j].filter(e => !e).length === 1) {
-      //   const o = stack.splice(
-      //       stack.findIndex(settleValueColumn(column[j].indexOf(false))),
-      //       1,
-      //     )[0] || {i, j, v: column[j].indexOf(false)};
-      //   setSudoku(board, row, column, cell, stack, o);
-      //   i = 0;
-      //   continue outer;
-      // }
-      // // 一个九宫格只差一个数字
-      // if (cell[getCellNum(i, j)].filter(e => !e).length === 1) {
-      //   const o = stack.splice(
-      //       stack.findIndex(settleValueCell(cell[getCellNum(i, j)].indexOf(false))),
-      //       1,
-      //     )[0] || {i, j, v: cell[getCellNum(i, j)].indexOf(false)};
-      //   setSudoku(board, row, column, cell, stack, o);
-      //   i = 0;
-      //   continue outer;
-      // }
-      for (let k = 0; k < 9; k++) {
-        // 单行内有确定值
-        if (!row[i][k] && stack.filter(settleValueRow(k)).length === 1) {
-          const o = stack.splice(
-              stack.findIndex(settleValueRow(k)),
-              1,
-            )[0];
-          setSudoku(board, row, column, cell, stack, o);
-          i = 0;
-          continue outer;
-        }
-        // 单列内有确定值
-        if (!column[j][k] && stack.filter(settleValueColumn(k)).length === 1) {
-          const o = stack.splice(
-              stack.findIndex(settleValueColumn(k)),
-              1,
-            )[0];
-          setSudoku(board, row, column, cell, stack, o);
-          i = 0;
-          continue outer;
-        }
-        // 九宫格内有确定值
-        if (!cell[n][k] && stack.filter(settleValueCell(k)).length === 1) {
-          const o = stack.splice(
-              stack.findIndex(settleValueCell(k)),
-              1,
-            )[0];
-          setSudoku(board, row, column, cell, stack, o);
-          i = 0;
-          continue outer;
-        }
-      }
-    }
-    // if (i >= 8 && stack.length !== 0) {
-    //   i = 0;
-    //   continue outer;
-    // }
-  }
+  dfs(board, row, col, block, 0, 0);
 };
 
-function setSudoku(board, row, column, cell, stack, {i, j, v}) {
-  while(true) {
-    const index = stack.findIndex(e => i === e.i && j === e.j
-      || v === e.v
-        && (i === e.i || j === e.j
-          || getCellNum(i, j) === getCellNum(e.i, e.j))
-    );
-    if (index === -1)
-      break;
-    stack.splice(index, 1);
-  }
-  // console.log(i, j, v)
-  if (isNaN(board[i][j])) {
-    board[i][j] = String(+v + 1);
-    row[i][v] = column[j][v] = cell[getCellNum(i, j)][v] = true;
-  }
+function dfs(board, row, col, block, i, j) {
+    // 找寻空位置
+    while (!isNaN(board[i][j])) {
+        if (++j >= 9) {
+            i++;
+            j = 0;
+        }
+        if (i >= 9) {
+            return true;
+        }
+    }
+    for (let num = 1; num <= 9; num++) {
+        let blockIndex = getCellNum(i, j);
+        if (!row[i][num] && !col[j][num] && !block[blockIndex][num]) {
+            // 递归
+            board[i][j] = String(num);
+            row[i][num] = true;
+            col[j][num] = true;
+            block[blockIndex][num] = true;
+            if (dfs(board, row, col, block, i, j)) {
+                return true;
+            } else {
+                // 回溯
+                row[i][num] = false;
+                col[j][num] = false;
+                block[blockIndex][num] = false;
+                board[i][j] = '.';
+            }
+        }
+    }
+    return false;
 }
 
 function getCellNum(i, j) {

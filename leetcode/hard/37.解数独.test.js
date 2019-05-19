@@ -1,4 +1,4 @@
-const solveSudoku = require('./38.解数独');
+const solveSudoku = require('./37.解数独');
 
 class Sudoku {
   constructor(board) {
@@ -6,8 +6,7 @@ class Sudoku {
   }
 
   print(board = this.board) {
-    console.log(board.map(e => `[${e.map(ee => ee.padStart(10, ' ')).join(', ')}]`).join('\n'), '\n');
-    // console.log(board.map(e => `[${e.join(', ')}]`).join('\n'), '\n');
+    console.log(board.map(e => `[${e.join(', ')}]`).join('\n'), '\n');
   }
 
   solve() {
