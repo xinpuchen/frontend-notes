@@ -68,36 +68,36 @@ var solveSudoku = function(board) {
 };
 
 function dfs(board, row, col, block, i, j) {
-    // 找寻空位置
-    while (!isNaN(board[i][j])) {
-        if (++j >= 9) {
-            i++;
-            j = 0;
-        }
-        if (i >= 9) {
-            return true;
-        }
+  // 找寻空位置
+  while (!isNaN(board[i][j])) {
+    if (++j >= 9) {
+      i++;
+      j = 0;
     }
-    for (let num = 1; num <= 9; num++) {
-        let blockIndex = getCellNum(i, j);
-        if (!row[i][num] && !col[j][num] && !block[blockIndex][num]) {
-            // 递归
-            board[i][j] = String(num);
-            row[i][num] = true;
-            col[j][num] = true;
-            block[blockIndex][num] = true;
-            if (dfs(board, row, col, block, i, j)) {
-                return true;
-            } else {
-                // 回溯
-                row[i][num] = false;
-                col[j][num] = false;
-                block[blockIndex][num] = false;
-                board[i][j] = '.';
-            }
-        }
+    if (i >= 9) {
+      return true;
     }
-    return false;
+  }
+  for (let num = 1; num <= 9; num++) {
+    let blockIndex = getCellNum(i, j);
+    if (!row[i][num] && !col[j][num] && !block[blockIndex][num]) {
+      // 递归
+      board[i][j] = String(num);
+      row[i][num] = true;
+      col[j][num] = true;
+      block[blockIndex][num] = true;
+      if (dfs(board, row, col, block, i, j)) {
+        return true;
+      } else {
+        // 回溯
+        row[i][num] = false;
+        col[j][num] = false;
+        block[blockIndex][num] = false;
+        board[i][j] = '.';
+      }
+    }
+  }
+  return false;
 }
 
 function getCellNum(i, j) {
