@@ -81,11 +81,12 @@ function isDecimal(s) {
 }
 
 function isIndices(s) {
-  const a = s.split('e');
+  const index = (s[0] === '+' || s[0] === '-') ? 1 : 0;
+  const a = s.slice(index).split('e');
   if (a.length === 2
     && a[0] && a[1]
-    && (isDecimal(a[0]) || isInteger(a[0])
-    && isInteger(a[1], 'hasNumber')))
+    && (isDecimal(a[0], 'noSign') || isInteger(a[0], 'noSign'))
+    && isInteger(a[1], 'hasNumber'))
       return true;
   return false;
 }
