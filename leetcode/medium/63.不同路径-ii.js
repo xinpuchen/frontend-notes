@@ -73,7 +73,6 @@ function countPathInGrid(grid, x, y, OBJECT) {
     s++;
   }
   OBJECT[`${x}-${y}`] = s;
-  if (s > 10) debugger
   return s;
 }
 
