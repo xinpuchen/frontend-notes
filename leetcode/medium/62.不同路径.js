@@ -54,37 +54,46 @@ var uniquePaths = function(m, n) {
   if (m === 2 || n === 2) {
     return Math.max(m, n);
   }
-  return accumulation(m, n - 3);
+  return m >= n ? accumulation(m, n - 3) : accumulation(n, m - 3);
 };
 
 function accumulation(n, x) {
-  let s = 0;
-  while (n > 0) {
-    s += x > 0 ? accumulation(n, x - 1) : n;
-    n--;
+  let s = OBJECT[`${n}-${x}`] || 0;
+  if (s !== 0) {
+    return s;
   }
+  if (x === 0) {
+    s = (n + 1) * n / 2;
+  } else {
+    let m = n;
+    while (m > 0) {
+      s += accumulation(m, x - 1);
+      m--;
+    }
+  }
+  OBJECT[`${n}-${x}`] = s;
   return s;
 }
+var OBJECT = {};
 
-console.log(uniquePaths(2, 1)); // 1 1
-console.log(uniquePaths(2, 2)); // 2
-console.log(uniquePaths(2, 3)); // 3
-console.log(uniquePaths(3, 1)); // 1 1
-console.log(uniquePaths(3, 2)); // 3 2+1
-console.log(uniquePaths(3, 3)); // 6 3+2+1
-console.log(uniquePaths(3, 4)); // 10 4+3+2+1
-console.log(uniquePaths(3, 5)); // 15 5+4+3+2+1
-console.log(uniquePaths(3, 6)); // 21 6+5+4+3+2+1
-console.log(uniquePaths(3, 7)); // 28 7+6+5+4+3+2+1
-console.log(uniquePaths(4, 1)); // 1 1
-console.log(uniquePaths(4, 2)); // 4 2+1 1
-console.log(uniquePaths(4, 3)); // 10 3+2+1 2+1 1
-console.log(uniquePaths(4, 4)); // 20 4+3+2+1 3+2+1 2+1 1
-console.log(uniquePaths(4, 5)); // 35 5+4+3+2+1 4+3+2+1 3+2+1 2+1 1
-console.log(uniquePaths(5, 1)); // 1
-console.log(uniquePaths(5, 2)); // 5 4
-console.log(uniquePaths(5, 3)); // 15 10
-console.log(uniquePaths(5, 4)); // 35 20
-console.log(uniquePaths(5, 5)); // 70 35
-console.log(uniquePaths(38, 10)); // 1101716330 Time Limit Exceeded
-
+// console.log(uniquePaths(2, 1)); // 1 1
+// console.log(uniquePaths(2, 2)); // 2
+// console.log(uniquePaths(2, 3)); // 3
+// console.log(uniquePaths(3, 1)); // 1 1
+// console.log(uniquePaths(3, 2)); // 3 2+1
+// console.log(uniquePaths(3, 3)); // 6 3+2+1
+// console.log(uniquePaths(3, 4)); // 10 4+3+2+1
+// console.log(uniquePaths(3, 5)); // 15 5+4+3+2+1
+// console.log(uniquePaths(3, 6)); // 21 6+5+4+3+2+1
+// console.log(uniquePaths(3, 7)); // 28 7+6+5+4+3+2+1
+// console.log(uniquePaths(4, 1)); // 1 1
+// console.log(uniquePaths(4, 2)); // 4 2+1 1
+// console.log(uniquePaths(4, 3)); // 10 3+2+1 2+1 1
+// console.log(uniquePaths(4, 4)); // 20 4+3+2+1 3+2+1 2+1 1
+// console.log(uniquePaths(4, 5)); // 35 5+4+3+2+1 4+3+2+1 3+2+1 2+1 1
+// console.log(uniquePaths(5, 1)); // 1
+// console.log(uniquePaths(5, 2)); // 5 4
+// console.log(uniquePaths(5, 3)); // 15 10
+// console.log(uniquePaths(5, 4)); // 35 20
+// console.log(uniquePaths(5, 5)); // 70 35
+// console.log(uniquePaths(38, 10)); // 1101716330 Time Limit Exceeded
