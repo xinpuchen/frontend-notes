@@ -1,134 +1,184 @@
 # 生命周期详解
 
-## 实例化 (mount)
+React16 废弃的三个生命周期函数
 
-首次实例化
+- componentWillMount
+- componentWillReceiveProps
+- componentWillUpdate
 
-- getDefaultProps
-- getInitialState
-- componentWillMount()
-- render()
-- componentDidMount()
+> 注：目前在 16 版本中 componentWillMount，componentWillReceiveProps，componentWillUpdate 并未完全删除这三个生命周期函数，而且新增了 UNSAFE*componentWillMount，UNSAFE_componentWillReceiveProps，UNSAFE_componentWillUpdate 三个函数，官方计划在 17 版本完全删除这三个函数，只保留 UNSAVE*前缀的三个函数，目的是为了向下兼容，但是对于开发者而言应该尽量避免使用他们，而是使用新增的生命周期函数替代它们
 
-## 存在期 (update)
+取而代之的是两个新的生命周期函数
 
-组件已存在时的状态改变
+- static getDerivedStateFromProps(nextProps, prevState)
+- getSnapshotBeforeUpdate(prevProps, prevState)
 
-- componentWillReceiveProps(nextProps)
-- shouldComponentUpdate(nextProps, nextState)
-- componentWillUpdate()
-- render()
-- componentDidUpdate()
+## 挂载阶段
 
-## 销毁&清理期 (unmount)
+挂载阶段，也可以理解为组件的初始化阶段，就是将我们的组件插入到 DOM 中，只会发生一次
+这个阶段的生命周期函数调用如下：
 
-- componentWillUnmount()
+- constructor
+- static getDerivedStateFromProps(nextProps, prevState)
+- ~~componentWillMount/UNSAVE_componentWillMount~~
+- render
+- componentDidMount
 
-## 生命周期 API。
+**constructor**
 
-**1.getDefaultProps**：作用于组件类，只调用一次，返回对象用于设置默认的 props，对于引用值，会在实例中共享。
+组件构造函数，第一个被执行，如果没有显示定义它，我们会拥有一个默认的构造函数，如果显示定义了构造函数，我们必须在构造函数第一行执行 super(props)，否则我们无法在构造函数里拿到 this 对象。
 
-**2.getInitialState**：作用于组件的实例，在实例创建时调用一次，用于初始化每个实例的 state，此时可以访问 this.props。
+在构造函数里面我们一般会做两件事：
 
-**3.componentWillMount()**：在完成首次渲染之前调用，此时仍可以修改组件的 state。
+- 初始化 state 对象
+- 给自定义方法绑定 this
 
-**4.render()**：必选的方法，创建虚拟 DOM，该方法具有特殊的规则：
-
-- 只能通过 this.props 和 this.state 访问数据
-- 可以返回 null、false 或任何 React 组件
-- 只能出现一个顶级组件（不能返回数组）
-- 不能改变组件的状态
-- 不能修改 DOM 的输出
-
-**5.componentDidMount()**：真实的 DOM 被渲染出来后调用，在该方法中可通过 this.getDOMNode()访问到真实的 DOM 元素。此时已可以使用其他类库来操作这个 DOM。
-
-在服务端中，该方法不会被调用（服务端渲染返回字符串，不需要操作 DOM）
-
-**6.componentWillReceiveProps(nextProps)**：组件接收到新的 props 时调用，并将其作为参数 nextProps 使用，此时可以更改组件 props 及 state。
-
-```js
-componentWillReceiveProps: function(nextProps) {
-    if (nextProps.bool) {
-        this.setState({
-            bool: true
-        });
-    }
+```jsx
+constructor(props) {
+  super(props)
+  this.state = {
+    select,
+    height: 'atuo',
+    externalClass,
+    externalClassText
+  }
+  this.handleChange1 = this.handleChange1.bind(this)
+  this.handleChange2 = this.handleChange2.bind(this)
 }
 ```
 
-**7.shouldComponentUpdate(nextProps, nextState)**：组件是否应当渲染新的 props 或 state，返回 false 表示跳过后续的生命周期方法，通常不需要使用以避免出现 bug。
+> 禁止在构造函数中调用 setState，可以直接给 state 设置初始值
 
-在出现应用的瓶颈时，可通过该方法进行适当的优化。
+**getDerivedStateFromProps**
 
-在首次渲染期间或者调用了 forceUpdate 方法后，该方法不会被调用
+> static getDerivedStateFromProps(nextProps, prevState)
 
-**8.componentWillUpdate()**：接收到新的 props 或者 state 后，进行渲染之前调用，此时不允许更新 props 或 state。
+一个静态方法，所以不能在这个函数里面使用 this，这个函数有两个参数 props 和 state，分别指接收到的新参数和当前的 state 对象，这个函数会返回一个对象用来更新当前的 state 对象，如果不需要更新可以返回 null
 
-**9.componentDidUpdate()**：完成渲染新的 props 或者 state 后调用，此时可以访问到新的 DOM 元素。
+这个方法就是为了取代之前的~~componentWillMount~~、~~componentWillReceiveProps~~和~~componentWillUpdate~~
 
-**10.componentWillUnmount()**：组件被移除之前被调用，可以用于做一些清理工作，在 componentDidMount 方法中添加的所有任务都需要在该方法中撤销，比如创建的定时器或添加的事件监听器。
+当接收到新的属性想去修改 state，可以使用 getDerivedStateFromProps
 
-## React Version 16.3 新生命周期
-
-### 去除
-
-**componentWillMount()**
-
-**componentWillReceiveProps(nextProps)**
-
-**componentWillUpdate()**
-
-![img](https://user-gold-cdn.xitu.io/2018/4/30/163159734534eaa8?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-### 新增
-
-**static getDerivedStateFromProps(nextProps, prevState)**
-
-**getSnapshotBeforeUpdate(prevProps, prevState)**
-
-![img](https://user-gold-cdn.xitu.io/2018/4/30/16315978796bdf77?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-
-### Version 16 生命周期函数用法建议
-
-```js
+```jsx
 class ExampleComponent extends React.Component {
-  // 用于初始化 state
-  constructor() {}
-
-  // 用于替换 `componentWillReceiveProps` ，该函数会在初始化和 `update` 时被调用
-  // 因为该函数是静态函数，所以取不到 `this`
-  // 如果需要对比 `prevProps` 需要单独在 `state` 中维护
-  static getDerivedStateFromProps(nextProps, prevState) {}
-
-  // 判断是否需要更新组件，多用于组件性能优化
-  shouldComponentUpdate(nextProps, nextState) {}
-
-  // 组件挂载后调用
-  // 可以在该函数中进行请求或者订阅
-  componentDidMount() {}
-
-  // 用于获得最新的 DOM 数据
-  getSnapshotBeforeUpdate(prevProps, prevState) {}
-
-  // 组件即将销毁
-  // 可以在此处移除订阅，定时器等等
-  componentWillUnmount() {}
-
-  // 组件销毁后调用
-  componentDidUnMount() {}
-
-  // 组件更新后调用
-  componentDidUpdate() {}
-
-  // 渲染组件函数
-  render() {}
-
-  // 以下函数不建议使用
-  UNSAFE_componentWillMount() {}
-  UNSAFE_componentWillUpdate(nextProps, nextState) {}
-  UNSAFE_componentWillReceiveProps(nextProps) {}
+  state = {
+    isScrollingDown: false,
+    lastRow: null,
+  };
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.currentRow !== prevState.lastRow) {
+      return {
+        isScrollingDown: nextProps.currentRow > prevState.lastRow,
+        lastRow: nextProps.currentRow,
+      };
+    }
+    return null;
+  }
 }
 ```
 
-[信息来源 1](https://juejin.im/post/5ae6cd96f265da0b9c106931)
-[信息来源 2](https://juejin.im/post/5aca20c96fb9a028d700e1ce)
+**~~componentWillMount/UNSAFE_componentWillMount~~**
+
+在 16 版本这两个方法并存，但是在 17 版本中~~componentWillMount~~被删除，只保留~~UNSAFE_componentWillMount~~，目的是为了做向下兼容，对于新的应用，用 getDerivedStateFromProps 代替它们。
+
+由于~~componentWillMount/ UNSAFE_componentWillMount~~是在 render 之前调用，所以就算在这个方法中调用 setState 也不会触发重新渲染（re-render）
+
+**render**
+
+React 中最核心的方法，一个组件中必须要有这个方法
+
+返回的类型有以下几种：
+
+- 原生的 DOM，如 div
+- React 组件
+- Fragment（片段）
+- Portals（插槽）
+- 字符串和数字，被渲染成 text 节点
+- Boolean 和 null，不会渲染任何东西
+
+render 函数是纯函数，里面只做一件事，就是返回需要渲染的东西，不应该包含其它的业务逻辑，如数据请求，对于这些业务逻辑请移到 componentDidMount 和 componentDid Update 中。
+
+**componentDidMount**
+
+组件装载之后调用，此时我们可以获取到 DOM 节点并操作，比如对 canvas，svg 的操作，服务器请求，订阅都可以写在这个里面，但是记得在 componentWillUnmount 中取消订阅。
+
+在 componentDidMount 中调用 setState 会触发一次额外的渲染，多调用了一次 render 函数，但是用户对此没有感知，因为它是在浏览器刷新屏幕前执行的，但是我们应该在开发中避免它，因为它会带来一定的性能问题，我们应该在 constructor 中初始化我们的 state 对象，而不应该在 componentDidMount 调用 state 方法。
+
+## 更新阶段
+
+更新阶段，当组件的 props 改变了，或组件内部调用了 setState 或者 forceUpdate 发生，会发生多次
+
+这个阶段的生命周期函数调用如下：
+
+- ~~componentWillReceiveProps/UNSAFE_componentWillReceiveProps~~
+- getDerivedStateFromProps
+- shouldComponentUpdate
+- ~~componentWillUpdate/UNSAFE_componentWillUpdate~~
+- render
+- getSnapshotBeforeUpdate
+- componentDidUpdate
+
+**componentWillReceiveProps/UNSAFE_componentWillReceiveProps**
+
+> - componentWillReceiveProps(nextProps, prevState)
+> - UNSAFE_componentWillReceiveProps(nextProps, prevState)
+
+在 16 版本这两个方法并存，但是在 17 版本中 componentWillReceiveProps 被删除，UNSAFE_componentWillReceiveProps，目的是为了做向下兼容，对于新的应用，用 getDerivedStateFromProps 代替它们。
+
+注意，当我们父组件重新渲染的时候，也会导致我们的子组件调用~~componentWillReceiveProps/UNSAFE_componentWillReceiveProps~~，即使我们的属性和之前的一样，所以需要我们在这个方法里面去进行判断，如果前后属性不一致才去调用 setState
+
+**在装载阶段这两个函数不会被触发，在组件内部调用了 setState 和 forceUpdate 也不会触发这两个函数**
+
+**getDerivedStateFromProps**
+
+这个方法在装载阶段已经讲过了，这里不再赘述，记住在更新阶段，无论我们接收到新的属性，调用了 setState 还是调用了 forceUpdate，这个方法都会被调用
+
+**shouldComponentUpdate**
+
+> shouldComponentUpdate(nextProps, nextState)
+
+有两个参数 nextProps 和 nextState，表示新的属性和变化之后的 state，返回一个布尔值，true 表示会触发重新渲染，false 表示不会触发重新渲染，默认返回 true
+注意当我们调用 forceUpdate 并不会触发此方法
+因为默认是返回 true，也就是只要接收到新的属性和调用了 setState 都会触发重新的渲染，这会带来一定的性能问题，所以我们需要将 this.props 与 nextProps 以及 this.state 与 nextState 进行比较来决定是否返回 false，来减少重新渲染
+但是官方提倡我们使用 PureComponent 来减少重新渲染的次数而不是手工编写 shouldComponentUpdate 代码，具体该怎么选择，全凭开发者自己选择
+在未来的版本，shouldComponentUpdate 返回 false，仍然可能导致组件重新的渲染，这是官方自己说的。
+
+**~~componentWillUpdate/UNSAFE_componentWillUpdate~~**
+
+> - componentWillUpdate(nextProps, nextState)
+> - UNSAFE_componentWillUpdate(nextProps, nextState)
+
+在 16 版本这两个方法并存，但是在 17 版本中~~componentWillUpdate~~被删除，~~UNSAFE_componentWillUpdate~~，目的是为了做向下兼容
+
+在这个方法里，你不能调用 setState，因为能走到这个方法，说明 shouldComponentUpdate 返回 true，此时下一个 state 状态已经被确定，马上就要执行 render 重新渲染了，否则会导致整个生命周期混乱，在这里也不能请求一些网络数据，因为在异步渲染中，可能会导致网络请求多次，引起一些性能问题，
+如果你在这个方法里保存了滚动位置，也是不准确的，还是因为异步渲染的问题，如果你非要获取滚动位置的话，请在 getSnapshotBeforeUpdate 调用。
+
+**render**
+
+更新阶段也会触发，装载阶段已经讲过了，不再赘述
+
+**getSnapshotBeforeUpdate**
+
+> getSnapshotBeforeUpdate(prevProps, prevState)
+
+这个方法在 render 之后，componentDidUpdate 之前调用，有两个参数 prevProps 和 prevState，表示之前的属性和之前的 state，这个函数有一个返回值，会作为第三个参数传给 componentDidUpdate。
+
+- 如果你不想要返回值，请返回 null，不写的话控制台会有警告。
+- 这个方法一定要和 componentDidUpdate 一起
+
+**componentDidUpdate**
+
+> componentDidUpdate(prevProps, prevState, snapshot)
+
+该方法在 getSnapshotBeforeUpdate 方法之后被调用，有三个参数 prevProps，prevState，snapshot，表示之前的 props，之前的 state，和 snapshot。第三个参数是 getSnapshotBeforeUpdate 返回的
+在这个函数里我们可以操作 DOM，和发起服务器请求，还可以 setState，但是注意一定要用 if 语句控制，否则会导致无限循环。
+
+## 卸载阶段
+
+卸载阶段，当我们的组件被卸载或者销毁了，这个阶段的生命周期函数只有一个：
+
+**componentWillUnmount**
+
+当我们的组件被卸载或者销毁了就会调用，我们可以在这个函数里去清除一些定时器，取消网络请求，清理无效的 DOM 元素等垃圾清理工作
+
+注意不要在这个函数里去调用 setState，因为组件不会重新渲染了
