@@ -60,18 +60,16 @@
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
 var setZeroes = function(matrix) {
-  const rows = [];
-  const columns = [];
+  const array = [];
   let i = j = 0;
   let f = false;
   while (i < matrix.length && j < matrix[i].length) {
     if (f) {
-      if (rows.indexOf(i) !== -1 || columns.indexOf(j) !== -1) {
+      if (array.findIndex(([x, y]) => x === i || y === j) !== -1) {
         matrix[i][j] = 0;
       }
     } else if (matrix[i][j] === 0) {
-      rows.push(i);
-      columns.push(j);
+      array.push([i, j]);
     }
     if (j < matrix[i].length - 1) {
       j++;
