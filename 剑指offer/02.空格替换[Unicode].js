@@ -5,7 +5,8 @@
  * 例如，当字符串为We Are Happy.则经过替换之后的字符串为We%20Are%20Happy。
  */
 
-const { replaceSpace } = require('../playground/Interview-oriented');
+const replaceSpace = str => str.replace(/\s/g, '%20');
+
 const test = {
   str: 'We Are Happy',
 };
