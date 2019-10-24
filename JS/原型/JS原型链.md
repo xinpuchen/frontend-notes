@@ -16,8 +16,8 @@ JS 只有一种结构，对象。每个对象都有一个私有属性**proto**�
 
 ```js
 let a = new Function();
-a.__proto__; // function
-a.__proto__.__proto__; // object
+a.__proto__; // Function.prototype
+a.__proto__.__proto__; // Object.prototype
 a.__proto__.__proto__.__proto__; // null
 ```
 
@@ -53,3 +53,5 @@ a.__proto__.push() === window.Array.prototype.push(); // true
 - 除了以上两个特殊对象，其他对象都是通过构造器 new 出来的
 - 函数的 prototype 是一个对象，也就是原型
 - 对象的 **proto** 指向原型， **proto** 将对象和原型连接起来组成了原型链
+- 一切对象都继承自 Object.prototype，而一切函数对象都继承自 Function.prototype(且 Function.prototype 会最终继承自 Object.prototype)，也就是说普通对象和函数对象的区别是：普通对象直接继承了 Object.prototype，而函数对象在中间还继承了 Function.prototype
+- Function 的原型链为 Function→ Function.prototype → Object.prototype → null ，Object 的原型链为 Object → Function.prototype → Object.prototype → null，不会出现死循环。说是互相继承，是因为根据原型链，Function 能使用到 Object 的原型方法，而 Object 也能使用到 Function 的原型方法。
