@@ -8,9 +8,9 @@ JS 只有一种结构，对象。每个对象都有一个私有属性**proto**�
 
 ### 要点
 
-- 当 new 一个函数的时候会创建一个对象，『函数.prototype』 等于 『被创建对象.**proto**』
-- 一切函数都是由 Function 这个函数创建的，所以『Function.prototype === 被创建的函数.**proto**』
-- 一切函数的原型对象都是由 Object 这个函数创建的，所以『Object.prototype === 一切函数.prototype.**proto**』
+- 当 new 一个函数的时候会创建一个对象，『被创建对象.**proto**』 等于 『函数.prototype』
+- 一切函数都是由 Function 这个函数创建的，所以『被创建的函数.**proto**』 === 『Function.prototype』
+- 一切函数的原型对象都是由 Object 这个函数创建的，所以『一切函数.prototype.**proto**』 === 『Object.prototype』
 
 ### 原型链顶端
 
