@@ -40,13 +40,13 @@ console.log(instance.getSuperValue()); //false
 
 ```js
 function SuperType() {
-  this.colors = ["red", "blue", "green"];
+  this.colors = ['red', 'blue', 'green'];
 }
 function SubType() {
   SuperType.call(this); //继承了SuperType
 }
 var instance1 = new SubType();
-instance1.colors.push("black");
+instance1.colors.push('black');
 console.log(instance1.colors); //"red","blue","green","black"
 var instance2 = new SubType();
 console.log(instance2.colors); //"red","blue","green"
@@ -63,7 +63,7 @@ console.log(instance2.colors); //"red","blue","green"
 ```js
 function SuperType(name) {
   this.name = name;
-  this.colors = ["red", "blue", "green"];
+  this.colors = ['red', 'blue', 'green'];
 }
 SuperType.prototype.sayName = function() {
   console.log(this.name);
@@ -79,12 +79,12 @@ Subtype.prototype.sayAge = function() {
   console.log(this.age);
 };
 
-var instance1 = new SubType("EvanChen", 18);
-instance1.colors.push("black");
+var instance1 = new SubType('EvanChen', 18);
+instance1.colors.push('black');
 consol.log(instance1.colors); //"red","blue","green","black"
 instance1.sayName(); //"EvanChen"
 instance1.sayAge(); //18
-var instance2 = new SubType("EvanChen666", 20);
+var instance2 = new SubType('EvanChen666', 20);
 console.log(instance2.colors); //"red","blue","green"
 instance2.sayName(); //"EvanChen666"
 instance2.sayAge(); //20
@@ -116,13 +116,13 @@ ECMAScript 5 􏳝􏳞􏵅􏷍 通过新增的 Object.create()􏰟􏰠􏷎􏷏�
 
 与原型式继承紧密相关，**思路**与寄生构造函数与工厂模式类似，即创建一个用于仅用于封装继承过程的函数,该函数在在内部以某种方式来增强对象
 
-- 缺点：使用寄生式继承来为对象添加函数，会由于不能做到函数服用而降低效率，这一点与构造函数模式类似
+- 缺点：使用寄生式继承来为对象添加函数，会由于不能做到函数复用而降低效率，这一点与构造函数模式类似
 
 ```js
 function createAnother(original) {
   var clone = Object.create(original);
   clone.sayHi = function() {
-    alert("hi");
+    alert('hi');
   };
   return clone;
 }
@@ -137,7 +137,7 @@ function createAnother(original) {
 ```js
 function SuperType(name) {
   this.name = name;
-  this.colors = ["red", "blue", "green"];
+  this.colors = ['red', 'blue', 'green'];
 }
 SuperType.prototype.getColors = function() {
   return this.colors;
