@@ -10,12 +10,14 @@ Object.defineProperty(object, propertyName, descriptor);
 
 - object 必需。 要在其上添加或修改属性的对象。 这可以是一个本机 JavaScript 对象（即用户定义的对象或内置对象）或 DOM 对象。
 - propertyName 必需。 一个包含属性名称的字符串。
-- descriptor 必需。 属性描述符。 它可以针对数据属性或访问器属性。
+- descriptor 可选。 属性描述符。 它可以针对数据属性或访问器属性。
 
 其中 descriptor 的参数值得我们关注下,该属性可设置的值有：
 
 - value: 属性的值，默认为 undefined。
 - writable: 该属性是否可写，如果设置成 false，则任何对该属性改写的操作都无效（但不会报错），对于直接在对象上定义的属性，默认值为 true。
+
+> 注:不能同时设置 value 和 writable,这两对属性是互斥的
 
 ```js
 var person = {};
@@ -136,4 +138,58 @@ dom.originX = 5;  //设置中心点X
     configurable: true,
   });
 });
+```
+
+#### 拦截数组变化的情况
+
+```js
+let a = {};
+bValue = 1;
+Object.defineProperty(a, 'b', {
+  set: function(value) {
+    bValue = value;
+    console.log('setted');
+  },
+  get: function() {
+    return bValue;
+  },
+});
+a.b; //1
+a.b = []; //setted
+a.b = [1, 2, 3]; //setted
+a.b[1] = 10; //无输出
+a.b.push(4); //无输出
+a.b.length = 5; //无输出
+a.b; //[1,10,3,4,undefined];
+```
+
+结论：`defineProperty` 无法检测数组索引赋值,改变数组长度的变化，但是通过数组方法来操作可以检测到
+
+#### 多级对象监听
+
+```js
+let info = {};
+function observe(obj) {
+  if (!obj || typeof obj !== 'object') {
+    return;
+  }
+  for (var i in obj) {
+    definePro(obj, i, obj[i]);
+  }
+}
+
+function definePro(obj, key, value) {
+  observe(value);
+  Object.defineProperty(obj, key, {
+    get: function() {
+      return value;
+    },
+    set: function(newval) {
+      console.log('检测变化', newval);
+      value = newval;
+    },
+  });
+}
+definePro(info, 'friends', { name: '张三' });
+info.friends.name = '李四';
 ```
