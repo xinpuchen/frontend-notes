@@ -50,15 +50,15 @@ DOM 其实是方便 HTML 组织元素结点的一种抽象对象，而对 DOM �
   <body>
     <div class="main"></div>
     <script>
-      let div = document.getElementsByClassName("main");
+      let div = document.getElementsByClassName('main');
       let times = 1000;
-      console.time("timer");
+      console.time('timer');
       for (let i = 0; i < times; i++) {
-        let subDiv = document.createElement("div");
+        let subDiv = document.createElement('div');
         subDiv.innerHTML = `<div>Hello ${i}</div>`;
         div[0].appendChild(subDiv);
       }
-      console.timeEnd("timer");
+      console.timeEnd('timer');
     </script>
   </body>
 </html>
@@ -91,7 +91,6 @@ DOM 其实是方便 HTML 组织元素结点的一种抽象对象，而对 DOM �
 我们可以从上面的测试中看到，当我们只在同一时刻操作少量的 DOM 结点时，效果并不明显，直到 1000 这个数量级，我们肉眼才会有可见的延迟
 
 **所以，当我们只是编写简单页面时，完全可以不用考虑 DOM 操作延时对我们的影响**
-
 当然，也是因为我们测试使用的例子较为简单，真正在实际的 HTML 页面中，div 元素内可能还会有较多的子 DOM 结点，所以延迟会更加明显
 
 ## DOM 操作优化
@@ -100,11 +99,11 @@ DOM 其实是方便 HTML 组织元素结点的一种抽象对象，而对 DOM �
 
 ### 事件委托
 
-又称事件代理，详情见 JS 模块 [事件委托](../JS/event-loop/事件委托-事件代理.md)
+又称事件代理，详情见 JS 模块 [事件委托]
 
 ### virtual dom
 
-虚拟 dom，详情见前端框架模块 [虚拟dom](../前端框架/virtual-dom简析.md)
+虚拟 dom，详情见前端框架模块 [虚拟 dom]
 
 ### 对 API 进行优化
 
@@ -123,12 +122,12 @@ DOM 其实是方便 HTML 组织元素结点的一种抽象对象，而对 DOM �
 var h1 = element1.clientHeight;
 // Write
 requestAnimationFrame(function() {
-  element1.style.height = h1 * 2 + "px";
+  element1.style.height = h1 * 2 + 'px';
 });
 // Read
 var h2 = element2.clientHeight;
 // Write
 requestAnimationFrame(function() {
-  element2.style.height = h2 * 2 + "px";
+  element2.style.height = h2 * 2 + 'px';
 });
 ```

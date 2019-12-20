@@ -28,11 +28,11 @@ transform:变形。改变 CSS3 中主要包括
 transition: 允许 CSS 属性值在一定的时间区间内平滑的过渡，需要事件的触发，例如单击、获取焦点、失去焦点等
 
 ```css
-transition:property duration timing-function delay;
-property:CSS的属性，例如：width height 为none时停止所有的运动，可以为transform
+transition: property duration timing-function delay;
 
+/* property:CSS的属性，例如：width height 为 none 时停止所有的运动，可以为transform
 duration:持续时间
 timing-function:ease等
 delay:延迟
-注意：当property为all的时候所有动画
+注意：当property为all的时候所有动画 */
 ```

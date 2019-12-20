@@ -82,7 +82,7 @@ Node 规定，process.nextTick 和 Promise 的回调函数，追加在本轮循�
 每个阶段都有一个先进先出的回调函数队列。只有一个阶段的回调函数队列清空了，该执行的回调函数都执行了，事件循环才会进入下一个阶段。
 
 - timers 阶段: 执行 setTimeout(callback) and setInterval(callback)预定的 callback;
-- I/O callbacks 阶段: 执行除了定时器和 setImmediate 的回调 close callbacks 阶段关闭请求的回调;
+- I/O callbacks 阶段: 执行除了定时器、setImmediate 及 close callbacks 的回调;
 - idle, prepare 阶段: 仅 node 内部 libuv 库使用;
 - poll 阶段: poll 阶段很重要，这一阶段中，系统会做两件事情:
   1. 执行到点的定时器

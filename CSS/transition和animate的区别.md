@@ -1,27 +1,13 @@
 # Topic
 
-<!-- TOC -->
-
-- [Topic](#topic)
-  - [transition](#transition)
-    - [transition-property](#transition-property)
-    - [transition-duration](#transition-duration)
-    - [transition-timing-function](#transition-timing-function)
-    - [transition-delay](#transition-delay)
-    - [局限性](#局限性)
-  - [animation](#animation)
-  - [区别](#区别)
-
-<!-- /TOC -->
-
 ## transition
 
 ![img](http://img.blog.csdn.net/20160722210815252)
 
-```css
-transiton: transition-property(过渡属性) transition-duration(过渡所需要时间)
-  transition-timing-function(过渡动画函数) transition-delay(过渡延迟时间) ；;
-```
+- transition: transition-property(过渡属性)
+- transition-duration(过渡所需要时间)
+- transition-timing-function(过渡动画函数)
+- transition-delay(过渡延迟时间);
 
 ### transition-property
 
@@ -63,7 +49,7 @@ transition 的优点在于简单易用，但是它有几个很大的局限。
 
 ## animation
 
-ainimation 实现动画效果主要由两部分组成：
+animation 实现动画效果主要由两部分组成：
 
 1. 通过类似 Flash 动画中的帧来声明一个动画；
 1. 在 animation 属性中调用关键帧声明的动画。

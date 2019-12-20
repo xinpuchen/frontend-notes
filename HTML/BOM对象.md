@@ -28,7 +28,7 @@ History 对象是 window 对象的一部分，可通过 window.history 属性对
 
 http://www.w3school.com.cn/jsref/dom_obj_history.asp
 
-##Location 对象
+## Location 对象
 
 Location 对象包含有关当前 URL 的信息。
 

@@ -51,18 +51,18 @@ virtual dom(后文简称 v-dom)，是为了前端方面的 DOM 操作优化，�
 ```js
 // main component
 h(
-  "div",
+  'div',
   null,
-  h("input", {
-    type: "text",
-    placeholder: "Search",
-    onChange: this.filterList
+  h('input', {
+    type: 'text',
+    placeholder: 'Search',
+    onChange: this.filterList,
   }),
-  h(List, { items: this.state.items })
+  h(List, { items: this.state.items }),
 );
 
 // list component
-h("ul", null, this.props.items.map(item => h("li", { key: item }, item)));
+h('ul', null, this.props.items.map(item => h('li', { key: item }, item)));
 ```
 
 #### js -> v-dom
@@ -227,11 +227,11 @@ function render(vNode, parent) {
 }
 
 function buildDOMByVNode(vNode) {
-  if (typeof vNode === "string") {
+  if (typeof vNode === 'string') {
     return document.createTextNode(vNode);
   }
   let { nodeName, attributes: attrs, children } = vNode;
-  if (typeof nodeName === "string") {
+  if (typeof nodeName === 'string') {
     let node = document.createElement(nodeName);
     if (attrs) {
       for (let key in attrs) {
@@ -264,8 +264,6 @@ export default { render, h };
 ## 结语
 
 这是整个 preact 的处理逻辑
-
-![imgs](https://www.peterchen.club/imgs/v-dom1.png)
 
 写完整个 v-dom 的构造，感觉对框架的理解，又更加深入了些，之后也会对 v-dom 操作的精华 diff 算法进行一个详细的分析。
 
