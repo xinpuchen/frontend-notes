@@ -9,7 +9,9 @@
 1. 最后，使用 JavaScript 实现 DOM 局部刷新。
 
 ```js
-const xhr = new XMLHttpRequest() || new ActiveXObject("Microsoft.XMLHTTP");
+const xhr = XMLHttpRequest
+  ? new XMLHttpRequest()
+  : new ActiveXObject('Microsoft.XMLHTTP');
 xhr.onreadystatechange = function() {
   if (xhr.readyState == 4) {
     if (xhr.status == 200) {
@@ -18,10 +20,10 @@ xhr.onreadystatechange = function() {
       return xhr.status;
     }
   } else {
-    return "http 还在请求中";
+    return 'http 还在请求中';
   }
 };
-xhr.open("GET", "request_url", true);
+xhr.open('GET', 'request_url', true);
 xhr.send();
 ```
 
@@ -46,5 +48,5 @@ open()的第一个参数是 HTTP 请求方法
 send() 方法的参数可以是任何你想发送给服务器的内容，如果是 POST 请求的话。发送表单数据时应该用服务器可以解析的格式，像查询语句：
 
 ```js
-"name=value&anothername=" + encodeURIComponent(myVar) + "&so=on";
+'name=value&anothername=' + encodeURIComponent(myVar) + '&so=on';
 ```
