@@ -91,3 +91,45 @@ for (let i = 1; i <= 5; i++) {
     console.log(i);
   }, i * 1000);
 }
+
+// 使用闭包作缓存
+const cache = (function() {
+  const store = {};
+  return {
+    get(key) {
+      return store[key];
+    },
+    set(key, val) {
+      store[key] = val;
+    },
+  };
+})();
+
+cache.set('name', 'Alex');
+console.log(cache.get('name'));
+
+// 函数柯里化
+function curryIt(fn) {
+  var n = fn.length;
+  var args = [];
+  return function(arg) {
+    args.push(arg);
+    if (args.length < n) {
+      return arguments.callee;
+    }
+    return fn.apply(this, args);
+  };
+}
+
+function add(a, b, c) {
+  return [a, b, c];
+}
+
+var c = curryIt(add);
+var c1 = c(1);
+var c2 = c1(2);
+var c3 = c2(3);
+
+console.log(c1);
+console.log(c2);
+console.log(c3);
