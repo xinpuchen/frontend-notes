@@ -1,23 +1,22 @@
 {
-  "name": "frontnode",
+  "name": "frontend-notes",
   "version": "1.0.0",
   "description": "```conf\r .\r ├── CSS\r ├── HTML\r ├── JS\r ├── Linux\r ├── leetcode\r ├── node\r ├── 剑指 offer\r ├── 浏览器\r ├── 前端框架\r ├── 操作系统\r ├── 数据结构\r ├── 面试经历\r ├── 前端工程化\r └── 计算机网络\r ```",
   "main": "index.js",
   "scripts": {
     "lint": "pretty-quick --pattern \"**/*\"",
-    "lint-all": "prettier --config ./.prettierrc --ignore-path .prettierignore --write \"**/*\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint-all": "prettier --config ./.prettierrc --ignore-path .prettierignore --write \"**/*\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xinpuchen/FrontNote.git"
+    "url": "git+https://github.com/xinpuchen/frontend-notes.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/xinpuchen/FrontNote/issues"
+    "url": "https://github.com/xinpuchen/frontend-notes/issues"
   },
-  "homepage": "https://github.com/xinpuchen/FrontNote#readme",
+  "homepage": "https://github.com/xinpuchen/frontend-notes#readme",
   "devDependencies": {
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^7.6.0",

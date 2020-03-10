@@ -1,4 +1,4 @@
-# 前端大概论
+# Frontend notes
 
 ```conf
 .
