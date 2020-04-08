@@ -4,29 +4,29 @@
 
 前端路由实现起来其实很简单，本质就是监听 URL 的变化，然后匹配路由规则，显示相应的页面，并且无须刷新。目前单页面使用的路由就只有两种实现方式
 
-- hash模式 - hashchange
-- history模式 - popstate
+- hash 模式 - hashChange
+- history 模式 - popState
 
-### Hash模式
+### Hash 模式
 
 触发方式：
 
 - 点击跳转 / 浏览器历史跳转
-    - 触发hashchange事件 
-    - 匹配路由规则进行跳转
-- 手动刷新url 
-    - 发送服务器请求， 但是也不会触发hashchange事件，可通过load事件
-    - 匹配路由规则进行跳转
+  - 触发 hashChange 事件
+  - 匹配路由规则进行跳转
+- 手动刷新 url
+  - 发送服务器请求， 但是也不会触发 hashChange 事件，可通过 load 事件
+  - 匹配路由规则进行跳转
 
-### History模式
+### History 模式
 
 - 浏览器动作
-    - 触发popstate
-    - 包括调用history.back()
+  - 触发 popState
+  - 包括调用 history.back()
 - 浏览器跳转
-    - 调用pushState
-- 手动刷新url
-    - 需要后端配合重定向
+  - 调用 pushState
+- 手动刷新 url
+  - 需要后端配合重定向
 
 ## 路由注册
 
