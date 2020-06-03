@@ -1,4 +1,4 @@
-/*
+/**
  * @lc app=leetcode.cn id=14 lang=javascript
  *
  * [14] 最长公共前缀
@@ -37,20 +37,32 @@
  * @param {string[]} strs
  * @return {string}
  */
+
+// var longestCommonPrefix = function(strs) {
+//   const len = Math.min(...strs.map(e => e.length));
+//   let str = '';
+//   if (strs.length <= 0) return str;
+//   for (let i = 0; i < len; i++) {
+//     const el = strs[0][i];
+//     if (!strs.every(e => e[i] === el)) return str;
+//     str += el;
+//   }
+//   return str;
+// };
+
 var longestCommonPrefix = function(strs) {
-  const len = Math.min(...strs.map(e => e.length));
   let str = '';
   if (strs.length <= 0) return str;
-  for (let i = 0; i < len; i++) {
+  for (let i = 0; i < strs[0].length; i++) {
     const el = strs[0][i];
-    if (!strs.every(e => e[i] === el)) return str;
+    if (!strs.every(e => e[i] !== undefined && e[i] === el)) return str;
     str += el;
   }
   return str;
 };
 
-// console.log(longestCommonPrefix(["flower","flow","flight"])); // "fl"
+// console.log(longestCommonPrefix(['flower', 'flow', 'flight'])); // "fl"
 
-// console.log(longestCommonPrefix(["dog","racecar","car"])); // ""
+// console.log(longestCommonPrefix(['dog', 'racecar', 'car'])); // ""
 
 // console.log(longestCommonPrefix([])); // ""

@@ -10,18 +10,13 @@ function ListNode(x, n = undefined) {
 }
 
 function printListFromTailToHead(head) {
-  if (!head) {
-    return 0;
-  } else {
-    let valArr = [];
-    for (; head; head = head.next) {
-      valArr.push(head.val);
-      if (!head.next) {
-        break;
-      }
-    }
-    return valArr.reverse();
+  if (!head) return [];
+  let res = [];
+  while (head) {
+    res.unshift(head.val);
+    head = head.next;
   }
+  return res;
 }
 const testList = ListNode(1, ListNode(2, ListNode(3, ListNode(4))));
 

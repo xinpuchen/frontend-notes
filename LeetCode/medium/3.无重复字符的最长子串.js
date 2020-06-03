@@ -1,4 +1,4 @@
-/*
+/**
  * @lc app=leetcode.cn id=3 lang=javascript
  *
  * [3] 无重复字符的最长子串
@@ -37,7 +37,7 @@
  *
  */
 /**
- * @param {string} s
+ * @param {string}
  * @return {number}
  */
 var lengthOfLongestSubstring = function(s) {
@@ -58,6 +58,24 @@ function getUniqueString(s) {
   return uniqueString.size;
 }
 
-// console.log(lengthOfLongestSubstring('abcabcbb'));
+function lengthOfLongestSubstring2(s) {
+  let res = 0;
+  let end = 0;
+  while (s && end < s.length) {
+    end++;
+    if (end >= s.length && s.length > res) res = s.length;
+    const curStr = s.substr(0, end);
+    const key = curStr.indexOf(s[end]);
+    if (key !== -1) {
+      if (curStr.length > res) res = curStr.length;
+      s = s.slice(key + 1);
+      end = 0;
+    }
+  }
+  return res;
+}
 
-// console.log(lengthOfLongestSubstring(''));
+console.log(lengthOfLongestSubstring2(''));
+console.log(lengthOfLongestSubstring2(' '));
+console.log(lengthOfLongestSubstring2('pwwkew'));
+console.log(lengthOfLongestSubstring2('abcabcbb'));
