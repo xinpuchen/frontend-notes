@@ -1,11 +1,11 @@
 {
   "name": "frontend-notes",
   "version": "1.0.0",
-  "description": "frontend-notes，前端笔记，前端，xinpu，xinpuchen，昕普，昕普同学，陈鑫谱",
+  "description": "frontend-note_前端笔记_frontend_前端",
   "main": "index.js",
   "scripts": {
-    "lint": "pretty-quick --pattern \"**/*\"",
-    "lint-all": "prettier --config ./.prettierrc --ignore-path .prettierignore --write \"**/*\""
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,12 @@
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^7.6.0",
     "husky": "^1.3.1",
+    "lint-staged": "^10.2.9",
     "prettier": "^1.19.1",
-    "pretty-quick": "^1.11.1"
+    "vuepress": "^1.5.0"
+  },
+  "hooks": {
+    "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+    "pre-commit": "lint-staged"
   }
 }
