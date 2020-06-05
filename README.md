@@ -1,6 +1,8 @@
-# Frontend notes
+# Frontend-notes
 
----
+在这里记录我前端生涯的学习过程...
+
+> 如果本仓库对你有帮助，欢迎 star :star2: 或 watch :eyes:
 
 - HTML
 - CSS
