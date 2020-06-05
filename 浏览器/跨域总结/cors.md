@@ -42,11 +42,11 @@
 
 ```js
 // 下面是一段使用彩云天气请求天气预报的例子
-const script = document.createElement("script");
+const script = document.createElement('script');
 
 // wuxi
 script.src =
-  "https://api.caiyunapp.com/v2/RiA7WLZYAoqRWsdW/120.299,31.568/realtime.jsonp?callback=handleRes";
+  'https://api.caiyunapp.com/v2/RiA7WLZYAoqRWsdW/120.299,31.568/realtime.jsonp?callback=handleRes';
 
 document.body.appendChild(script);
 
@@ -54,9 +54,9 @@ function handleRes(data) {
   document.body.removeChild(script);
   let degree = data.result.temperature;
   let skycon = data.result.skycon;
-  document.querySelector("#degree").textContent = degree;
+  document.querySelector('#degree').textContent = degree;
   document.querySelector(
-    ".top-weather img"
+    '.top-weather img',
   ).src = `./imgs/weather/${skycon}.png`;
 }
 ```
@@ -66,21 +66,21 @@ JSONP 使用简单且兼容性不错，但是只限于 get 请求。
 
 ```js
 function jsonp(url, parame, fn) {
-  window["callback"] = fn;
-  var script = document.createElement("script");
-  var queryString = "";
+  window['callback'] = fn;
+  var script = document.createElement('script');
+  var queryString = '';
   for (var key in parame) {
-    queryString += key + "=" + parame[key] + "&";
+    queryString += key + '=' + parame[key] + '&';
   }
-  script.src = url + "?" + queryString + "callback=callback";
+  script.src = url + '?' + queryString + 'callback=callback';
   document.head.appendChild(script);
 }
 jsonp(
-  "https://api.douban.com/v2/movie/coming_soon",
+  'https://api.douban.com/v2/movie/coming_soon',
   { start: 0, count: 10 },
   function(data) {
     console.log(data);
-  }
+  },
 );
 ```
 
@@ -94,7 +94,7 @@ jsonp(
 
 ```js
 // 通过设置两个页面的document.domain,之后通过parent或者window['iframeName']等方式拿到iframe的window对象了
-document.domain = "peterchen.club";
+document.domain = 'peterchen.club';
 ```
 
 ```html
@@ -115,8 +115,8 @@ document.domain = "peterchen.club";
 
 ```js
 // 主页面 http://localhost:80
-const iframe = document.createElement("iframe");
-iframe.style.display = "none";
+const iframe = document.createElement('iframe');
+iframe.style.display = 'none';
 // 防止无限刷新
 let state = 0;
 
@@ -124,22 +124,22 @@ iframe.onload = () => {
   if (state === 1) {
     console.log(JSON.parse(iframe.contentWindow.name));
     // 清除创建的iframe
-    iframe.contentWindow.document.write("");
+    iframe.contentWindow.document.write('');
     iframe.contentWindow.close();
     document.body.removeChild(iframe);
   } else if (state === 0) {
     state = 1;
     // 加载完成，指向当前域，防止错误，不能只设置域名，设置空页即可
-    iframe.contentWindow.location = "http://localhost:80/blank.html";
+    iframe.contentWindow.location = 'http://localhost:80/blank.html';
   }
 };
-iframe.contentWindow.location = "http://localhost:81/index.html";
+iframe.contentWindow.location = 'http://localhost:81/index.html';
 document.appendChild(iframe);
 ```
 
 ```js
 // 请求页面 http://localhost:81
-window.name = "hello world";
+window.name = 'hello world';
 ```
 
 ### 5.location.hash 跨域
@@ -155,7 +155,7 @@ const data = window.location.hash;
 
 ```js
 // b页
-parent.location.hash = "hello world";
+parent.location.hash = 'hello world';
 ```
 
 ### 6.window.postMessage 跨域
@@ -165,7 +165,7 @@ HTML5 新特性，可以用来向所有的 window 对象发送消息
 ```js
 // ('msg', '*') 第二个参数是限定域，‘*’为通配符
 // A page
-window.postMessage("hello world", "*");
+window.postMessage('hello world', '*');
 // B page
 window.onmessage = function(e) {
   e = e || event;

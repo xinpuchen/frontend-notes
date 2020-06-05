@@ -44,7 +44,7 @@
 <script>
   setTimeout(() => {
     // 引起回流
-    (document.querySelector(".test").style.top = "100px") 
+    (document.querySelector(".test").style.top = "100px")
   }, 1000)
 </script>
 ```
@@ -56,7 +56,7 @@
 ```js
 for (let i = 0; i < 1000; i++) {
   // 获取 offsetTop 会导致回流，因为需要去获取正确的值
-  console.log(document.querySelector(".test").style.offsetTop);
+  console.log(document.querySelector('.test').style.offsetTop);
 }
 ```
 

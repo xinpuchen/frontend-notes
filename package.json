@@ -1,7 +1,7 @@
 {
   "name": "frontend-notes",
   "version": "1.0.0",
-  "description": "```conf\r .\r ├── CSS\r ├── HTML\r ├── JS\r ├── Linux\r ├── leetcode\r ├── node\r ├── 剑指 offer\r ├── 浏览器\r ├── 前端框架\r ├── 操作系统\r ├── 数据结构\r ├── 面试经历\r ├── 前端工程化\r └── 计算机网络\r ```",
+  "description": "frontend-notes，前端笔记，前端，xinpu，xinpuchen，昕普，昕普同学，陈鑫谱",
   "main": "index.js",
   "scripts": {
     "lint": "pretty-quick --pattern \"**/*\"",

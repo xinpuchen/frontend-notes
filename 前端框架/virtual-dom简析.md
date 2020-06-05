@@ -62,7 +62,11 @@ h(
 );
 
 // list component
-h('ul', null, this.props.items.map(item => h('li', { key: item }, item)));
+h(
+  'ul',
+  null,
+  this.props.items.map(item => h('li', { key: item }, item)),
+);
 ```
 
 #### js -> v-dom
