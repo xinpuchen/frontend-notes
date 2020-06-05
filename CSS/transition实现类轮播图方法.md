@@ -1,10 +1,13 @@
+# transition 实现类轮播图方法
+
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>通过css实现类图片轮播</title>
+    <title>通过transition 实现类轮播图方法</title>
     <style>
       :root {
         --backgroundColor: #e7812d;
@@ -27,8 +30,8 @@
         box-shadow: inset 0 0 0 5px rgba(255, 255, 255, 0.1);
         color: var(--textColor);
         text-align: center;
-        transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11),
-          flex 0.7s ease, background 0.8s;
+        transition: font-size 0.7s cubic-bezier(0.61, -0.19, 0.7, -0.11), flex
+            0.7s ease, background 0.8s;
         background-size: cover;
         background-position: center;
         flex: 1;
@@ -92,7 +95,6 @@
       let length = panels.length;
       let panelId = 1;
       let timeId;
-
       function handleOpen() {
         let arr = [...this.classList];
         if (arr.indexOf('active') !== -1) {
@@ -103,7 +105,6 @@
           panelId = this.classList[1].slice(-1);
         }
       }
-
       function autoSwitch() {
         timeId = setTimeout(function() {
           panels[panelId - 1].classList.remove('active');
@@ -112,15 +113,13 @@
             panelId = 1;
           }
           panels[panelId - 1].classList.add('active');
-
           autoSwitch();
         }, 3500);
       }
-
       panels[panelId - 1].classList.add('active');
-
       panels.forEach(panel => panel.addEventListener('click', handleOpen));
       autoSwitch();
     </script>
   </body>
 </html>
+```
