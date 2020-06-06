@@ -1,6 +1,4 @@
-# Topic
-
-## transform, transition, translate 的区别
+# transform, transition, translate 的区别
 
 translate:移动，transform 的一个方法
 
@@ -29,10 +27,9 @@ transition: 允许 CSS 属性值在一定的时间区间内平滑的过渡，需
 
 ```css
 transition: property duration timing-function delay;
-
-/* property:CSS的属性，例如：width height 为 none 时停止所有的运动，可以为transform
+property:CSS的属性，例如：width height 为 none 时停止所有的运动，可以为transform
 duration:持续时间
 timing-function:ease等
 delay:延迟
-注意：当property为all的时候所有动画 */
+注意：当property为all的时候所有动画
 ```

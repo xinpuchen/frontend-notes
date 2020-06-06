@@ -1,6 +1,6 @@
-# H5 新标准
+# HTML5 新标准
 
-## H5 新特性
+## HTML5 新特性
 
 - 用于绘画的 canvas 元素
 - 用于媒介回放的 video 和 audio 元素

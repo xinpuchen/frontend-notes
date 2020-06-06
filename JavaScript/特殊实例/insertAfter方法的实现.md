@@ -1,10 +1,10 @@
-# Topic
+# insertAfter 方法的实现
 
 ## insertAfter(newnode,existingnode)方法的实现
 
 - DOM 提供了一个方法，叫做 insertBefore(),其作用是在已有节点之前插入新的子节点。遗憾的是，DOM 并没有提供一个 insertAfter()的方法—即在一个节点之后插入一个节点。
 
-#### node.insertBefore(newnode,existingnode)
+## node.insertBefore(newnode,existingnode)
 
 | 参数         | 类型      | 描述                               |
 | ------------ | --------- | ---------------------------------- |
@@ -26,7 +26,7 @@ function insertAfter(insert_element, target_element) {
 }
 ```
 
-#### Hint：
+## Hint：
 
 - 函数有两个参数，newElement,targetElement。分别是将被插入的新元素，和目标元素
 - 我们将目标元素的父元素(parentNode)保存在 变量 parent 中

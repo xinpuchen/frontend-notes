@@ -1,4 +1,4 @@
-# BOM
+# BOM 对象
 
 ## window 对象
 
