@@ -1,14 +1,20 @@
 module.exports = {
   title: 'Frontend-notes',
-  description: '记录前端点滴，构造前端知识体系',
+  description: '记录知识点滴，构建完整知识体系',
   base: '/frontend-notes/',
+  head: [
+    [
+      'link',
+      { rel: 'shortcut icon', href: '/favicon.ico', type: 'image/x-icon' },
+    ],
+  ],
   themeConfig: {
     sidebarDepth: 2,
     lastUpdated: 'Last Updated',
     nav: [
       { text: '算法练习', link: 'https://xinpuchen.github.io/awesome-coding/' },
       { text: '博客', link: 'https://xinpuchen.github.io' },
-      { text: 'github', link: 'https://github.com/xinpuchen' },
+      { text: 'github', link: 'https://github.com/xinpuchen/frontend-notes' },
     ],
     sidebar: [
       {
