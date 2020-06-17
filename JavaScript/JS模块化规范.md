@@ -172,6 +172,35 @@ console.log(add(1, 1));
 
 Babel 只是把 ES6 模块语法转为 CommonJS 模块语法，然而浏览器是不支持这种模块语法的，所以直接跑在浏览器会报错的，如果想要在浏览器中运行，还是需要使用打包工具将代码打包
 
+```js
+// ES6
+var firstName = 'Michael';
+var lastName = 'Jackson';
+var year = 1958;
+
+export { firstName, lastName, year };
+```
+
+Babel 编译后:
+
+```js
+// ES5
+'use strict';
+Object.defineProperty(exports, '__esModule', {
+  value: true,
+});
+
+var firstName = 'Michael';
+var lastName = 'Jackson';
+var year = 1958;
+
+exports.firstName = firstName;
+exports.lastName = lastName;
+exports.year = year;
+```
+
+Babel 只是把 ES6 模块语法转为 CommonJS 模块语法，然而浏览器是不支持这种模块语法的，所以直接跑在浏览器会报错的，如果想要在浏览器中运行，还是需要使用打包工具将代码打包。
+
 ### Webpack
 
 浏览器中不支持 CommonJS 语法,这是因为浏览器环境中并没有 module、 exports、 require 等环境变量。换句话说，webpack 打包后的文件之所以在浏览器中能运行，就是靠模拟了这些变量的行为。
@@ -179,8 +208,11 @@ Babel 只是把 ES6 模块语法转为 CommonJS 模块语法，然而浏览器�
 ```js
 // 自执行函数
 (function(modules) {
+  // 用于储存已经加载过的模块
   var installedModules = {};
+  // 加载函数
   function require(moduleName) {
+    // 如果已加载则直接返回
     if (installedModules[moduleName]) {
       return installedModules[moduleName].exports;
     }
@@ -190,12 +222,42 @@ Babel 只是把 ES6 模块语法转为 CommonJS 模块语法，然而浏览器�
     modules[moduleName](module, module.exports, require);
     return module.exports;
   }
-  return require('./add');
+  // 加载主模块
+  return require('main');
 })({
+  main: function(module, exports, require) {
+    var addModule = require('./add');
+    console.log(addModule.add(1, 1));
+
+    var squareModule = require('./square');
+    console.log(squareModule.square(3));
+  },
   './add': function(module, exports, require) {
+    console.log('加载了 add 模块');
+
     module.exports = {
       add: function(x, y) {
         return x + y;
+      },
+    };
+  },
+  './square': function(module, exports, require) {
+    console.log('加载了 square 模块');
+
+    var multiply = require('./multiply');
+    module.exports = {
+      square: function(num) {
+        return multiply.multiply(num, num);
+      },
+    };
+  },
+
+  './multiply': function(module, exports, require) {
+    console.log('加载了 multiply 模块');
+
+    module.exports = {
+      multiply: function(x, y) {
+        return x * y;
       },
     };
   },

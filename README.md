@@ -22,7 +22,7 @@ features:
     details: 包含 Babel、Webpack、构建、测试和部署
   - title: 前端性能优化
     details: 从代码、构建、加载、渲染、执行、网络再到视觉系统性优化
-footer: MIT Licensed | Copyright © 2020-present 昕普同学
+footer: MIT Licensed | Copyright © 2020-present 昕浦同学
 ---
 
 ::: tip 提示
