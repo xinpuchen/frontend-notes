@@ -1,4 +1,4 @@
-# transition 实现类轮播图方法
+# transition 实现轮播图
 
 ```html
 <!DOCTYPE html>

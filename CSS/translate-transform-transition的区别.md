@@ -1,4 +1,4 @@
-# transform, transition, translate 的区别
+# transform transition translate 的区别
 
 translate:移动，transform 的一个方法
 

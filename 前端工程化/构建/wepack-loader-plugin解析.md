@@ -1,4 +1,4 @@
-# plugin - loader
+# wepack-loader-plugin 解析
 
 ## loader
 

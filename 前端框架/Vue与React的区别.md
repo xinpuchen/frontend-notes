@@ -1,4 +1,4 @@
-# Vue / React 的区别
+# Vue 与 React 的区别
 
 ## 相似点
 

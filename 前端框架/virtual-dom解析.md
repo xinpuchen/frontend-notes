@@ -1,4 +1,4 @@
-# virtual-dom 简析
+# virtual-dom 解析
 
 virtual dom(后文简称 v-dom)，是为了前端方面的 DOM 操作优化，而生的一个产物
 

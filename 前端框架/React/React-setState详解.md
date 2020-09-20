@@ -1,4 +1,4 @@
-# setState
+# React-setState 详解
 
 ## setState 的用法
 
@@ -49,14 +49,14 @@ this.setState({ count: this.state.count + 1 });
 
 ```js
 function updater(preState, props) {
-  return { count: preState.count + 1 }
+  return { count: preState.count + 1 };
 }
 
----
-// count : 0
-this.setState(updater) // count: 1
-this.setState(updater) // count: 2
-
+---(
+  // count : 0
+  this.setState(updater)
+); // count: 1
+this.setState(updater); // count: 2
 ```
 
 - updater 可以是一个函数，函数返回 setState 需要更改的键值对对象

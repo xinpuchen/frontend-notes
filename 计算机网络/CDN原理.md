@@ -1,4 +1,6 @@
-# CDN(Content Delivery Network)
+# CDN 原理
+
+Content Delivery Network
 
 ## 主要功能
 

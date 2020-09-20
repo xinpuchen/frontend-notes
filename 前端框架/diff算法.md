@@ -1,4 +1,4 @@
-# 基于 virtual dom 的 diff 算法简析
+# 基于 virtual dom 的 diff 算法
 
 在如 React、Vue 等的现代前端框架中，virtual dom(后面简称 v-dom)扮演着一个举足轻重的角色，而其之精粹————diff 算法，便是今天的主人公
 
