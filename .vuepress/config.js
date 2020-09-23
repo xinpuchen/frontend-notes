@@ -27,11 +27,7 @@ module.exports = {
           'HTML/行内元素与块级元素.md',
           'HTML/src和href的区别.md',
           'HTML/script标签defer与async.md',
-          'HTML/BOM对象.md',
-          'HTML/DOM优化.md',
-          'HTML/重排与重绘.md',
-          'HTML/DOM操作为什么耗时.md',
-          'HTML/小知识点.md',
+          'HTML/DOM操作耗时的原因及其优化.md',
         ],
       },
       {
@@ -131,7 +127,6 @@ module.exports = {
           '计算机网络/TCP-IP与子网掩码.md',
           '计算机网络/TCP三次握手四次挥手.md',
           '计算机网络/TCP拥塞控制.md',
-          '计算机网络/TLS解析.md',
           '计算机网络/CDN原理.md',
         ],
       },
@@ -144,22 +139,16 @@ module.exports = {
               '浏览器/HTTP/HTTP版本.md',
               '浏览器/HTTP/HTTP请求方法.md',
               '浏览器/HTTP/HTTP状态码.md',
-              '浏览器/HTTP/HTTPS解析.md',
             ],
           },
           '浏览器/主流浏览器及内核.md',
           '浏览器/关于浏览器存储的讨论与实践.md',
           '浏览器/前端渲染VS后端渲染.md',
-          '浏览器/白屏问题和FOUC.md',
-          '浏览器/精准时间获取.md',
           '浏览器/浏览器缓存.md',
-          '浏览器/前端性能优化.md',
           '浏览器/浏览器页面渲染过程.md',
           '浏览器/重绘和回流.md',
           '浏览器/输入URL到页面加载全过程.md',
-          '浏览器/跨域总结/跨域总结.md',
-          '浏览器/跨域总结/跨站请求伪造和SameSite.md',
-          '浏览器/浏览器安全.md',
+          '浏览器/跨域总结.md',
         ],
       },
       {
@@ -210,16 +199,13 @@ module.exports = {
         title: '前端工程化',
         children: [
           {
-            title: '测试',
-            children: ['前端工程化/测试/测试金字塔.md'],
-          },
-          {
             title: '构建',
             children: [
               '前端工程化/构建/前端构建工具选型.md',
               '前端工程化/构建/前端构建工具优缺点.md',
               '前端工程化/构建/webpack入门.md',
               '前端工程化/构建/wepack-loader-plugin解析.md',
+              '前端工程化/构建/构建输出格式.md',
             ],
           },
           {
@@ -227,9 +213,29 @@ module.exports = {
             children: ['前端工程化/缓存/Redis缓存常见问题.md'],
           },
           {
+            title: '测试',
+            children: ['前端工程化/测试/测试金字塔.md'],
+          },
+          {
             title: '监控',
             children: ['前端工程化/监控/错误监控原理.md'],
           },
+        ],
+      },
+      {
+        title: '前端安全',
+        children: [
+          '前端安全/能不能说说XSS攻击.md',
+          '前端安全/能不能说说CSRF攻击.md',
+          '前端安全/HTTPS为什么让数据传输更安全.md',
+        ],
+      },
+      {
+        title: '前端性能优化',
+        children: [
+          '前端性能优化/前端性能优化.md',
+          '前端性能优化/白屏问题和FOUC.md',
+          '前端性能优化/精准时间获取.md',
         ],
       },
     ],
