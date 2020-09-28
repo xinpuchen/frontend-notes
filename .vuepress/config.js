@@ -189,10 +189,6 @@ module.exports = {
               '前端框架/Vue/Vuex简析.md',
             ],
           },
-          {
-            title: '小程序',
-            children: ['前端框架/小程序/小程序的原理.md'],
-          },
         ],
       },
       {
