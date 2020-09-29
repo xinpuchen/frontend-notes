@@ -76,7 +76,7 @@ HTTPS 并不是一个新的协议, 而是一个加强版的 HTTP。其原理是�
 
 现在我们来梳理一下 HTTPS 最终的加解密过程:
 
-![https加解密过程](/https加解密过程.jpg)
+![https加解密过程](../https-connection-process.png)
 
 ### 认证过程
 
