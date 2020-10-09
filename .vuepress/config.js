@@ -200,8 +200,9 @@ module.exports = {
               '前端工程化/构建/前端构建工具选型.md',
               '前端工程化/构建/前端构建工具优缺点.md',
               '前端工程化/构建/webpack入门.md',
-              '前端工程化/构建/wepack-loader-plugin解析.md',
+              '前端工程化/构建/wepack的loader和plugin解析.md',
               '前端工程化/构建/构建输出格式.md',
+              '前端工程化/构建/tree-sharking详解.md',
             ],
           },
           {
