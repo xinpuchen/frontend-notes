@@ -13,8 +13,9 @@
 - 表格单元格（元素的 display 为 table-cell，HTML 表格单元格默认为该值）
 - 表格标题（元素的 display 为 table-caption，HTML 表格标题默认为该值）
 - 匿名表格单元格元素（元素的 display 为 table、table-row、 table-row-group、table-header-group、table-footer-group（分别是 HTML table、row、tbody、thead、tfoot 的默认属性）或 inline-table）
-- overflow 值不为 visible 的块元素 -弹性元素（display 为 flex 或 inline-flex 元素的直接子元素）
-- 网格元素（display 为 grid 或 inline-grid 元素的直接子元素） 等等。
+- overflow 值不为 visible 的块元素
+- 弹性元素（display 为 flex 或 inline-flex 元素的直接子元素）
+- 网格元素（display 为 grid 或 inline-grid 元素的直接子元素）等等。
 
 ## BFC 的特性
 
