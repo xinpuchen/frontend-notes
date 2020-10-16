@@ -4,14 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "serve": "serve -s client",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node server.js",
+    "client": "node client.js"
   },
-  "author": "CHENXPU",
-  "license": "ISC",
+  "author": "Xinpu",
+  "license": "MIT",
   "devDependencies": {
-    "serve": "^10.1.2",
-    "ws": "^6.1.0"
+    "ws": "^6.2.1"
   }
 }
