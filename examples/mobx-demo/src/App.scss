@@ -1,0 +1,81 @@
+.App {
+  text-align: center;
+  width:600px;
+  margin: 10px auto;
+}
+
+.head {
+  padding: 15px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-bottom: none;
+  text-align: center;
+  display: flex;
+}
+
+.head-item {
+  flex: 1;
+  text-align: center;
+}
+
+.main {
+  border: 1px solid #ccc;
+}
+
+.cart-item {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  text-align: center;
+}
+
+.cart-item:last-of-type {
+  border-bottom: none;
+}
+
+.cart-item-box {
+  color: #777;
+  flex: 1;
+  word-break: break-all;
+  line-height: 40px;
+}
+
+.c-name {
+  flex: 2;
+}
+
+.c-delete:hover {
+  cursor: pointer;
+}
+
+.c-buyNum {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  div {
+    width: 40px;
+    height: 40px;
+    user-select:none;
+    line-height: 38px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  div:hover {
+    cursor: pointer;
+  }
+  input {
+    height: 40px;
+    width: 50px;
+    color: #999;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
+
+.footer {
+  border-top: 1px solid #eee;
+  padding: 15px;
+}

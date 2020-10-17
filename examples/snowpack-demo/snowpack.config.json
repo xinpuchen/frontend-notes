@@ -1,0 +1,9 @@
+{
+  "extends": "@snowpack/app-scripts-react",
+  "scripts": {
+    "mount:static": "mount static --to /static",
+    "run:sass": "sass src/:public/_dist_ --no-source-map",
+    "run:sass::watch": "$1 --watch"
+  },
+  "plugins": ["@snowpack/plugin-babel"]
+}

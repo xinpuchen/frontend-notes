@@ -1,0 +1,47 @@
+:global {
+  @import url(https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-image: url("/static/images/background.svg");
+  background-position: center;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-color: #2d2d2d;
+  font-family: BlinkMacSystemFont, -apple-system, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.App {
+  margin-top: 32px;
+  text-align: center;
+}
+.App-header {
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+.App-intro {
+  font-size: large;
+}
+.App-logo {
+  height: 140px;
+  animation: App-logo-spin infinite 20s linear;
+  animation-fill-mode: both;
+}
+.App-logo:hover {
+  animation: App-logo-spin infinite 2s linear;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
