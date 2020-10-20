@@ -170,6 +170,7 @@ module.exports = {
               '前端框架/React/Ref操作DOM.md',
               '前端框架/React/React-高阶组件.md',
               '前端框架/React/React-Fiber详解.md',
+              '前端框架/React/React-Hooks详解.md',
               '前端框架/React/React常见问题.md',
               '前端框架/React/React-Router-History详解.md',
               '前端框架/React/Flux-Redux演变历程.md',
