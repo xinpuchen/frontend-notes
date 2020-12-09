@@ -115,6 +115,7 @@ module.exports = {
               'JavaScript/特殊实例/实现表格排序.md',
               'JavaScript/特殊实例/自动搜索完成控件.md',
               'JavaScript/特殊实例/文件上传.md',
+              'JavaScript/特殊实例/模拟url下载文件和添加鉴权.md',
             ],
           },
         ],
