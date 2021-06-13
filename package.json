@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/xinpuchen/frontend-notes/issues"
   },
-  "homepage": "https://github.com/xinpuchen/frontend-notes#readme",
+  "homepage": "https://github.com/xinpuchen/frontend-notes",
   "devDependencies": {
     "@commitlint/cli": "^8.3.4",
     "@commitlint/config-conventional": "^7.6.0",
