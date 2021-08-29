@@ -10,8 +10,8 @@ features:
     details: 包含页面布局、BFC、清除浮动、CSS3 和屏幕适配
   - title: JavaScript
     details: 包含 JS 数据类型、闭包、原型链、JS 继承、执行上下文、事件循环和异步
-  - title: 计算机网络
-    details: 包含五层协议栈、TCP、HTTP、Ajax 通信和跨域等
+  - title: 网络协议
+    details: 包含五层协议栈、TCP/IP 协议簇、HTTP 通信等
   - title: 浏览器
     details: 包含浏览器多进程架构、网络请求和页面渲染流程、事件循环和消息队列、垃圾回收和 V8 引擎等
   - title: 前端框架
@@ -20,7 +20,7 @@ features:
     details: 包含 Babel、Webpack、构建、测试和部署
   - title: 前端安全
     details: 包含 XSS、CSRF、HTTPS、浏览器同源政策和浏览器沙箱机制
-  - title: 前端性能优化
+  - title: 性能优化
     details: 从代码、构建、加载、渲染、执行、网络再到视觉系统性优化
 footer: MIT Licensed | Copyright © 2020-present 昕浦同学
 ---
