@@ -209,6 +209,7 @@ module.exports = {
               '前端工程化/构建/webpack的loader和plugin解析',
               '前端工程化/构建/构建输出格式',
               '前端工程化/构建/tree-sharking详解',
+              '前端工程化/构建/AST遍历思路',
             ],
           },
           {
